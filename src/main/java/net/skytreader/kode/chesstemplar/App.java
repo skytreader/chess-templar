@@ -1,4 +1,4 @@
-package net.skytreader.kode;
+package net.skytreader.kode.chesstemplar;
 
 /**
  * Hello world!
