@@ -30,7 +30,7 @@ public class NotationParser{
     /**
     Returns true if the given string is valid chess algebraic notation.
     */
-    public static boolean isLegal(String s){
+    public static boolean isValid(String s){
         return false;
     }
     
