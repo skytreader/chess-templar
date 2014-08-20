@@ -14,4 +14,6 @@ public interface ChessPiece{
         algebraic notation this is the <i>file</i>.
     */
     public Point[] getLegalMoves(int r, int c);
+
+    public boolean isWhite();
 }
