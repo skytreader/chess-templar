@@ -2,7 +2,7 @@ package net.skytreader.kode.chesstemplar.utils;
 
 import java.awt.Point;
 
-import java.util.Pattern;
+import java.util.regex.Pattern;
 
 /**
 We would be parsing standard algebraic notation as required by FIDE.
@@ -31,9 +31,11 @@ public class NotationParser{
     Returns true if the given string is valid chess algebraic notation.
     */
     public static boolean isLegal(String s){
+        return false;
     }
     
     public static Point parse(String s){
+        return null;
     }
 
 }
