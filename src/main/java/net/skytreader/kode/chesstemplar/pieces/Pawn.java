@@ -4,7 +4,7 @@ import java.awt.Point;
 
 import net.skytreader.kode.chesstemplar.Board;
 
-public class Pawn implements ChessPiece{
+public class Pawn extends ChessPiece{
     
     private boolean isWhite;
 

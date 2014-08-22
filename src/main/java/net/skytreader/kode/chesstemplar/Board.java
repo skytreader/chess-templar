@@ -8,4 +8,8 @@ public class Board{
 
     public Board(){
     }
+
+    public ChessPiece getPieceAt(int r, int c){
+        return null;
+    }
 }

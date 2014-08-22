@@ -4,7 +4,7 @@ import java.awt.Point;
 
 import net.skytreader.kode.chesstemplar.Board;
 
-public interface ChessPiece{
+public abstract class ChessPiece{
     /**
     Get all the legal moves of the piece, given its current position.
 
@@ -21,7 +21,11 @@ public interface ChessPiece{
         The x attribute corresponds to the row while the y attribute corresponds
         to the column.
     */
-    public Point[] getLegalMoves(int r, int c, Board b);
+    public abstract Point[] getLegalMoves(int r, int c, Board b);
 
-    public boolean isWhite();
+    protected boolean isPieceAt(int r, int c, Board b){
+        return b.getPieceAt(r, c).equals(this);
+    }
+
+    public abstract boolean isWhite();
 }
