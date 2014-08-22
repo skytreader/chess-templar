@@ -6,6 +6,15 @@ import net.skytreader.kode.chesstemplar.Board;
 
 public abstract class ChessPiece{
     /**
+    And then, "override" these properties as private. It is crucial that you
+    override these---they are used for the equals and hashCode methods of
+    this class.
+    */
+    protected String pieceName;
+    protected boolean color;
+
+    public static final boolean WHITE = true;
+    /**
     Get all the legal moves of the piece, given its current position.
 
     @param r
@@ -28,4 +37,17 @@ public abstract class ChessPiece{
     }
 
     public abstract boolean isWhite();
+
+    @Override
+    public boolean equals(Object o){
+        ChessPiece cp = (ChessPiece) o;
+        return this.pieceName.equals(cp.pieceName) && this.color && cp.color;
+    }
+
+    @Override
+    public int hashCode(){
+        // Any better? Do with BLOCH's method?
+        int discriminant = color ? 1 : 0;
+        return pieceName.hashCode() + discriminant;
+    }
 }
