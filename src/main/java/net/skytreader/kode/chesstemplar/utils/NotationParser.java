@@ -30,7 +30,7 @@ public class NotationParser{
     private static final String LEGAL_COLUMNS = "abcdefgh";
     private static final String LEGAL_PIECES = "KQRBN";
     private static final String NOTATION_REGEX = "[" + LEGAL_PIECES + "]?[" + LEGAL_COLUMNS + "][1-8]";
-    private static final String CAPTURE_REGEX = "[" + LEGAL_PIECES + "]x[" + LEGAL_COLUMNS + "][1-8]";
+    private static final String CAPTURE_REGEX = "[" + LEGAL_PIECES + LEGAL_COLUMNS + "]x[" + LEGAL_COLUMNS + "][1-8]";
     private static final String DISAMBIGUATION_REGEX = "[" + LEGAL_PIECES + "]([" + LEGAL_COLUMNS + "]|[1-8])" + LEGAL_COLUMNS + "[1-8]";
     // FIXME A tighter set?
     private static final String PAWN_PROMO_REGEX = "[" + LEGAL_COLUMNS + "][1-8]Q";
