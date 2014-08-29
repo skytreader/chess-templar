@@ -1,5 +1,10 @@
 package net.skytreader.kode.chesstemplar.pieces;
 
+import java.awt.Point;
+
+import java.util.Arrays;
+import java.util.HashSet;
+
 import net.skytreader.kode.chesstemplar.Board;
 
 import org.junit.Assert;
@@ -43,5 +48,11 @@ public class PawnTest{
         }
 
         Assert.assertFalse(whitePawn.equals(null));
+    }
+
+    @Test
+    public void testLegalMoves(){
+        Board testBoard = new Board();
+        //HashSet<Point> moveSet = new HashSet<Point>(Arrays.asList(
     }
 }

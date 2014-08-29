@@ -5,10 +5,13 @@ import java.awt.Point;
 import net.skytreader.kode.chesstemplar.Board;
 
 public class Pawn extends ChessPiece{
+
+    private boolean hasMoved;
     
     public Pawn(boolean isWhite){
         this.color = isWhite;
         this.pieceName = "PAWN";
+        hasMoved = false;
     }
 
     @Override
