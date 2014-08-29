@@ -6,16 +6,9 @@ import net.skytreader.kode.chesstemplar.Board;
 
 public class Pawn extends ChessPiece{
     
-    private boolean isWhite;
-    private String pieceName = "PAWN";
-
     public Pawn(boolean isWhite){
-        this.isWhite = isWhite;
-    }
-
-    @Override
-    public boolean isWhite(){
-        return isWhite;
+        this.color = isWhite;
+        this.pieceName = "PAWN";
     }
 
     @Override

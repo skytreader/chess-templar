@@ -41,5 +41,7 @@ public class PawnTest{
             Assert.assertTrue(whitePawn.equals(anotherWhite));
             Assert.assertTrue(anotherWhite.equals(thirdWhite));
         }
+
+        Assert.assertFalse(whitePawn.equals(null));
     }
 }

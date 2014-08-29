@@ -36,10 +36,15 @@ public abstract class ChessPiece{
         return b.getPieceAt(r, c).equals(this);
     }
 
-    public abstract boolean isWhite();
+    public boolean isWhite(){
+        return this.color;
+    }
 
     @Override
     public boolean equals(Object o){
+        if (o == null){
+            return false;
+        }
         ChessPiece cp = (ChessPiece) o;
         return this.pieceName.equals(cp.pieceName) && this.color && cp.color;
     }
