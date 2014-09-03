@@ -49,6 +49,10 @@ public abstract class ChessPiece{
         return this.pieceName.equals(cp.pieceName) && this.color && cp.color;
     }
 
+    public String getPieceName(){
+        return pieceName;
+    }
+
     @Override
     public int hashCode(){
         // Any better? Do with BLOCH's method?
