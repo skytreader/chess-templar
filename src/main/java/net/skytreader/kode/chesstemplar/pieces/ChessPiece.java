@@ -50,7 +50,7 @@ public abstract class ChessPiece{
             return false;
         }
         ChessPiece cp = (ChessPiece) o;
-        return this.pieceName.equals(cp.pieceName) && this.color && cp.color;
+        return this.pieceName.equals(cp.pieceName) && this.color == cp.color;
     }
 
     public String getPieceName(){

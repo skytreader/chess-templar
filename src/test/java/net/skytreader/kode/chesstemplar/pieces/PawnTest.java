@@ -29,7 +29,7 @@ public class PawnTest{
     }
 
     @Test
-    public void testEquals(){
+    public void testEqualsWhite(){
         Pawn anotherWhite = new Pawn(ChessPiece.WHITE);
         Assert.assertTrue(whitePawn.equals(whitePawn));
         boolean forSymmetry = whitePawn.equals(anotherWhite);
@@ -49,6 +49,35 @@ public class PawnTest{
         }
 
         Assert.assertFalse(whitePawn.equals(null));
+        
+        // Test that white does not equal black (transitive with testEqualsBlack).
+        Assert.assertFalse(whitePawn.equals(blackPawn));
+    }
+
+    @Test
+    public void testEqualsBlack(){
+        Pawn anotherBlack = new Pawn(!ChessPiece.WHITE);
+        Assert.assertTrue(blackPawn.equals(blackPawn));
+        boolean forSymmetry = blackPawn.equals(anotherBlack);
+        Assert.assertTrue(forSymmetry);
+
+        if(forSymmetry){
+            Assert.assertTrue(anotherBlack.equals(blackPawn));
+        }
+
+        Pawn thirdBlack = new Pawn(ChessPiece.WHITE);
+        boolean forTransitivity = blackPawn.equals(thirdBlack);
+        Assert.assertTrue(forTransitivity);
+
+        if(forTransitivity){
+            Assert.assertTrue(blackPawn.equals(anotherBlack));
+            Assert.assertTrue(anotherBlack.equals(thirdBlack));
+        }
+
+        Assert.assertFalse(blackPawn.equals(null));
+
+        // Test that black does not equal white (transitive with testEqualsWhite).
+        Assert.assertFalse(blackPawn.equals(whitePawn));
     }
 
     @Test
