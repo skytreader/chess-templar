@@ -65,7 +65,7 @@ public class PawnTest{
             Assert.assertTrue(anotherBlack.equals(blackPawn));
         }
 
-        Pawn thirdBlack = new Pawn(ChessPiece.WHITE);
+        Pawn thirdBlack = new Pawn(!ChessPiece.WHITE);
         boolean forTransitivity = blackPawn.equals(thirdBlack);
         Assert.assertTrue(forTransitivity);
 

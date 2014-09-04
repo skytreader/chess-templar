@@ -46,11 +46,13 @@ public class GridBoard implements Board{
         generateWhitePieces();
 
         for(int i = 0; i < 8; i++){
-            board[6][i] = getWhiteRep(i);
+            // Add 8 because these are pawns.
+            board[6][i] = getWhiteRep(i + 8);
         }
 
         for(int i = 8; i < 16; i++){
-            board[7][i - 8] = getWhiteRep(i);
+            // Subtract 8 because this is the main pieces.
+            board[7][i - 8] = getWhiteRep(i - 8);
         }
 
         for(int row = 2; row < 6; row++){
