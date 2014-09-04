@@ -16,6 +16,18 @@ public interface Board{
 
     E.g.,
     b8 -> 0, 1
+
+    If the row and column indicated is a blank tile, return null.
+    
+    @param r
+    @param c
+    @return The ChessPiece at the indicated coordinates if it is occuppied or
+        null if it is not.
     */
     public ChessPiece getPieceAt(int r, int c);
+
+    /**
+    Move the piece at the location (r1, c1) to location (r2, c2).
+    */
+    public void move(int r1, int c1, int r2, int c2);
 }

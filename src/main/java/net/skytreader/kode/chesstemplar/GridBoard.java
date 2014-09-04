@@ -50,7 +50,13 @@ public class GridBoard implements Board{
         }
 
         for(int i = 8; i < 16; i++){
-            board[7][i] = getWhiteRep(i);
+            board[7][i - 8] = getWhiteRep(i);
+        }
+
+        for(int row = 2; row < 6; row++){
+            for(int col = 0; col < 8; col++){
+                board[row][col] = -1;
+            }
         }
     }
     
@@ -139,10 +145,18 @@ public class GridBoard implements Board{
     @Override
     public ChessPiece getPieceAt(int r, int c){
         int pieceRep = board[r][c];
+        if(pieceRep < 0){
+            return null;
+        }
+
         if((pieceRep % 2) == 0){
             return whitePieces[getWhiteIndex(pieceRep)];
         } else{
             return blackPieces[getBlackIndex(pieceRep)];
         }
+    }
+
+    @Override
+    public void move(int r1, int c1, int r2, int c2){
     }
 }

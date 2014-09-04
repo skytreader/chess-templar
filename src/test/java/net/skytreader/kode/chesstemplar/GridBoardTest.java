@@ -58,4 +58,18 @@ public class GridBoardTest{
             Assert.assertEquals(board.getPieceAt(7, i), WHITE_ARRANGEMENT[i]);
         }
     }
+
+    /**
+    Test that, upon construction, when the board is at its initial state, the
+    tiles at the middle is blank.
+    */
+    @Test
+    public void testBlankTiles(){
+        for(int row = 2; row < 6; row++){
+            for(int col = 0; col < 8; col++){
+                Assert.assertEquals(board.getPieceAt(row, col), null);
+            }
+        }
+    }
+
 }
