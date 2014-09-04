@@ -32,6 +32,10 @@ public abstract class ChessPiece{
     */
     public abstract Point[] getLegalMoves(int r, int c, Board b);
 
+    /**
+    Check if the piece at the given coordinates in the board is equal to this
+    piece.
+    */
     protected boolean isPieceAt(int r, int c, Board b){
         return b.getPieceAt(r, c).equals(this);
     }
