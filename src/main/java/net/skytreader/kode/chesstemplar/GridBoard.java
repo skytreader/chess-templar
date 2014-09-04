@@ -33,12 +33,25 @@ public class GridBoard implements Board{
       new Knight(true), new Rook(true)};
 
     public GridBoard(){
-        generateWhitePieces();
-        
+        generateBlackPieces();
+
         for(int i = 0; i < 8; i++){
+            board[0][i] = getBlackRep(i);
         }
 
-        generateBlackPieces();
+        for(int i = 8; i < 16; i++){
+            board[1][i - 8] = getBlackRep(i);
+        }
+
+        generateWhitePieces();
+
+        for(int i = 0; i < 8; i++){
+            board[6][i] = getWhiteRep(i);
+        }
+
+        for(int i = 8; i < 16; i++){
+            board[7][i] = getWhiteRep(i);
+        }
     }
     
     /**
@@ -70,7 +83,14 @@ public class GridBoard implements Board{
     private int getBlackIndex(int rep){
         return (rep - 1) / 2;
     }
-
+    
+    /**
+    Instantiates white pieces into the whitePieces array. The order is
+    guaranteed to be as follows:
+        indices 0 - 7 are the main pieces in starting order with Queenside Rook
+        at 0 and Kingside Rook at index 7;
+        indices 8 - 15 are the pawns
+    */
     private void generateWhitePieces(){
         whitePieces[0] = new Rook(true);
         whitePieces[1] = new Knight(true);
@@ -90,6 +110,13 @@ public class GridBoard implements Board{
         whitePieces[15] = new Pawn(true);
     }
 
+    /**
+    Instantiates black pieces into the blackPieces array. The order is
+    guaranteed to be as follows:
+        indices 0 - 7 are the main pieces in starting order with Queenside Rook
+        at 0 and Kingside Rook at index 7;
+        indices 8 - 15 are the pawns
+    */
     private void generateBlackPieces(){
         blackPieces[0] = new Rook(false);
         blackPieces[1] = new Knight(false);
@@ -111,6 +138,11 @@ public class GridBoard implements Board{
 
     @Override
     public ChessPiece getPieceAt(int r, int c){
-        return null;
+        int pieceRep = board[r][c];
+        if((pieceRep % 2) == 0){
+            return whitePieces[getWhiteIndex(pieceRep)];
+        } else{
+            return blackPieces[getBlackIndex(pieceRep)];
+        }
     }
 }
