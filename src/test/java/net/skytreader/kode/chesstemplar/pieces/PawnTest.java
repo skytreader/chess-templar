@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 
 import net.skytreader.kode.chesstemplar.Board;
+import net.skytreader.kode.chesstemplar.GridBoard;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -52,7 +53,7 @@ public class PawnTest{
 
     @Test
     public void testLegalMoves(){
-        Board testBoard = new Board();
+        Board testBoard = new GridBoard();
         //HashSet<Point> moveSet = new HashSet<Point>(Arrays.asList(
     }
 }

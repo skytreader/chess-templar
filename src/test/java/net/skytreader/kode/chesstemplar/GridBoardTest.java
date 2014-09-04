@@ -12,9 +12,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-public class BoardTest{
+public class GridBoardTest{
     
-    private Board board;
+    private GridBoard board;
 
     private final ChessPiece[] BLACK_ARRANGEMENT = {new Rook(false), new Knight(false),
       new Bishop(false), new Queen(false), new King(false), new Bishop(false),
@@ -26,7 +26,7 @@ public class BoardTest{
 
     @Before
     public void setUp(){
-        board = new Board();
+        board = new GridBoard();
     }
     
     /**
