@@ -15,7 +15,9 @@ public abstract class ChessPiece{
 
     public static final boolean WHITE = true;
     /**
-    Get all the legal moves of the piece, given its current position.
+    Get all the legal moves of the piece, given its current position. If the
+    piece at the given row and column is not equal to this ChessPiece, raise
+    hell.
 
     @param r
         An integer describing the current row of the piece. Range 0-7. In

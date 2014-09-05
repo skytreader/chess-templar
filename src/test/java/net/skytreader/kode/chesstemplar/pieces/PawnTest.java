@@ -83,6 +83,14 @@ public class PawnTest{
     @Test
     public void testLegalMoves(){
         Board testBoard = new GridBoard();
-        //HashSet<Point> moveSet = new HashSet<Point>(Arrays.asList(
+        
+        // There is a black pawn at 1, 0 which has never moved yet.
+        // Enumerate its legal moves.
+        Point[] legalMoves = {new Point(2, 0), new Point(3, 0)};
+        HashSet<Point> legalSet = new HashSet<Point>(Arrays.asList(legalMoves));
+        ChessPiece blackPawn = testBoard.getPieceAt(1, 0);
+        Point[] fromPawn = blackPawn.getLegalMoves(1, 0, testBoard);
+        HashSet<Point> pawnLegal = new HashSet<Point>(Arrays.asList(fromPawn));
+        Assert.assertEquals(legalSet, fromPawn);
     }
 }
