@@ -2,6 +2,8 @@ package net.skytreader.kode.chesstemplar.pieces;
 
 import java.awt.Point;
 
+import java.util.Set;
+
 import net.skytreader.kode.chesstemplar.Board;
 
 public abstract class ChessPiece{
@@ -28,11 +30,11 @@ public abstract class ChessPiece{
     @param b
         The current state of the board.
     @return
-        An array of Point objects containing all the legal moves for this piece.
+        A Set of Point objects containing all the legal moves for this piece.
         The x attribute corresponds to the row while the y attribute corresponds
         to the column.
     */
-    public abstract Point[] getLegalMoves(int r, int c, Board b);
+    public abstract Set<Point> getLegalMoves(int r, int c, Board b);
 
     /**
     Check if the piece at the given coordinates in the board is equal to this

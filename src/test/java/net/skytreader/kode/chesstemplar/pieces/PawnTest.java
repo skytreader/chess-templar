@@ -4,6 +4,7 @@ import java.awt.Point;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Set;
 
 import net.skytreader.kode.chesstemplar.Board;
 import net.skytreader.kode.chesstemplar.GridBoard;
@@ -89,8 +90,7 @@ public class PawnTest{
         Point[] legalMoves = {new Point(2, 0), new Point(3, 0)};
         HashSet<Point> legalSet = new HashSet<Point>(Arrays.asList(legalMoves));
         ChessPiece blackPawn = testBoard.getPieceAt(1, 0);
-        Point[] fromPawn = blackPawn.getLegalMoves(1, 0, testBoard);
-        HashSet<Point> pawnLegal = new HashSet<Point>(Arrays.asList(fromPawn));
+        Set<Point> fromPawn = blackPawn.getLegalMoves(1, 0, testBoard);
         Assert.assertEquals(legalSet, fromPawn);
     }
 }
