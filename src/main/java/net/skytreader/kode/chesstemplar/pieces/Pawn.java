@@ -51,6 +51,17 @@ public class Pawn extends ChessPiece{
             if(!upperRight.isWhite()){
                 moveSet.add(new Point(r - 1, c + 1));
             }
+        } else {
+            ChessPiece upperLeft = b.getPieceAt(r + 1, c - 1);
+            ChessPiece upperRight = b.getPieceAt(r + 1, c + 1);
+
+            if(upperLeft.isWhite()){
+                moveSet.add(new Point(r + 1, c - 1));
+            }
+
+            if(upperRight.isWhite()){
+                moveSet.add(new Point(r + 1, c + 1));
+            }
         }
 
         return moveSet;
