@@ -113,6 +113,17 @@ public class PawnTest{
             HashSet<Point> legalSet2 = new HashSet<Point>(Arrays.asList(legalMoves2));
             Set<Point> fromPawn2 = blackPawn.getLegalMoves(3, 1, testBoard);
             Assert.assertEquals(legalSet2, fromPawn2);
+
+            // test the white pawn at 4, 0
+            Point[] whiteLegalMovesRight = {new Point(3, 0), new Point(3, 1)};
+            HashSet<Point> whiteLegalRight = new HashSet<Point>(Arrays.asList(whiteLegalMovesRight));
+            Set<Point> fromWhiteRight = whitePawn.getLegalMoves(4, 0, testBoard);
+            Assert.assertEquals(whiteLegalRight, fromWhiteRight);
+
+            Point[] whiteLegalMovesLeft = {new Point(3, 2), new Point(3, 1)};
+            HashSet<Point> whiteLegalLeft = new HashSet<Point>(Arrays.asList(whiteLegalMovesLeft));
+            Set<Point> fromWhiteLeft = whitePawn.getLegalMoves(4, 2, testBoard);
+            Assert.assertEquals(whiteLegalLeft, fromWhiteLeft);
         } catch(NotMeException nme){
             Assert.fail("NotMeException thrown while testing legal moves.");
             nme.printStackTrace();
