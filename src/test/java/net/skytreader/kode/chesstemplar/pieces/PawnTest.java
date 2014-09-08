@@ -99,6 +99,20 @@ public class PawnTest{
             ChessPiece blackPawn = testBoard.getPieceAt(1, 0);
             Set<Point> fromPawn = blackPawn.getLegalMoves(1, 0, testBoard);
             Assert.assertEquals(legalSet, fromPawn);
+
+            // Move pawns into threatening positions and see that getLegalMoves
+            // includes the possibility of capture
+            testBoard.move(1, 1, 3, 1);
+            // Move white pawns into threatening positions
+            testBoard.move(6, 0, 4, 0);
+            testBoard.move(6, 2, 4, 2);
+            
+            // for black pawn at 3, 0
+            Point[] legalMoves2 = {new Point(4, 0), new Point(4, 1),
+              new Point(4, 2)};
+            HashSet<Point> legalSet2 = new HashSet<Point>(Arrays.asList(legalMoves2));
+            Set<Point> fromPawn2 = blackPawn.getLegalMoves(3, 1, testBoard);
+            Assert.assertEquals(legalSet2, fromPawn2);
         } catch(NotMeException nme){
             Assert.fail("NotMeException thrown while testing legal moves.");
             nme.printStackTrace();
