@@ -14,7 +14,7 @@ public class Rook extends ChessPiece{
     }
 
     @Override
-    public Set<Point> getLegalMoves(int r, int c, Board b){
+    public Set<Point> getLegalMoves(int r, int c, Board b) throws NotMeException{
         return null;
     }
 }

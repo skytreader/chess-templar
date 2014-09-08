@@ -29,12 +29,15 @@ public abstract class ChessPiece{
         algebraic notation this is the <i>file</i>.
     @param b
         The current state of the board.
+    @throws NotMeException
+        When the piece at the given row and column in the Board is not equal to
+        this piece.
     @return
         A Set of Point objects containing all the legal moves for this piece.
         The x attribute corresponds to the row while the y attribute corresponds
         to the column.
     */
-    public abstract Set<Point> getLegalMoves(int r, int c, Board b);
+    public abstract Set<Point> getLegalMoves(int r, int c, Board b) throws NotMeException;
 
     /**
     Check if the piece at the given coordinates in the board is equal to this
