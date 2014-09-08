@@ -21,6 +21,10 @@ public abstract class ChessPiece{
     piece at the given row and column is not equal to this ChessPiece, raise
     hell.
 
+    Technically speaking, as long as the Board returns a ChessPiece equal to
+    this piece at the position specified, this piece should be able to give
+    all the legal moves for that piece.
+
     @param r
         An integer describing the current row of the piece. Range 0-7. In
         algebraic notation, this is the <i>rank</i>.

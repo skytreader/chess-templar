@@ -9,12 +9,9 @@ import net.skytreader.kode.chesstemplar.Board;
 
 public class Pawn extends ChessPiece{
 
-    private boolean hasMoved;
-    
     public Pawn(boolean isWhite){
         this.color = isWhite;
         this.pieceName = "PAWN";
-        hasMoved = false;
     }
 
     @Override
@@ -26,6 +23,10 @@ public class Pawn extends ChessPiece{
         }
 
         HashSet<Point> moveSet = new HashSet<Point>();
+        // Always add the move forward scenario
+        if(this.color){
+            
+        }
 
         return moveSet;
     }
