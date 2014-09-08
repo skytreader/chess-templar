@@ -11,12 +11,18 @@ import net.skytreader.kode.chesstemplar.GridBoard;
 
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+
+import org.junit.rules.ExpectedException;
 
 public class PawnTest{
     
     private Pawn whitePawn;
     private Pawn blackPawn;
+
+    @Rule
+    public ExpectedException exception = ExpectedException.none();
     
     @Before
     public void setUp(){
@@ -83,14 +89,31 @@ public class PawnTest{
 
     @Test
     public void testLegalMoves(){
-        Board testBoard = new GridBoard();
+        try{
+            Board testBoard = new GridBoard();
+            
+            // There is a black pawn at 1, 0 which has never moved yet.
+            // Enumerate its legal moves.
+            Point[] legalMoves = {new Point(2, 0), new Point(3, 0)};
+            HashSet<Point> legalSet = new HashSet<Point>(Arrays.asList(legalMoves));
+            ChessPiece blackPawn = testBoard.getPieceAt(1, 0);
+            Set<Point> fromPawn = blackPawn.getLegalMoves(1, 0, testBoard);
+            Assert.assertEquals(legalSet, fromPawn);
+        } catch(NotMeException nme){
+            Assert.fail("NotMeException thrown while testing legal moves.");
+            nme.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testNotMe(){
+        try{
+            exception.expect(NotMeException.class);
+            Board testBoard = new GridBoard();
         
-        // There is a black pawn at 1, 0 which has never moved yet.
-        // Enumerate its legal moves.
-        Point[] legalMoves = {new Point(2, 0), new Point(3, 0)};
-        HashSet<Point> legalSet = new HashSet<Point>(Arrays.asList(legalMoves));
-        ChessPiece blackPawn = testBoard.getPieceAt(1, 0);
-        Set<Point> fromPawn = blackPawn.getLegalMoves(1, 0, testBoard);
-        Assert.assertEquals(legalSet, fromPawn);
+            // Try to use a white pawn to move the rook at (0, 0).
+            whitePawn.getLegalMoves(0, 0, testBoard);
+        } catch(NotMeException nme){
+        }
     }
 }
