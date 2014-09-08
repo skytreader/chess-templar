@@ -149,6 +149,10 @@ public class GridBoard implements Board{
 
     @Override
     public ChessPiece getPieceAt(int r, int c){
+        // 8x8 being the conventional size of a Chess board.
+        if(r < 0 || r >= 8 || c < 0 || c >= 8){
+            return null;
+        }
         int pieceRep = board[r][c];
         if(pieceRep < 0){
             return null;
