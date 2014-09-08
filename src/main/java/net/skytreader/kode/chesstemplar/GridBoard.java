@@ -8,6 +8,9 @@ import net.skytreader.kode.chesstemplar.pieces.Pawn;
 import net.skytreader.kode.chesstemplar.pieces.Queen;
 import net.skytreader.kode.chesstemplar.pieces.Rook;
 
+/**
+Memory wasteful implementation of Board as a grid.
+*/
 public class GridBoard implements Board{
     private ChessPiece[] whitePieces = new ChessPiece[16];
     private ChessPiece[] blackPieces = new ChessPiece[16];
@@ -160,5 +163,7 @@ public class GridBoard implements Board{
 
     @Override
     public void move(int r1, int c1, int r2, int c2){
+        board[r2][c2] = board[r1][c1];
+        board[r1][c1] = -1;
     }
 }

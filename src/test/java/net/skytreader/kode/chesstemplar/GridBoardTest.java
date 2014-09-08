@@ -71,5 +71,23 @@ public class GridBoardTest{
             }
         }
     }
+    
+    /**
+    Test everything related to setting and getting pieces around the board.
+    */
+    @Test
+    public void testMovements(){
+        // Move a black pawn
+        ChessPiece blackPawn = board.getPieceAt(1, 0);
+        board.move(1, 0, 2, 0);
+        Assert.assertEquals(board.getPieceAt(2, 0), blackPawn);
+
+        // Assert that null is returned for off-range indices
+        ChessPiece negRowPiece = board.getPieceAt(-1, 0);
+        ChessPiece negColPiece = board.getPieceAt(0, -1);
+
+        Assert.assertTrue(negRowPiece == null);
+        Assert.assertTrue(negColPiece == null);
+    }
 
 }
