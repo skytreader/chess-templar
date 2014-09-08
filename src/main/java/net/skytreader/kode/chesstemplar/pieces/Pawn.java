@@ -41,25 +41,24 @@ public class Pawn extends ChessPiece{
         // Check if you can capture
         // TODO En passant capture
         if(this.color){
-            // FIXME Off board constraints!
             ChessPiece upperLeft = b.getPieceAt(r - 1, c - 1);
             ChessPiece upperRight = b.getPieceAt(r - 1, c + 1);
-            if(!upperLeft.isWhite()){
+            if(upperLeft != null && !upperLeft.isWhite()){
                 moveSet.add(new Point(r - 1, c - 1));
             }
 
-            if(!upperRight.isWhite()){
+            if(upperRight != null && !upperRight.isWhite()){
                 moveSet.add(new Point(r - 1, c + 1));
             }
         } else {
             ChessPiece upperLeft = b.getPieceAt(r + 1, c - 1);
             ChessPiece upperRight = b.getPieceAt(r + 1, c + 1);
 
-            if(upperLeft.isWhite()){
+            if(upperLeft != null && upperLeft.isWhite()){
                 moveSet.add(new Point(r + 1, c - 1));
             }
 
-            if(upperRight.isWhite()){
+            if(upperRight != null && upperRight.isWhite()){
                 moveSet.add(new Point(r + 1, c + 1));
             }
         }
