@@ -106,14 +106,11 @@ public class PawnTest{
     }
 
     @Test
-    public void testNotMe(){
-        try{
-            exception.expect(NotMeException.class);
-            Board testBoard = new GridBoard();
-        
-            // Try to use a white pawn to move the rook at (0, 0).
-            whitePawn.getLegalMoves(0, 0, testBoard);
-        } catch(NotMeException nme){
-        }
+    public void testNotMe() throws NotMeException{
+        exception.expect(NotMeException.class);
+        Board testBoard = new GridBoard();
+    
+        // Try to use a white pawn to move the rook at (0, 0).
+        whitePawn.getLegalMoves(0, 0, testBoard);
     }
 }
