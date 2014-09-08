@@ -70,4 +70,13 @@ public abstract class ChessPiece{
         int discriminant = color ? 1 : 0;
         return pieceName.hashCode() + discriminant;
     }
+
+    @Override
+    public String toString(){
+        if(this.color){
+            return "White " + pieceName;
+        } else{
+            return "Black " + pieceName;
+        }
+    }
 }
