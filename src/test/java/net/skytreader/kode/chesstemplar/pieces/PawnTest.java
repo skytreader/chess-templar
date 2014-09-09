@@ -88,22 +88,28 @@ public class PawnTest{
     }
 
     @Test
-    public void testLegalMoves(){
+    public void testWhiteUnmoved(){
         try{
             Board testBoard = new GridBoard();
-            
-            // There is a black pawn at 1, 0 which has never moved yet.
-            // Enumerate its legal moves.
-            Point[] legalMoves = {new Point(2, 0), new Point(3, 0)};
-            HashSet<Point> legalSet = new HashSet<Point>(Arrays.asList(legalMoves));
-            Set<Point> fromPawn = blackPawn.getLegalMoves(1, 0, testBoard);
-            Assert.assertEquals(legalSet, fromPawn);
 
             // Test unmoved white pawn at (6, 1)
             Point[] whiteUnmoves = {new Point(5, 1), new Point(4, 1)};
             HashSet<Point> whiteUnmovesSet = new HashSet<Point>(Arrays.asList(whiteUnmoves));
             Set<Point> fromUnmovedWhite = whitePawn.getLegalMoves(6, 1, testBoard);
             Assert.assertEquals(whiteUnmovesSet, fromUnmovedWhite);
+        } catch(NotMeException nme){
+            Assert.fail("NotMeException while testing legal moves for white unmoved.");
+            nme.printStackTrace();
+        }
+    }
+    
+    /**
+    Test that black pawn's capture moves are still covered by getLegalMoves.
+    */
+    @Test
+    public void testThreatenBlack(){
+        try{
+            Board testBoard = new GridBoard();
 
             // Move pawns into threatening positions and see that getLegalMoves
             // includes the possibility of capture
@@ -113,11 +119,31 @@ public class PawnTest{
             testBoard.move(6, 2, 4, 2);
             
             // for black pawn at 3, 0
-            Point[] legalMoves2 = {new Point(4, 0), new Point(4, 1),
+            Point[] legalMoves = {new Point(4, 0), new Point(4, 1),
               new Point(4, 2)};
-            HashSet<Point> legalSet2 = new HashSet<Point>(Arrays.asList(legalMoves2));
-            Set<Point> fromPawn2 = blackPawn.getLegalMoves(3, 1, testBoard);
-            Assert.assertEquals(legalSet2, fromPawn2);
+            HashSet<Point> legalSet = new HashSet<Point>(Arrays.asList(legalMoves));
+            Set<Point> fromPawn = blackPawn.getLegalMoves(3, 1, testBoard);
+            Assert.assertEquals(legalSet, fromPawn);
+        } catch(NotMeException nme){
+            Assert.fail("NotMeException while testing legal moves for black captures.");
+            nme.printStackTrace();
+        }
+    }
+    
+    /**
+    Test that white pawn's capture moves are still covered by getLegalMoves.
+    */
+    @Test
+    public void testThreatenWhite(){
+        try{
+            Board testBoard = new GridBoard();
+
+            // Move pawns into threatening positions and see that getLegalMoves
+            // includes the possibility of capture
+            testBoard.move(1, 1, 3, 1);
+            // Move white pawns into threatening positions
+            testBoard.move(6, 0, 4, 0);
+            testBoard.move(6, 2, 4, 2);
 
             // test the white pawn at 4, 0
             Point[] whiteLegalMovesRight = {new Point(3, 0), new Point(3, 1)};
@@ -129,6 +155,23 @@ public class PawnTest{
             HashSet<Point> whiteLegalLeft = new HashSet<Point>(Arrays.asList(whiteLegalMovesLeft));
             Set<Point> fromWhiteLeft = whitePawn.getLegalMoves(4, 2, testBoard);
             Assert.assertEquals(whiteLegalLeft, fromWhiteLeft);
+        } catch(NotMeException nme){
+            Assert.fail("NotMeException while testing legal moves for white captures.");
+            nme.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testLegalMoves(){
+        try{
+            Board testBoard = new GridBoard();
+            
+            // There is a black pawn at 1, 0 which has never moved yet.
+            // Enumerate its legal moves.
+            Point[] legalMoves = {new Point(2, 0), new Point(3, 0)};
+            HashSet<Point> legalSet = new HashSet<Point>(Arrays.asList(legalMoves));
+            Set<Point> fromPawn = blackPawn.getLegalMoves(1, 0, testBoard);
+            Assert.assertEquals(legalSet, fromPawn);
         } catch(NotMeException nme){
             Assert.fail("NotMeException thrown while testing legal moves.");
             nme.printStackTrace();
