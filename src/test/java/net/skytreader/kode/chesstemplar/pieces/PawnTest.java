@@ -96,9 +96,14 @@ public class PawnTest{
             // Enumerate its legal moves.
             Point[] legalMoves = {new Point(2, 0), new Point(3, 0)};
             HashSet<Point> legalSet = new HashSet<Point>(Arrays.asList(legalMoves));
-            ChessPiece blackPawn = testBoard.getPieceAt(1, 0);
             Set<Point> fromPawn = blackPawn.getLegalMoves(1, 0, testBoard);
             Assert.assertEquals(legalSet, fromPawn);
+
+            // Test unmoved white pawn at (6, 1)
+            Point[] whiteUnmoves = {new Point(5, 1), new Point(4, 1)};
+            HashSet<Point> whiteUnmovesSet = new HashSet<Point>(Arrays.asList(whiteUnmoves));
+            Set<Point> fromUnmovedWhite = whitePawn.getLegalMoves(6, 1, testBoard);
+            Assert.assertEquals(whiteUnmovesSet, fromUnmovedWhite);
 
             // Move pawns into threatening positions and see that getLegalMoves
             // includes the possibility of capture
