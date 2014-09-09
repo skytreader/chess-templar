@@ -37,6 +37,9 @@ public class GridBoard implements Board{
       new Bishop(true), new Queen(true), new King(true), new Bishop(true),
       new Knight(true), new Rook(true)};
 
+    private Point lastSrc;
+    private Point lastDest;
+
     public GridBoard(){
         generateBlackPieces();
 
@@ -169,12 +172,15 @@ public class GridBoard implements Board{
 
     @Override
     public void move(int r1, int c1, int r2, int c2){
+        lastSrc = new Point(r1, c1);
+        lastDest = new Point(r2, c2);
         board[r2][c2] = board[r1][c1];
         board[r1][c1] = -1;
     }
 
     @Override
     public Point[] getLastMove(){
-        return null;
+        Point[] retval = {lastSrc, lastDest};
+        return retval;
     }
 }
