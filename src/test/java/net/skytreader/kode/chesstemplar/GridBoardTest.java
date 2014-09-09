@@ -1,5 +1,9 @@
 package net.skytreader.kode.chesstemplar;
 
+import java.awt.Point;
+
+import java.util.Arrays;
+
 import net.skytreader.kode.chesstemplar.pieces.Bishop;
 import net.skytreader.kode.chesstemplar.pieces.ChessPiece;
 import net.skytreader.kode.chesstemplar.pieces.King;
@@ -88,6 +92,21 @@ public class GridBoardTest{
 
         Assert.assertTrue(negRowPiece == null);
         Assert.assertTrue(negColPiece == null);
+    }
+
+    @Test
+    public void testGetLastMove(){
+        Point from1 = new Point(1, 0);
+        Point to1 = new Point(3, 0);
+        Point[] expected1 = {from1, to1};
+        board.move(1, 0, 3, 0);
+        Assert.assertTrue(Arrays.equals(expected1, board.getLastMove()));
+
+        Point from2 = new Point(6, 0);
+        Point to2 = new Point(4, 0);
+        Point[] expected2 = {from2, to2};
+        board.move(6, 0, 4, 0);
+        Assert.assertTrue(Arrays.equals(expected2, board.getLastMove()));
     }
 
 }

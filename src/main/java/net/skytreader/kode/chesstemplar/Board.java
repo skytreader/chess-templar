@@ -1,5 +1,7 @@
 package net.skytreader.kode.chesstemplar;
 
+import java.awt.Point;
+
 import net.skytreader.kode.chesstemplar.pieces.ChessPiece;
 
 /**
