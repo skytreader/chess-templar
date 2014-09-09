@@ -170,4 +170,9 @@ public class GridBoard implements Board{
         board[r2][c2] = board[r1][c1];
         board[r1][c1] = -1;
     }
+
+    @Override
+    public void getLastMove(){
+        return null;
+    }
 }
