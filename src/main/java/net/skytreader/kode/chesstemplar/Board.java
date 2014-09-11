@@ -9,6 +9,8 @@ This interface abstracts Chess boards.
 
 When the board is constructed, all the pieces must be in the initial state
 of the game.
+
+@author Chad Estioco
 */
 public interface Board{
     /**
@@ -38,11 +40,17 @@ public interface Board{
     this board. The first element is the source while the second element is the
     destination.
 
-    The last move method performed on this board correspons to the return value
+    The last move method performed on this board corresponds to the return value
     of this method in the following manner:
         
         move(r1, c1, r2, c2) ->
         {new Point(r1, c1), new Point(r2, c2)}
     */
     public Point[] getLastMove();
+
+    /**
+    Remove a piece from the board. Use this for captures. If there is no piece
+    at the indicated location, then nothing happens.
+    */
+    public void removePiece(int r, int c);
 }

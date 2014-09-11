@@ -12,6 +12,8 @@ import net.skytreader.kode.chesstemplar.pieces.Rook;
 
 /**
 Memory wasteful implementation of Board as a grid.
+
+@author Chad Estioco
 */
 public class GridBoard implements Board{
     private ChessPiece[] whitePieces = new ChessPiece[16];
@@ -182,5 +184,9 @@ public class GridBoard implements Board{
     public Point[] getLastMove(){
         Point[] retval = {lastSrc, lastDest};
         return retval;
+    }
+
+    @Override
+    public void removePiece(int r, int c){
     }
 }
