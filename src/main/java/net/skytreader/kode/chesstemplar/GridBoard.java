@@ -188,5 +188,6 @@ public class GridBoard implements Board{
 
     @Override
     public void removePiece(int r, int c){
+        board[r][c] = -1;
     }
 }

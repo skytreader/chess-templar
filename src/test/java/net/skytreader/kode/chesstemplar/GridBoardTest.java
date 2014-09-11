@@ -109,4 +109,12 @@ public class GridBoardTest{
         Assert.assertTrue(Arrays.equals(expected2, board.getLastMove()));
     }
 
+    @Test
+    public void testRemovePiece(){
+        Board testBoard = new GridBoard();
+        Assert.assertNotNull(testBoard.getPieceAt(0, 0));
+        testBoard.removePiece(0, 0);
+        Assert.assertNull(testBoard.getPieceAt(0, 0));
+    }
+
 }
