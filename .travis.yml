@@ -1,6 +1,8 @@
 language: java
 jdk:
   - oraclejdk7
-after:
+after_success:
+  - mvn clean cobertura:cobertura coveralls:cobertura
+after_failure:
   - mvn clean cobertura:cobertura coveralls:cobertura
 
