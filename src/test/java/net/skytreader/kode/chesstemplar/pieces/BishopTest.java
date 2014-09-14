@@ -114,10 +114,10 @@ public class BishopTest{
 
     /**
     The move scenario we'll most likely encounter most throughout a game: pieces
-    are moved and the Bishop has free reign.
+    are moved and the Bishop has free reign. This tests the white bishops.
     */
     @Test
-    public void testCommonLegalMoves(){
+    public void testCommonLegalMovesWhite(){
         try{
             Board testBoard = new GridBoard();
 
@@ -127,7 +127,21 @@ public class BishopTest{
 
             HashSet<Point> whiteLegalMoves1 = new HashSet<Point>();
             Set<Point> fromWhiteBishop1 = whiteBishop.getLegalMoves(7, 2, testBoard);
+            fromWhiteBishop1.add(new Point(6, 3));
+            fromWhiteBishop1.add(new Point(5, 4));
+            fromWhiteBishop1.add(new Point(4, 5));
+            fromWhiteBishop1.add(new Point(3, 6));
+            fromWhiteBishop1.add(new Point(2, 7));
             Assert.assertEquals(whiteLegalMoves1, fromWhiteBishop1);
+
+            HashSet<Point> whiteLegalMoves2 = new HashSet<Point>();
+            Set<Point> fromWhiteBishop2 = whiteBishop.getLegalMoves(7, 5, testBoard);
+            fromWhiteBishop2.add(new Point(6, 4));
+            fromWhiteBishop2.add(new Point(5, 3));
+            fromWhiteBishop2.add(new Point(4, 2));
+            fromWhiteBishop2.add(new Point(3, 1));
+            fromWhiteBishop2.add(new Point(2, 0));
+            Assert.assertEquals(whiteLegalMoves2, fromWhiteBishop2);
         } catch(NotMeException nme){
             Assert.fail("NotMeException thrown while testing common legal moves.");
             nme.printStackTrace();
