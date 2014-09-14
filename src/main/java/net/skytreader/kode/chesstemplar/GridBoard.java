@@ -42,6 +42,10 @@ public class GridBoard implements Board{
     private Point lastSrc;
     private Point lastDest;
 
+    /**
+    Upon construction of a GameBoard, all the pieces are in their proper initial
+    positions, ready for play.
+    */
     public GridBoard(){
         generateBlackPieces();
 

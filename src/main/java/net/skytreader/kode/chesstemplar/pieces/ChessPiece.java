@@ -25,6 +25,8 @@ public abstract class ChessPiece{
     this piece at the position specified, this piece should be able to give
     all the legal moves for that piece.
 
+    Legal moves include squares in which a capture is possible.
+
     @param r
         An integer describing the current row of the piece. Range 0-7. In
         algebraic notation, this is the <i>rank</i>.

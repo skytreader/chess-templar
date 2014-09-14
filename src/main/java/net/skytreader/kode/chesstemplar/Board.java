@@ -7,8 +7,9 @@ import net.skytreader.kode.chesstemplar.pieces.ChessPiece;
 /**
 This interface abstracts Chess boards.
 
-When the board is constructed, all the pieces must be in the initial state
-of the game.
+Chess boards are containers of ChessPieces, keeping track of their position in
+the board and just that. Chess rules are not enforced by Chess boards. They
+are just containers for ChessPieces.
 
 @author Chad Estioco
 */
