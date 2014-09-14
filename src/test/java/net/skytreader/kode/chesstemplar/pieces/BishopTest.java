@@ -98,10 +98,38 @@ public class BishopTest{
             Board testBoard = new GridBoard();
 
             HashSet<Point> legalMoves = new HashSet<Point>();
-            Set<Point> fromBishop = blackBishop.getLegalMoves(0, 2, testBoard);
-            Assert.assertEquals(legalMoves, fromBishop);
+            Set<Point> fromBishop1 = blackBishop.getLegalMoves(0, 2, testBoard);
+            Set<Point> fromBishop2 = blackBishop.getLegalMoves(0, 5, testBoard);
+            Set<Point> fromBishop3 = whiteBishop.getLegalMoves(7, 2, testBoard);
+            Set<Point> fromBishop4 = whiteBishop.getLegalMoves(7, 5, testBoard);
+            Assert.assertEquals(legalMoves, fromBishop1);
+            Assert.assertEquals(legalMoves, fromBishop2);
+            Assert.assertEquals(legalMoves, fromBishop3);
+            Assert.assertEquals(legalMoves, fromBishop4);
         } catch(NotMeException nme){
             Assert.fail("NotMeException thrown while testing legal moves.");
+            nme.printStackTrace();
+        }
+    }
+
+    /**
+    The move scenario we'll most likely encounter most throughout a game: pieces
+    are moved and the Bishop has free reign.
+    */
+    @Test
+    public void testCommonLegalMoves(){
+        try{
+            Board testBoard = new GridBoard();
+
+            //Move some pawns around
+            testBoard.move(6, 3, 4, 3);
+            testBoard.move(7, 4, 4, 3);
+
+            HashSet<Point> whiteLegalMoves1 = new HashSet<Point>();
+            Set<Point> fromWhiteBishop1 = whiteBishop.getLegalMoves(7, 2, testBoard);
+            Assert.assertEquals(whiteLegalMoves1, fromWhiteBishop1);
+        } catch(NotMeException nme){
+            Assert.fail("NotMeException thrown while testing common legal moves.");
             nme.printStackTrace();
         }
     }
