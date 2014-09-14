@@ -219,6 +219,40 @@ public class BishopTest{
     }
 
     @Test
+    public void testCaptureScenarioBlack(){
+        try{
+            Board testBoard = new GridBoard();
+
+            // Move pawns in the line of fire of the black bishops
+            testBoard.move(6, 1, 4, 1);
+            testBoard.move(6, 6, 4, 6);
+
+            // Free up our Bishops
+            testBoard.move(1, 3, 3, 3);
+            testBoard.move(1, 4, 3, 4);
+
+            HashSet<Point> blackLegalMoves1 = new HashSet<Point>();
+            blackLegalMoves1.add(new Point(1, 3));
+            blackLegalMoves1.add(new Point(2, 4));
+            blackLegalMoves1.add(new Point(3, 5));
+            blackLegalMoves1.add(new Point(4, 6));
+            Set<Point> fromBlackBishop1 = blackBishop.getLegalMoves(7, 2, testBoard);
+            Assert.assertEquals(blackLegalMoves1, fromBlackBishop1);
+
+            HashSet<Point> blackLegalMoves2 = new HashSet<Point>();
+            blackLegalMoves2.add(new Point(1, 4));
+            blackLegalMoves2.add(new Point(2, 3));
+            blackLegalMoves2.add(new Point(3, 2));
+            blackLegalMoves2.add(new Point(4, 1));
+            Set<Point> fromBlackBishop2 = blackBishop.getLegalMoves(7, 5, testBoard);
+            Assert.assertEquals(blackLegalMoves2, fromBlackBishop2);
+        } catch(NotMeException nme){
+            Assert.fail("NotMeException thrown while testing for capture scenario (black).");
+            nme.printStackTrace();
+        }
+    }
+
+    @Test
     public void testNotMe() throws NotMeException{
         exception.expect(NotMeException.class);
         Board testBoard = new GridBoard();
