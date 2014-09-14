@@ -116,5 +116,20 @@ public class GridBoardTest{
         testBoard.removePiece(0, 0);
         Assert.assertNull(testBoard.getPieceAt(0, 0));
     }
+    
+    /**
+    We just want to know that the toString() method returns an 8x8 grid.
+    */
+    @Test
+    public void testToString(){
+        String boardString = board.toString();
+        String[] rows = boardString.split("\n");
+        Assert.assertEquals(rows.length, 8);
+
+        for(String r : rows){
+            String[] rowSplit = r.split(" ");
+            Assert.assertEquals(rowSplit.length, 8);
+        }
+    }
 
 }

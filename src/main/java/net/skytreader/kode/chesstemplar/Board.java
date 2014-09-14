@@ -53,4 +53,10 @@ public interface Board{
     at the indicated location, then nothing happens.
     */
     public void removePiece(int r, int c);
+
+    /**
+    Return a String representation of a Board.
+    */
+    @Override
+    public String toString();
 }

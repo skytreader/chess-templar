@@ -190,4 +190,27 @@ public class GridBoard implements Board{
     public void removePiece(int r, int c){
         board[r][c] = -1;
     }
+
+    @Override
+    public String toString(){
+        StringBuilder boardBuilder = new StringBuilder();
+
+        for(int row = 0; row < 8; row++){
+            for(int col = 0; col < 8; col++){
+                ChessPiece cp = getPieceAt(row, col);
+                if(cp != null){
+                    char c = cp.getPieceName().charAt(0);
+                    boardBuilder.append(c);
+                    boardBuilder.append(" ");
+                } else{
+                    boardBuilder.append("# ");
+                }
+            }
+            // Delete the last space appended
+            boardBuilder.deleteCharAt(boardBuilder.length() - 1);
+            boardBuilder.append("\n");
+        }
+
+        return boardBuilder.toString();
+    }
 }
