@@ -123,7 +123,7 @@ public class BishopTest{
 
             //Move some pawns around
             testBoard.move(6, 3, 4, 3);
-            testBoard.move(7, 4, 4, 3);
+            testBoard.move(7, 4, 4, 4);
 
             HashSet<Point> whiteLegalMoves1 = new HashSet<Point>();
             Set<Point> fromWhiteBishop1 = whiteBishop.getLegalMoves(7, 2, testBoard);
@@ -142,6 +142,42 @@ public class BishopTest{
             fromWhiteBishop2.add(new Point(3, 1));
             fromWhiteBishop2.add(new Point(2, 0));
             Assert.assertEquals(whiteLegalMoves2, fromWhiteBishop2);
+        } catch(NotMeException nme){
+            Assert.fail("NotMeException thrown while testing common legal moves.");
+            nme.printStackTrace();
+        }
+    }
+
+    /**
+    The move scenario we'll most likely encounter most throughout a game: pieces
+    are moved and the Bishop has free reign. This tests the black bishops.
+    */
+    @Test
+    public void testCommonLegalMovesBlack(){
+        try{
+            Board testBoard = new GridBoard();
+
+            //Move some pawns around
+            testBoard.move(1, 3, 3, 3);
+            testBoard.move(1, 4, 3, 4);
+
+            HashSet<Point> blackLegalMoves1 = new HashSet<Point>();
+            Set<Point> fromBlackBishop1 = blackBishop.getLegalMoves(0, 2, testBoard);
+            fromBlackBishop1.add(new Point(1, 3));
+            fromBlackBishop1.add(new Point(2, 4));
+            fromBlackBishop1.add(new Point(3, 5));
+            fromBlackBishop1.add(new Point(4, 6));
+            fromBlackBishop1.add(new Point(5, 7));
+            Assert.assertEquals(blackLegalMoves1, fromBlackBishop1);
+
+            HashSet<Point> blackLegalMoves2 = new HashSet<Point>();
+            Set<Point> fromBlackBishop2 = blackBishop.getLegalMoves(0, 5, testBoard);
+            fromBlackBishop2.add(new Point(1, 4));
+            fromBlackBishop2.add(new Point(2, 3));
+            fromBlackBishop2.add(new Point(3, 2));
+            fromBlackBishop2.add(new Point(4, 1));
+            fromBlackBishop2.add(new Point(5, 0));
+            Assert.assertEquals(blackLegalMoves2, fromBlackBishop2);
         } catch(NotMeException nme){
             Assert.fail("NotMeException thrown while testing common legal moves.");
             nme.printStackTrace();
