@@ -126,21 +126,21 @@ public class BishopTest{
             testBoard.move(7, 4, 4, 4);
 
             HashSet<Point> whiteLegalMoves1 = new HashSet<Point>();
+            whiteLegalMoves1.add(new Point(6, 3));
+            whiteLegalMoves1.add(new Point(5, 4));
+            whiteLegalMoves1.add(new Point(4, 5));
+            whiteLegalMoves1.add(new Point(3, 6));
+            whiteLegalMoves1.add(new Point(2, 7));
             Set<Point> fromWhiteBishop1 = whiteBishop.getLegalMoves(7, 2, testBoard);
-            fromWhiteBishop1.add(new Point(6, 3));
-            fromWhiteBishop1.add(new Point(5, 4));
-            fromWhiteBishop1.add(new Point(4, 5));
-            fromWhiteBishop1.add(new Point(3, 6));
-            fromWhiteBishop1.add(new Point(2, 7));
             Assert.assertEquals(whiteLegalMoves1, fromWhiteBishop1);
 
             HashSet<Point> whiteLegalMoves2 = new HashSet<Point>();
+            whiteLegalMoves2.add(new Point(6, 4));
+            whiteLegalMoves2.add(new Point(5, 3));
+            whiteLegalMoves2.add(new Point(4, 2));
+            whiteLegalMoves2.add(new Point(3, 1));
+            whiteLegalMoves2.add(new Point(2, 0));
             Set<Point> fromWhiteBishop2 = whiteBishop.getLegalMoves(7, 5, testBoard);
-            fromWhiteBishop2.add(new Point(6, 4));
-            fromWhiteBishop2.add(new Point(5, 3));
-            fromWhiteBishop2.add(new Point(4, 2));
-            fromWhiteBishop2.add(new Point(3, 1));
-            fromWhiteBishop2.add(new Point(2, 0));
             Assert.assertEquals(whiteLegalMoves2, fromWhiteBishop2);
         } catch(NotMeException nme){
             Assert.fail("NotMeException thrown while testing common legal moves.");
@@ -162,24 +162,58 @@ public class BishopTest{
             testBoard.move(1, 4, 3, 4);
 
             HashSet<Point> blackLegalMoves1 = new HashSet<Point>();
+            blackLegalMoves1.add(new Point(1, 3));
+            blackLegalMoves1.add(new Point(2, 4));
+            blackLegalMoves1.add(new Point(3, 5));
+            blackLegalMoves1.add(new Point(4, 6));
+            blackLegalMoves1.add(new Point(5, 7));
             Set<Point> fromBlackBishop1 = blackBishop.getLegalMoves(0, 2, testBoard);
-            fromBlackBishop1.add(new Point(1, 3));
-            fromBlackBishop1.add(new Point(2, 4));
-            fromBlackBishop1.add(new Point(3, 5));
-            fromBlackBishop1.add(new Point(4, 6));
-            fromBlackBishop1.add(new Point(5, 7));
             Assert.assertEquals(blackLegalMoves1, fromBlackBishop1);
 
             HashSet<Point> blackLegalMoves2 = new HashSet<Point>();
+            blackLegalMoves2.add(new Point(1, 4));
+            blackLegalMoves2.add(new Point(2, 3));
+            blackLegalMoves2.add(new Point(3, 2));
+            blackLegalMoves2.add(new Point(4, 1));
+            blackLegalMoves2.add(new Point(5, 0));
             Set<Point> fromBlackBishop2 = blackBishop.getLegalMoves(0, 5, testBoard);
-            fromBlackBishop2.add(new Point(1, 4));
-            fromBlackBishop2.add(new Point(2, 3));
-            fromBlackBishop2.add(new Point(3, 2));
-            fromBlackBishop2.add(new Point(4, 1));
-            fromBlackBishop2.add(new Point(5, 0));
             Assert.assertEquals(blackLegalMoves2, fromBlackBishop2);
         } catch(NotMeException nme){
             Assert.fail("NotMeException thrown while testing common legal moves.");
+            nme.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testCaptureScenarioWhite(){
+        try{
+            Board testBoard = new GridBoard();
+
+            // Move pawns in the line of fire of the white bishops
+            testBoard.move(1, 1, 3, 1);
+            testBoard.move(1, 6, 3, 6);
+
+            // Free up our Bishops
+            testBoard.move(6, 3, 4, 3);
+            testBoard.move(7, 4, 4, 4);
+
+            HashSet<Point> whiteLegalMoves1 = new HashSet<Point>();
+            whiteLegalMoves1.add(new Point(6, 3));
+            whiteLegalMoves1.add(new Point(5, 4));
+            whiteLegalMoves1.add(new Point(4, 5));
+            whiteLegalMoves1.add(new Point(3, 6));
+            Set<Point> fromWhiteBishop1 = whiteBishop.getLegalMoves(7, 2, testBoard);
+            Assert.assertEquals(whiteLegalMoves1, fromWhiteBishop1);
+
+            HashSet<Point> whiteLegalMoves2 = new HashSet<Point>();
+            whiteLegalMoves2.add(new Point(6, 4));
+            whiteLegalMoves2.add(new Point(5, 3));
+            whiteLegalMoves2.add(new Point(4, 2));
+            whiteLegalMoves2.add(new Point(3, 1));
+            Set<Point> fromWhiteBishop2 = whiteBishop.getLegalMoves(7, 5, testBoard);
+            Assert.assertEquals(whiteLegalMoves2, fromWhiteBishop2);
+        } catch(NotMeException nme){
+            Assert.fail("NotMeException thrown while testing for capture scenario (white).");
             nme.printStackTrace();
         }
     }
