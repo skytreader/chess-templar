@@ -29,13 +29,13 @@ public class GridBoard implements Board{
     in the board is represented by the cell containing the integer
         f(b) = 2b + 1
     */
-    private int[][] board = new int[8][8];
+    protected int[][] board = new int[8][8];
 
-    private final ChessPiece[] BLACK_ARRANGEMENT = {new Rook(false), new Knight(false),
+    protected final ChessPiece[] BLACK_ARRANGEMENT = {new Rook(false), new Knight(false),
       new Bishop(false), new Queen(false), new King(false), new Bishop(false),
       new Knight(false), new Rook(false)};
       
-    private final ChessPiece[] WHITE_ARRANGEMENT = {new Rook(true), new Knight(true),
+    protected final ChessPiece[] WHITE_ARRANGEMENT = {new Rook(true), new Knight(true),
       new Bishop(true), new Queen(true), new King(true), new Bishop(true),
       new Knight(true), new Rook(true)};
 
