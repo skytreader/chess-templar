@@ -22,6 +22,48 @@ public class Bishop extends ChessPiece{
               indicatedPiece.toString() + " using " + this.toString());
         }
         HashSet<Point> legalMoves = new HashSet<Point>();
+
+        /*
+        So, in computer 2D array convention, the directions of a Bishop's
+        movements are (r+1, c+1), (r-1, c-1), (r+1, c-1), (r-1, c+1)
+        */
+
+        // (r+1, c+1);
+        for(int row = r + 1, col = c + 1; (0 <= row && row < 8 && 0 <= col && col < 8);
+          row++, col++){
+            if(b.getPieceAt(row, col) == null){
+                break;
+            }
+            legalMoves.add(new Point(row, col));
+        } 
+
+        // (r-1, c-1)
+        for(int row = r - 1, col = c - 1; (0 <= row && row < 8 && 0 <= col && col < 8);
+          row--, col--){
+            if(b.getPieceAt(row, col) == null){
+                break;
+            }
+            legalMoves.add(new Point(row, col));
+        }
+
+        //(r + 1, c - i)
+        for(int row = r + 1, col = c -1; (0 <= row && row < 8 && 0 <= col && col < 8);
+          row++, col--){
+            if(b.getPieceAt(row, col) == null){
+                break;
+            }
+            legalMoves.add(new Point(row, col));
+        }
+
+        // (r - 1, c + 1)
+        for(int row = r - 1, col = c + 1; (0 <= row && row < 8 && 0 <= col && col < 8);
+          row--, col++){
+            if(b.getPieceAt(row, col) == null){
+                break;
+            }
+            legalMoves.add(new Point(row, col));
+        }
+
         return legalMoves;
     }
 }
