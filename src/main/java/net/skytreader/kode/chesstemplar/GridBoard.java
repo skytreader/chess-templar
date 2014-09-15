@@ -80,7 +80,7 @@ public class GridBoard implements Board{
     Given the index of a piece in whitePieces, return its representation in
     the board.
     */
-    private int getWhiteRep(int ai){
+    protected int getWhiteRep(int ai){
         return 2 * ai;
     }
 
@@ -88,21 +88,21 @@ public class GridBoard implements Board{
     Given the index of a piece in blackPieces, return its representation
     in the board.
     */
-    private int getBlackRep(int ai){
+    protected int getBlackRep(int ai){
         return (2 * ai) + 1;
     }
 
     /**
     Given the representation of a whitePiece, return its index in whitePieces.
     */
-    private int getWhiteIndex(int rep){
+    protected int getWhiteIndex(int rep){
         return rep / 2;
     }
 
     /**
     Given the representation of a blackPiece, return its index in blackPieces.
     */
-    private int getBlackIndex(int rep){
+    protected int getBlackIndex(int rep){
         return (rep - 1) / 2;
     }
     
