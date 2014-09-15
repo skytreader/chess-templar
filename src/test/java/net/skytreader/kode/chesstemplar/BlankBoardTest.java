@@ -38,6 +38,7 @@ public class BlankBoardTest{
     public void testAddPieceBlack(){
         Pawn blackPawn = new Pawn(false);
         board.addPiece(blackPawn, 4, 4);
+        System.out.println("I AM ONE WITH THE GODS: " + board.getPieceAt(4, 4));
         Assert.assertEquals(blackPawn, board.getPieceAt(4, 4));
     }
 }

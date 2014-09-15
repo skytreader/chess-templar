@@ -17,8 +17,8 @@ tests; we might optimize GridBoard, but we sure as hell won't optimize BlankBoar
 */
 public class BlankBoard extends GridBoard{
     
-    private final List<ChessPiece> WHITE_LIST = Arrays.asList(WHITE_ARRANGEMENT);
-    private final List<ChessPiece> BLACK_LIST = Arrays.asList(BLACK_ARRANGEMENT);
+    private final List<ChessPiece> WHITE_LIST; //= Arrays.asList(WHITE_ARRANGEMENT);
+    private final List<ChessPiece> BLACK_LIST; //= Arrays.asList(BLACK_ARRANGEMENT);
 
     public BlankBoard(){
         // Call since it is OO-best practice to do so.
@@ -31,6 +31,8 @@ public class BlankBoard extends GridBoard{
             }
         }
 
+        WHITE_LIST = Arrays.asList(WHITE_ARRANGEMENT);
+        BLACK_LIST = Arrays.asList(BLACK_ARRANGEMENT);
     }
 
     public void addPiece(ChessPiece cp, int r, int c){
@@ -38,7 +40,10 @@ public class BlankBoard extends GridBoard{
             int posIndex = WHITE_LIST.indexOf(cp);
             board[r][c] = getWhiteRep(posIndex);
         } else{
+            System.out.println(BLACK_LIST.toString());
+            System.out.println(Arrays.toString(BLACK_ARRANGEMENT));
             int posIndex = BLACK_LIST.indexOf(cp);
+            System.out.println("THIS: " + (posIndex));
             board[r][c] = getBlackRep(posIndex);
         }
     }
