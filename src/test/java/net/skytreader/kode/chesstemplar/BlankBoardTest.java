@@ -28,9 +28,16 @@ public class BlankBoardTest{
     }
 
     @Test
-    public void testAddPiece(){
+    public void testAddPieceWhite(){
         Pawn whitePawn = new Pawn(true);
         board.addPiece(whitePawn, 4, 4);
         Assert.assertEquals(whitePawn, board.getPieceAt(4, 4));
+    }
+
+    @Test
+    public void testAddPieceBlack(){
+        Pawn blackPawn = new Pawn(false);
+        board.addPiece(blackPawn, 4, 4);
+        Assert.assertEquals(blackPawn, board.getPieceAt(4, 4));
     }
 }
