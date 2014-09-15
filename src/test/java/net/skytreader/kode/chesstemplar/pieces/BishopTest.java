@@ -8,6 +8,7 @@ import java.util.Set;
 
 import net.skytreader.kode.chesstemplar.Board;
 import net.skytreader.kode.chesstemplar.GridBoard;
+import net.skytreader.kode.chesstemplar.BlankBoard;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -248,6 +249,78 @@ public class BishopTest{
             Assert.assertEquals(blackLegalMoves2, fromBlackBishop2);
         } catch(NotMeException nme){
             Assert.fail("NotMeException thrown while testing for capture scenario (black).");
+            nme.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testSoloWhiteBishop(){
+        try{
+            BlankBoard board = new BlankBoard();
+            
+            // 4, 4 is a white square
+            board.addPiece(whiteBishop, 4, 4);
+            HashSet<Point> expectedLegalMoves = new HashSet<Point>();
+
+            // Let's do this per "wing" of the cross
+            expectedLegalMoves.add(new Point(3, 5));
+            expectedLegalMoves.add(new Point(2, 6));
+            expectedLegalMoves.add(new Point(1, 7));
+
+            expectedLegalMoves.add(new Point(3, 3));
+            expectedLegalMoves.add(new Point(2, 2));
+            expectedLegalMoves.add(new Point(1, 1));
+            expectedLegalMoves.add(new Point(0, 0));
+            
+            expectedLegalMoves.add(new Point(5, 5));
+            expectedLegalMoves.add(new Point(6, 6));
+            expectedLegalMoves.add(new Point(7, 7));
+
+            expectedLegalMoves.add(new Point(5, 3));
+            expectedLegalMoves.add(new Point(6, 2));
+            expectedLegalMoves.add(new Point(7, 1));
+
+            Set<Point> actualLegalMoves = whiteBishop.getLegalMoves(4, 4, board);
+            Assert.assertEquals(expectedLegalMoves, actualLegalMoves);
+
+        } catch(NotMeException nme){
+            Assert.fail("NotMeException thrown while testing for solo white Bishop.");
+            nme.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testSoloBlackBishop(){
+        try{
+            BlankBoard board = new BlankBoard();
+            
+            // 4, 4 is a white square
+            board.addPiece(blackBishop, 4, 4);
+            HashSet<Point> expectedLegalMoves = new HashSet<Point>();
+
+            // Let's do this per "wing" of the cross
+            expectedLegalMoves.add(new Point(3, 5));
+            expectedLegalMoves.add(new Point(2, 6));
+            expectedLegalMoves.add(new Point(1, 7));
+
+            expectedLegalMoves.add(new Point(3, 3));
+            expectedLegalMoves.add(new Point(2, 2));
+            expectedLegalMoves.add(new Point(1, 1));
+            expectedLegalMoves.add(new Point(0, 0));
+            
+            expectedLegalMoves.add(new Point(5, 5));
+            expectedLegalMoves.add(new Point(6, 6));
+            expectedLegalMoves.add(new Point(7, 7));
+
+            expectedLegalMoves.add(new Point(5, 3));
+            expectedLegalMoves.add(new Point(6, 2));
+            expectedLegalMoves.add(new Point(7, 1));
+
+            Set<Point> actualLegalMoves = blackBishop.getLegalMoves(4, 4, board);
+            Assert.assertEquals(expectedLegalMoves, actualLegalMoves);
+
+        } catch(NotMeException nme){
+            Assert.fail("NotMeException thrown while testing for solo black Bishop.");
             nme.printStackTrace();
         }
     }
