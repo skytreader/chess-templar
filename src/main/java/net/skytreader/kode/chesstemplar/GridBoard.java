@@ -16,8 +16,8 @@ Memory wasteful implementation of Board as a grid.
 @author Chad Estioco
 */
 public class GridBoard implements Board{
-    private ChessPiece[] whitePieces = new ChessPiece[16];
-    private ChessPiece[] blackPieces = new ChessPiece[16];
+    protected ChessPiece[] whitePieces = new ChessPiece[16];
+    protected ChessPiece[] blackPieces = new ChessPiece[16];
     /**
     Convention: Unoccuppied squares contain negative integers, while occupied
     squares contain positive integers. Let w be the index of a white piece in
@@ -31,11 +31,11 @@ public class GridBoard implements Board{
     */
     protected int[][] board = new int[8][8];
 
-    protected final ChessPiece[] BLACK_ARRANGEMENT = {new Rook(false), new Knight(false),
+    private final ChessPiece[] BLACK_ARRANGEMENT = {new Rook(false), new Knight(false),
       new Bishop(false), new Queen(false), new King(false), new Bishop(false),
       new Knight(false), new Rook(false)};
       
-    protected final ChessPiece[] WHITE_ARRANGEMENT = {new Rook(true), new Knight(true),
+    private final ChessPiece[] WHITE_ARRANGEMENT = {new Rook(true), new Knight(true),
       new Bishop(true), new Queen(true), new King(true), new Bishop(true),
       new Knight(true), new Rook(true)};
 

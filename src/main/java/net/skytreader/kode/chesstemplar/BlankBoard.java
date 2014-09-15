@@ -31,8 +31,8 @@ public class BlankBoard extends GridBoard{
             }
         }
 
-        WHITE_LIST = Arrays.asList(WHITE_ARRANGEMENT);
-        BLACK_LIST = Arrays.asList(BLACK_ARRANGEMENT);
+        WHITE_LIST = Arrays.asList(whitePieces);
+        BLACK_LIST = Arrays.asList(blackPieces);
     }
 
     public void addPiece(ChessPiece cp, int r, int c){
@@ -40,10 +40,7 @@ public class BlankBoard extends GridBoard{
             int posIndex = WHITE_LIST.indexOf(cp);
             board[r][c] = getWhiteRep(posIndex);
         } else{
-            System.out.println(BLACK_LIST.toString());
-            System.out.println(Arrays.toString(BLACK_ARRANGEMENT));
             int posIndex = BLACK_LIST.indexOf(cp);
-            System.out.println("THIS: " + (posIndex));
             board[r][c] = getBlackRep(posIndex);
         }
     }
