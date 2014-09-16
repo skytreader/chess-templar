@@ -237,7 +237,7 @@ public class BishopTest{
             blackLegalMoves1.add(new Point(2, 4));
             blackLegalMoves1.add(new Point(3, 5));
             blackLegalMoves1.add(new Point(4, 6));
-            Set<Point> fromBlackBishop1 = blackBishop.getLegalMoves(7, 2, testBoard);
+            Set<Point> fromBlackBishop1 = blackBishop.getLegalMoves(0, 2, testBoard);
             Assert.assertEquals(blackLegalMoves1, fromBlackBishop1);
 
             HashSet<Point> blackLegalMoves2 = new HashSet<Point>();
@@ -245,7 +245,7 @@ public class BishopTest{
             blackLegalMoves2.add(new Point(2, 3));
             blackLegalMoves2.add(new Point(3, 2));
             blackLegalMoves2.add(new Point(4, 1));
-            Set<Point> fromBlackBishop2 = blackBishop.getLegalMoves(7, 5, testBoard);
+            Set<Point> fromBlackBishop2 = blackBishop.getLegalMoves(0, 5, testBoard);
             Assert.assertEquals(blackLegalMoves2, fromBlackBishop2);
         } catch(NotMeException nme){
             Assert.fail("NotMeException thrown while testing for capture scenario (black).");

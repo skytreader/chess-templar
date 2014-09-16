@@ -31,7 +31,12 @@ public class Bishop extends ChessPiece{
         // (r+1, c+1);
         for(int row = r + 1, col = c + 1; (0 <= row && row < 8 && 0 <= col && col < 8);
           row++, col++){
-            if(b.getPieceAt(row, col) == null){
+            ChessPiece currentSquare = b.getPieceAt(row, col);
+            if(currentSquare != null){
+                // Capture condition
+                if(currentSquare.isWhite() != this.isWhite()){
+                    legalMoves.add(new Point(row, col));
+                }
                 break;
             }
             legalMoves.add(new Point(row, col));
@@ -40,7 +45,12 @@ public class Bishop extends ChessPiece{
         // (r-1, c-1)
         for(int row = r - 1, col = c - 1; (0 <= row && row < 8 && 0 <= col && col < 8);
           row--, col--){
-            if(b.getPieceAt(row, col) == null){
+            ChessPiece currentSquare = b.getPieceAt(row, col);
+            if(currentSquare != null){
+                // Capture condition
+                if(currentSquare.isWhite() != this.isWhite()){
+                    legalMoves.add(new Point(row, col));
+                }
                 break;
             }
             legalMoves.add(new Point(row, col));
@@ -49,7 +59,12 @@ public class Bishop extends ChessPiece{
         //(r + 1, c - i)
         for(int row = r + 1, col = c -1; (0 <= row && row < 8 && 0 <= col && col < 8);
           row++, col--){
-            if(b.getPieceAt(row, col) == null){
+            ChessPiece currentSquare = b.getPieceAt(row, col);
+            if(currentSquare != null){
+                // Capture condition
+                if(currentSquare.isWhite() != this.isWhite()){
+                    legalMoves.add(new Point(row, col));
+                }
                 break;
             }
             legalMoves.add(new Point(row, col));
@@ -58,7 +73,12 @@ public class Bishop extends ChessPiece{
         // (r - 1, c + 1)
         for(int row = r - 1, col = c + 1; (0 <= row && row < 8 && 0 <= col && col < 8);
           row--, col++){
-            if(b.getPieceAt(row, col) == null){
+            ChessPiece currentSquare = b.getPieceAt(row, col);
+            if(currentSquare != null){
+                // Capture condition
+                if(currentSquare.isWhite() != this.isWhite()){
+                    legalMoves.add(new Point(row, col));
+                }
                 break;
             }
             legalMoves.add(new Point(row, col));
