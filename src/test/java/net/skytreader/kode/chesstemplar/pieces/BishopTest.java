@@ -286,6 +286,26 @@ public class BishopTest{
             Set<Point> actualLegalMoves = whiteBishop.getLegalMoves(4, 4, board);
             Assert.assertEquals(expectedLegalMoves, actualLegalMoves);
 
+            // Add a piece of the smae color in white Bishop's way
+            // Add a piece to 3,5 of same color and that wing should not exist
+            board.addPiece(new Pawn(true), 3, 5);
+            HashSet<Point> expectedLegalMoves2 = new HashSet<Point>();
+
+            expectedLegalMoves2.add(new Point(3, 3));
+            expectedLegalMoves2.add(new Point(2, 2));
+            expectedLegalMoves2.add(new Point(1, 1));
+            expectedLegalMoves2.add(new Point(0, 0));
+            
+            expectedLegalMoves2.add(new Point(5, 5));
+            expectedLegalMoves2.add(new Point(6, 6));
+            expectedLegalMoves2.add(new Point(7, 7));
+
+            expectedLegalMoves2.add(new Point(5, 3));
+            expectedLegalMoves2.add(new Point(6, 2));
+            expectedLegalMoves2.add(new Point(7, 1));
+
+            Set<Point> actualLegalMoves2 = whiteBishop.getLegalMoves(4, 4, board);
+            Assert.assertEquals(expectedLegalMoves2, actualLegalMoves2);
         } catch(NotMeException nme){
             Assert.fail("NotMeException thrown while testing for solo white Bishop.");
             nme.printStackTrace();
