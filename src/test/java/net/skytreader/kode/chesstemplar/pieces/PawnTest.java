@@ -102,6 +102,20 @@ public class PawnTest{
             nme.printStackTrace();
         }
     }
+
+    @Test
+    public void testBlackUnmoved(){
+        try{
+            Board testBoard = new GridBoard();
+
+            // Test unmoved black pawn at (1, 1)
+            Point[] blackUnmoves = {new Point(2, 1), new Point(3, 1)};
+            HashSet<Point> blackUnmovesSet = new HashSet<Point>(Arrays.asList(blackUnmoves));
+            Set<Point> fromUnmovedBlack = blackPawn.getLegalMoves(1, 1, testBoard);
+            Assert.assertEquals(blackUnmovesSet, fromUnmovedBlack);
+        } catch(NotMeException nme){
+        }
+    }
     
     /**
     Test that black pawn's capture moves are still covered by getLegalMoves.
