@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+import net.skytreader.kode.chesstemplar.BlankBoard;
 import net.skytreader.kode.chesstemplar.Board;
 import net.skytreader.kode.chesstemplar.GridBoard;
 
@@ -103,6 +104,25 @@ public class KingTest{
             
         } catch(NotMeException nme){
             Assert.fail("NotMeException when testing King's initial state.");
+            nme.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testCommonMovesWhite(){
+        try{
+            BlankBoard board = new BlankBoard();
+
+            // Put a white king at 4,4
+            board.addPiece(whiteKing, 4, 4);
+            Point[] expectedMoves = {new Point(4, 5), new Point(3, 4),
+              new Point(3, 3), new Point(3, 5), new Point(4, 3), new Point(5, 3),
+              new Point(5, 4), new Point(5, 5)};
+            HashSet<Point> expectedSet = new HashSet<Point>(Arrays.asList(expectedMoves));
+            Set<Point> actual1 = whiteKing.getLegalMoves(4, 4, board);
+            Assert.assertEquals(expectedSet, actual1);
+        } catch(NotMeException nme){
+            Assert.fail("NotMeException when testing common moves for a King.");
             nme.printStackTrace();
         }
     }
