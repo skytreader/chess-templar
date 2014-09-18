@@ -86,20 +86,4 @@ public class KingTest{
         // Test that black does not equal white (transitive with testEqualsWhite).
         Assert.assertFalse(blackKing.equals(whiteKing));
     }
-
-    @Test
-    public void testWhiteUnmoved(){
-        try{
-            Board testBoard = new GridBoard();
-
-            // Test unmoved white pawn at (6, 1)
-            Point[] whiteUnmoves = {new Point(5, 1), new Point(4, 1)};
-            HashSet<Point> whiteUnmovesSet = new HashSet<Point>(Arrays.asList(whiteUnmoves));
-            Set<Point> fromUnmovedWhite = whiteKing.getLegalMoves(6, 1, testBoard);
-            Assert.assertEquals(whiteUnmovesSet, fromUnmovedWhite);
-        } catch(NotMeException nme){
-            Assert.fail("NotMeException while testing legal moves for white unmoved.");
-            nme.printStackTrace();
-        }
-    }
 }

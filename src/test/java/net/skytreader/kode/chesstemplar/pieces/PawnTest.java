@@ -87,6 +87,10 @@ public class PawnTest{
         Assert.assertFalse(blackPawn.equals(whitePawn));
     }
 
+    /**
+    Since pawns never ever go backward, a pawn's position on board determines
+    if it is unmoved.
+    */
     @Test
     public void testWhiteUnmoved(){
         try{
