@@ -86,4 +86,24 @@ public class KingTest{
         // Test that black does not equal white (transitive with testEqualsWhite).
         Assert.assertFalse(blackKing.equals(whiteKing));
     }
+
+    @Test
+    public void testInitialState(){
+        try{
+            Board board = new GridBoard();
+
+            // Kings at 0,4 and 7,4
+            HashSet<Point> blackMoves = new HashSet<Point>();
+            Set<Point> fromBlack = blackKing.getLegalMoves(0, 4, board);
+            Assert.assertEquals(blackMoves, fromBlack);
+
+            HashSet<Point> whiteMoves = new HashSet<Point>();
+            Set<Point> fromWhite = whiteKing.getLegalMoves(7, 4, board);
+            Assert.assertEquals(whiteMoves, fromWhite);
+            
+        } catch(NotMeException nme){
+            Assert.fail("NotMeException when testing King's initial state.");
+            nme.printStackTrace();
+        }
+    }
 }
