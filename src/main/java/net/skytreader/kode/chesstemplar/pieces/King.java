@@ -15,13 +15,10 @@ public class King extends ChessPiece{
     }
 
     private boolean movesetFilter(Point p){
-        if(0 <= p.x && p.x < 8 && 0<= p.y && p.y <= 8){
-            return true;
-        } else{
-            return false;
-        }
+        return 0 <= p.x && p.x < 8 && 0<= p.y && p.y <= 8;
     }
 
+    // FIXME Check cases, and other corner cases.
     @Override
     public Set<Point> getLegalMoves(int r, int c, Board b) throws NotMeException{
         ChessPiece indicatedPiece = b.getPieceAt(r, c);
