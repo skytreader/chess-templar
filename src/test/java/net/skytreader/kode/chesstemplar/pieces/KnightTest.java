@@ -86,4 +86,52 @@ public class KnightTest{
         // Test that black does not equal white (transitive with testEqualsWhite).
         Assert.assertFalse(blackKnight.equals(whiteKnight));
     }
+
+    @Test
+    public void testInitialStateBlack(){
+        try{
+            Board testBoard = new GridBoard();
+
+            Point[] queenSideMoves = {new Point(2, 0), new Point(2, 2)};
+            HashSet<Point> queenSideSet = new HashSet<Point>(Arrays.asList(queenSideMoves));
+            Set<Point> queenSideActual = blackKnight.getLegalMoves(0, 1, testBoard);
+            Assert.assertEquals(queenSideSet, queenSideActual);
+
+            Point[] kingSideMoves = {new Point(2, 5), new Point(2, 7)};
+            HashSet<Point> kingSideSet = new HashSet<Point>(Arrays.asList(kingSideMoves));
+            Set<Point> kingSideActual = blackKnight.getLegalMoves(0, 6, testBoard);
+            Assert.assertEquals(kingSideSet, kingSideActual);
+        } catch(NotMeException nme){
+            Assert.fail("NotMeException while testing intial state for black.");
+            nme.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testInitialStateWhite(){
+        try{
+            Board testBoard = new GridBoard();
+
+            Point[] queenSideMoves = {new Point(5, 0), new Point(5, 2)};
+            HashSet<Point> queenSideSet = new HashSet<Point>(Arrays.asList(queenSideMoves));
+            Set<Point> queenSideActual = whiteKnight.getLegalMoves(0, 1, testBoard);
+            Assert.assertEquals(queenSideSet, queenSideActual);
+
+            Point[] kingSideMoves = {new Point(5, 5), new Point(5, 7)};
+            HashSet<Point> kingSideSet = new HashSet<Point>(Arrays.asList(kingSideMoves));
+            Set<Point> kingSideActual = whiteKnight.getLegalMoves(0, 6, testBoard);
+            Assert.assertEquals(kingSideSet, kingSideActual);
+        } catch(NotMeException nme){
+            Assert.fail("NotMeException while testing intial state for white.");
+            nme.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testNotMe() throws NotMeException{
+        exception.expect(NotMeException.class);
+        Board board = new GridBoard();
+
+        whiteKnight.getLegalMoves(0, 0, board);
+    }
 }
