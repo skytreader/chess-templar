@@ -172,4 +172,13 @@ public class KingTest{
             nme.printStackTrace();
         }
     }
+
+    @Test
+    public void testNotMe() throws NotMeException{
+        exception.expect(NotMeException.class);
+        Board testBoard = new GridBoard();
+
+        // Use the white king to get the moves of the black king
+        whiteKing.getLegalMoves(0, 4, testBoard);
+    }
 }
