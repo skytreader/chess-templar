@@ -154,7 +154,6 @@ public class BishopTest{
     The move scenario we'll most likely encounter most throughout a game: pieces
     are moved and the Bishop has free reign. This tests the black bishops.
     */
-    @Ignore
     @Test
     public void testCommonLegalMovesBlack(){
         try{
@@ -221,7 +220,6 @@ public class BishopTest{
         }
     }
 
-    @Ignore
     @Test
     public void testCaptureScenarioBlack(){
         try{
