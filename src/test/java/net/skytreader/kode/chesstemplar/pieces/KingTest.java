@@ -101,7 +101,6 @@ public class KingTest{
             HashSet<Point> whiteMoves = new HashSet<Point>();
             Set<Point> fromWhite = whiteKing.getLegalMoves(7, 4, board);
             Assert.assertEquals(whiteMoves, fromWhite);
-            
         } catch(NotMeException nme){
             Assert.fail("NotMeException when testing King's initial state.");
             nme.printStackTrace();
@@ -121,6 +120,53 @@ public class KingTest{
             HashSet<Point> expectedSet = new HashSet<Point>(Arrays.asList(expectedMoves));
             Set<Point> actual1 = whiteKing.getLegalMoves(4, 4, board);
             Assert.assertEquals(expectedSet, actual1);
+
+            // Put a white pawn in front of the white king
+            board.addPiece(new Pawn(true), 3, 4);
+            // remove 3, 4 in expected moves
+            expectedSet.remove(new Point(3, 4));
+            Set<Point> actual2 = whiteKing.getLegalMoves(3, 4, board);
+            Assert.assertEquals(expectedSet, actual2);
+
+            // Make that a black pawn
+            board.removePiece(3, 4);
+            board.addPiece(new Pawn(false), 3, 4);
+            expectedSet.add(new Point(3, 4));
+            Set<Point> actual3 = whiteKing.getLegalMoves(3, 4, board);
+            Assert.assertEquals(expectedSet, actual3);
+        } catch(NotMeException nme){
+            Assert.fail("NotMeException when testing common moves for a King.");
+            nme.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testCommonMovesBlack(){
+        try{
+            BlankBoard board = new BlankBoard();
+
+            // Put a black king at 4,4
+            board.addPiece(blackKing, 4, 4);
+            Point[] expectedMoves = {new Point(4, 5), new Point(3, 4),
+              new Point(3, 3), new Point(3, 5), new Point(4, 3), new Point(5, 3),
+              new Point(5, 4), new Point(5, 5)};
+            HashSet<Point> expectedSet = new HashSet<Point>(Arrays.asList(expectedMoves));
+            Set<Point> actual1 = blackKing.getLegalMoves(4, 4, board);
+            Assert.assertEquals(expectedSet, actual1);
+
+            // Put a black pawn in front of the black king
+            board.addPiece(new Pawn(true), 3, 4);
+            // remove 3, 4 in expected moves
+            expectedSet.remove(new Point(3, 4));
+            Set<Point> actual2 = blackKing.getLegalMoves(3, 4, board);
+            Assert.assertEquals(expectedSet, actual2);
+
+            // Make that a black pawn
+            board.removePiece(3, 4);
+            board.addPiece(new Pawn(false), 3, 4);
+            expectedSet.add(new Point(3, 4));
+            Set<Point> actual3 = blackKing.getLegalMoves(3, 4, board);
+            Assert.assertEquals(expectedSet, actual3);
         } catch(NotMeException nme){
             Assert.fail("NotMeException when testing common moves for a King.");
             nme.printStackTrace();
