@@ -17,7 +17,7 @@ public class Pawn extends ChessPiece{
     @Override
     public Set<Point> getLegalMoves(int r, int c, Board b) throws NotMeException{
         ChessPiece indicatedPiece = b.getPieceAt(r, c);
-        if(!this.equals(b.getPieceAt(r, c))){
+        if(!this.equals(indicatedPiece)){
             throw new NotMeException("Attempting to move piece " +
               indicatedPiece.toString() + " using " + this.toString());
         }
