@@ -140,12 +140,12 @@ public class KnightTest{
               new Point(5, 6), new Point(6, 5)};
             HashSet<Point> expectedMoveSet = new HashSet<Point>(Arrays.asList(expectedMoves));
             Set<Point> actualMovesWhite = whiteKnight.getLegalMoves(4, 4, testBoard);
-            Assert.assertEquals(expectedMoves, actualMovesWhite);
+            Assert.assertEquals(expectedMoveSet, actualMovesWhite);
 
             testBoard.removePiece(4, 4);
             testBoard.addPiece(darkKnight, 4, 4);
             Set<Point> actualMovesBlack = darkKnight.getLegalMoves(4, 4, testBoard);
-            Assert.assertEquals(expectedMoves, actualMovesBlack);
+            Assert.assertEquals(expectedMoveSet, actualMovesBlack);
         } catch(NotMeException nme){
             Assert.fail("NotMeException while testing common movement.");
             nme.printStackTrace();
