@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+import net.skytreader.kode.chesstemplar.BlankBoard;
 import net.skytreader.kode.chesstemplar.Board;
 import net.skytreader.kode.chesstemplar.GridBoard;
 
@@ -123,6 +124,30 @@ public class KnightTest{
             Assert.assertEquals(kingSideSet, kingSideActual);
         } catch(NotMeException nme){
             Assert.fail("NotMeException while testing intial state for white.");
+            nme.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testCommonMovement(){
+        try{
+            BlankBoard testBoard = new BlankBoard();
+
+            // Add the white knight to 4, 4
+            testBoard.addPiece(whiteKnight, 4, 4);
+            Point[] expectedMoves = {new Point(2, 3), new Point(3, 2),
+              new Point(5, 2), new Point(6, 3), new Point(2, 5), new Point(3, 6),
+              new Point(5, 6), new Point(6, 5)};
+            HashSet<Point> expectedMoveSet = new HashSet<Point>(Arrays.asList(expectedMoves));
+            Set<Point> actualMovesWhite = whiteKnight.getLegalMoves(4, 4, testBoard);
+            Assert.assertEquals(expectedMoves, actualMovesWhite);
+
+            testBoard.removePiece(4, 4);
+            testBoard.addPiece(blackKnight, 4, 4);
+            Set<Point> actualMovesBlack = blackKnight.getLegalMoves(4, 4, testBoard);
+            Assert.assertEquals(expectedMoves, actualMovesBlack);
+        } catch(NotMeException nme){
+            Assert.fail("NotMeException while testing common movement.");
             nme.printStackTrace();
         }
     }
