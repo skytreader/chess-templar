@@ -20,7 +20,7 @@ import org.junit.rules.ExpectedException;
 public class KnightTest{
     
     private Knight whiteKnight;
-    private Knight blackKnight;
+    private Knight darkKnight;
 
     @Rule
     public ExpectedException exception = ExpectedException.none();
@@ -28,12 +28,12 @@ public class KnightTest{
     @Before
     public void setUp(){
         whiteKnight = new Knight(ChessPiece.WHITE);
-        blackKnight = new Knight(!ChessPiece.WHITE);
+        darkKnight = new Knight(!ChessPiece.WHITE);
     }
 
     @Test
     public void testHashCode(){
-        Assert.assertNotEquals(whiteKnight.hashCode(), blackKnight.hashCode());
+        Assert.assertNotEquals(whiteKnight.hashCode(), darkKnight.hashCode());
     }
 
     @Test
@@ -59,33 +59,33 @@ public class KnightTest{
         Assert.assertFalse(whiteKnight.equals(null));
         
         // Test that white does not equal black (transitive with testEqualsBlack).
-        Assert.assertFalse(whiteKnight.equals(blackKnight));
+        Assert.assertFalse(whiteKnight.equals(darkKnight));
     }
 
     @Test
     public void testEqualsBlack(){
         Knight anotherBlack = new Knight(!ChessPiece.WHITE);
-        Assert.assertTrue(blackKnight.equals(blackKnight));
-        boolean forSymmetry = blackKnight.equals(anotherBlack);
+        Assert.assertTrue(darkKnight.equals(darkKnight));
+        boolean forSymmetry = darkKnight.equals(anotherBlack);
         Assert.assertTrue(forSymmetry);
 
         if(forSymmetry){
-            Assert.assertTrue(anotherBlack.equals(blackKnight));
+            Assert.assertTrue(anotherBlack.equals(darkKnight));
         }
 
         Knight thirdBlack = new Knight(!ChessPiece.WHITE);
-        boolean forTransitivity = blackKnight.equals(thirdBlack);
+        boolean forTransitivity = darkKnight.equals(thirdBlack);
         Assert.assertTrue(forTransitivity);
 
         if(forTransitivity){
-            Assert.assertTrue(blackKnight.equals(anotherBlack));
+            Assert.assertTrue(darkKnight.equals(anotherBlack));
             Assert.assertTrue(anotherBlack.equals(thirdBlack));
         }
 
-        Assert.assertFalse(blackKnight.equals(null));
+        Assert.assertFalse(darkKnight.equals(null));
 
         // Test that black does not equal white (transitive with testEqualsWhite).
-        Assert.assertFalse(blackKnight.equals(whiteKnight));
+        Assert.assertFalse(darkKnight.equals(whiteKnight));
     }
 
     @Test
@@ -95,12 +95,12 @@ public class KnightTest{
 
             Point[] queenSideMoves = {new Point(2, 0), new Point(2, 2)};
             HashSet<Point> queenSideSet = new HashSet<Point>(Arrays.asList(queenSideMoves));
-            Set<Point> queenSideActual = blackKnight.getLegalMoves(0, 1, testBoard);
+            Set<Point> queenSideActual = darkKnight.getLegalMoves(0, 1, testBoard);
             Assert.assertEquals(queenSideSet, queenSideActual);
 
             Point[] kingSideMoves = {new Point(2, 5), new Point(2, 7)};
             HashSet<Point> kingSideSet = new HashSet<Point>(Arrays.asList(kingSideMoves));
-            Set<Point> kingSideActual = blackKnight.getLegalMoves(0, 6, testBoard);
+            Set<Point> kingSideActual = darkKnight.getLegalMoves(0, 6, testBoard);
             Assert.assertEquals(kingSideSet, kingSideActual);
         } catch(NotMeException nme){
             Assert.fail("NotMeException while testing intial state for black.");
@@ -143,8 +143,8 @@ public class KnightTest{
             Assert.assertEquals(expectedMoves, actualMovesWhite);
 
             testBoard.removePiece(4, 4);
-            testBoard.addPiece(blackKnight, 4, 4);
-            Set<Point> actualMovesBlack = blackKnight.getLegalMoves(4, 4, testBoard);
+            testBoard.addPiece(darkKnight, 4, 4);
+            Set<Point> actualMovesBlack = darkKnight.getLegalMoves(4, 4, testBoard);
             Assert.assertEquals(expectedMoves, actualMovesBlack);
         } catch(NotMeException nme){
             Assert.fail("NotMeException while testing common movement.");
