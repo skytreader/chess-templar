@@ -115,12 +115,12 @@ public class KnightTest{
 
             Point[] queenSideMoves = {new Point(5, 0), new Point(5, 2)};
             HashSet<Point> queenSideSet = new HashSet<Point>(Arrays.asList(queenSideMoves));
-            Set<Point> queenSideActual = whiteKnight.getLegalMoves(0, 1, testBoard);
+            Set<Point> queenSideActual = whiteKnight.getLegalMoves(7, 1, testBoard);
             Assert.assertEquals(queenSideSet, queenSideActual);
 
             Point[] kingSideMoves = {new Point(5, 5), new Point(5, 7)};
             HashSet<Point> kingSideSet = new HashSet<Point>(Arrays.asList(kingSideMoves));
-            Set<Point> kingSideActual = whiteKnight.getLegalMoves(0, 6, testBoard);
+            Set<Point> kingSideActual = whiteKnight.getLegalMoves(7, 6, testBoard);
             Assert.assertEquals(kingSideSet, kingSideActual);
         } catch(NotMeException nme){
             Assert.fail("NotMeException while testing intial state for white.");
