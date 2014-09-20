@@ -141,9 +141,46 @@ public class KnightTest{
             HashSet<Point> expectedMoveSet = new HashSet<Point>(Arrays.asList(expectedMoves));
             Set<Point> actualMovesWhite = whiteKnight.getLegalMoves(4, 4, testBoard);
             Assert.assertEquals(expectedMoveSet, actualMovesWhite);
+            // Add a black pawn to 3,2
+            testBoard.addPiece(new Pawn(false), 3, 2);
+            Set<Point> actualMovesWhite2 = whiteKnight.getLegalMoves(4, 4, testBoard);
+            Assert.assertEquals(expectedMoveSet, actualMovesWhite2);
 
             testBoard.removePiece(4, 4);
+            testBoard.removePiece(3, 2);
             testBoard.addPiece(darkKnight, 4, 4);
+            Set<Point> actualMovesBlack = darkKnight.getLegalMoves(4, 4, testBoard);
+            Assert.assertEquals(expectedMoveSet, actualMovesBlack);
+            testBoard.addPiece(new Pawn(true), 3, 2);
+            Set<Point> actualMovesBlack2 = darkKnight.getLegalMoves(4, 4, testBoard);
+            Assert.assertEquals(expectedMoveSet, actualMovesBlack2);
+        } catch(NotMeException nme){
+            Assert.fail("NotMeException while testing common movement.");
+            nme.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testNoCaptureScenario(){
+        try{
+            BlankBoard testBoard = new BlankBoard();
+
+            // Add the white knight to 4, 4
+            testBoard.addPiece(whiteKnight, 4, 4);
+            Point[] expectedMoves = {new Point(2, 3),
+              new Point(5, 2), new Point(6, 3), new Point(2, 5), new Point(3, 6),
+              new Point(5, 6), new Point(6, 5)};
+            HashSet<Point> expectedMoveSet = new HashSet<Point>(Arrays.asList(expectedMoves));
+            // Add white Pawn to 3, 2
+            testBoard.addPiece(new Pawn(true), 3, 2);
+            Set<Point> actualMovesWhite = whiteKnight.getLegalMoves(4, 4, testBoard);
+            Assert.assertEquals(expectedMoveSet, actualMovesWhite);
+
+            testBoard.removePiece(4, 4);
+            testBoard.removePiece(3, 2);
+
+            testBoard.addPiece(darkKnight, 4, 4);
+            testBoard.addPiece(new Pawn(false), 3, 2);
             Set<Point> actualMovesBlack = darkKnight.getLegalMoves(4, 4, testBoard);
             Assert.assertEquals(expectedMoveSet, actualMovesBlack);
         } catch(NotMeException nme){
