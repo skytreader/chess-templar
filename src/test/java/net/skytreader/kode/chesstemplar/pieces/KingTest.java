@@ -187,14 +187,14 @@ public class KingTest{
         BlankBoard testBoard = new BlankBoard();
 
         testBoard.addPiece(whiteKing, 0, 0);
-        Point[] cornerCase00 = {new Point(0, 1), new Point(1, 0), new Point(1, 2)};
+        Point[] cornerCase00 = {new Point(0, 1), new Point(1, 0), new Point(1, 1)};
         HashSet<Point> expected00 = new HashSet<Point>(Arrays.asList(cornerCase00));
         Set<Point> actual00 = whiteKing.getLegalMoves(0, 0, testBoard);
         Assert.assertEquals(expected00, actual00);
 
         testBoard.removePiece(0, 0);
         testBoard.addPiece(whiteKing, 0, 7);
-        Point[] cornerCase07 = {new Point(0, 6), new Point(2, 6), new Point(2, 7)};
+        Point[] cornerCase07 = {new Point(0, 6), new Point(1, 6), new Point(1, 7)};
         HashSet<Point> expected07 = new HashSet<Point>(Arrays.asList(cornerCase07));
         Set<Point> actual07 = whiteKing.getLegalMoves(0, 7, testBoard);
         Assert.assertEquals(expected07, actual07);
