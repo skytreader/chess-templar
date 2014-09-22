@@ -15,7 +15,7 @@ public class King extends ChessPiece{
     }
 
     private boolean movesetFilter(Point p){
-        return 0 <= p.x && p.x < 8 && 0<= p.y && p.y <= 8;
+        return 0 <= p.x && p.x < 8 && 0<= p.y && p.y < 8;
     }
 
     // FIXME Check cases, and other corner cases.
