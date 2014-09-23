@@ -2,6 +2,7 @@ package net.skytreader.kode.chesstemplar.pieces;
 
 import java.awt.Point;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import net.skytreader.kode.chesstemplar.Board;
@@ -20,6 +21,7 @@ public class Rook extends ChessPiece{
             throw new NotMeException("Attempting to move piece " +
               indicatedPiece.toString() + " using " + this.toString());
         }
-        return null;
+        HashSet<Point> legalMoves = new HashSet<Point>();
+        return legalMoves;
     }
 }
