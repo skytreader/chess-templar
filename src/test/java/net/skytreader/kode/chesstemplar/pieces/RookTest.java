@@ -88,6 +88,26 @@ public class RookTest{
     }
 
     @Test
+    public void testInitialConfiguration(){
+        try{
+            Board testBoard = new GridBoard();
+            HashSet<Point> emptySet = new HashSet<Point>();
+            Set<Point> black00 = blackRook.getLegalMoves(0, 0, testBoard);
+            Set<Point> black07 = blackRook.getLegalMoves(0, 7, testBoard);
+            Set<Point> white70 = whiteRook.getLegalMoves(7, 0, testBoard);
+            Set<Point> white77 = whiteRook.getLegalMoves(7, 7, testBoard);
+
+            Assert.assertEquals(black00, emptySet);
+            Assert.assertEquals(black07, emptySet);
+            Assert.assertEquals(white70, emptySet);
+            Assert.assertEquals(white77, emptySet);
+        } catch(NotMeException nme){
+            Assert.fail("NotMeException thrown while testing initial configuration.");
+            nme.printStackTrace();
+        }
+    }
+
+    @Test
     public void testNotMe() throws NotMeException{
         exception.expect(NotMeException.class);
         Board testBoard = new GridBoard();
