@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+import net.skytreader.kode.chesstemplar.BlankBoard;
 import net.skytreader.kode.chesstemplar.Board;
 import net.skytreader.kode.chesstemplar.GridBoard;
 
@@ -104,6 +105,28 @@ public class RookTest{
         } catch(NotMeException nme){
             Assert.fail("NotMeException thrown while testing initial configuration.");
             nme.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testCommonLegalMovesWhite(){
+        try{
+            BlankBoard testBoard = new BlankBoard();
+            testBoard.addPiece(whiteRook, 4, 4);
+            HashSet<Point> expectedSet = new HashSet<Point>();
+
+            for(int i = 0; i < 8; i++){
+                if(i != 4){
+                    expectedSet.add(new Point(i, 4));
+                    expectedSet.add(new Point(4, i));
+                }
+            }
+
+            Set<Point> actualMoves = whiteRook.getLegalMoves(4, 4, testBoard);
+            Assert.assertEquals(expectedSet, actualMoves);
+
+        } catch(NotMeException nme){
+            Assert.fail("NotMeException thrown while testing common legal moves for white.");
         }
     }
 
