@@ -22,6 +22,16 @@ public class Rook extends ChessPiece{
               indicatedPiece.toString() + " using " + this.toString());
         }
         HashSet<Point> legalMoves = new HashSet<Point>();
+
+        for(int i = 0; i < 8; i++){
+            if(i != r){
+                legalMoves.add(new Point(i, c));
+            }
+
+            if(i != c){
+                legalMoves.add(new Point(r, i));
+            }
+        }
         return legalMoves;
     }
 }
