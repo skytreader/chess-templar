@@ -131,6 +131,28 @@ public class RookTest{
     }
 
     @Test
+    public void testCommonLegalMovesBlack(){
+        try{
+            BlankBoard testBoard = new BlankBoard();
+            testBoard.addPiece(blackRook, 4, 4);
+            HashSet<Point> expectedSet = new HashSet<Point>();
+
+            for(int i = 0; i < 8; i++){
+                if(i != 4){
+                    expectedSet.add(new Point(i, 4));
+                    expectedSet.add(new Point(4, i));
+                }
+            }
+
+            Set<Point> actualMoves = blackRook.getLegalMoves(4, 4, testBoard);
+            Assert.assertEquals(expectedSet, actualMoves);
+
+        } catch(NotMeException nme){
+            Assert.fail("NotMeException thrown while testing common legal moves for black.");
+        }
+    }
+
+    @Test
     public void testNotMe() throws NotMeException{
         exception.expect(NotMeException.class);
         Board testBoard = new GridBoard();
