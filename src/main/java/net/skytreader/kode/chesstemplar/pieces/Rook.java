@@ -22,16 +22,39 @@ public class Rook extends ChessPiece{
               indicatedPiece.toString() + " using " + this.toString());
         }
         HashSet<Point> legalMoves = new HashSet<Point>();
-
-        for(int i = 0; i < 8; i++){
-            if(i != r){
+        
+        // first go backward on rows
+        for(int i = r - 1; i >= 0; i--){
+            ChessPiece p = b.getPieceAt(i, c);
+            if(p != null && (p.isWhite() ^ indicatedPiece.isWhite())){
                 legalMoves.add(new Point(i, c));
             }
+        }
 
-            if(i != c){
+        // go backward on cols
+        for(int i = c - 1; i >= 0; i--){
+            ChessPiece p = b.getPieceAt(r, i);
+            if(p != null && (p.isWhite() ^ indicatedPiece.isWhite())){
                 legalMoves.add(new Point(r, i));
             }
         }
+
+        // go forward on rows
+        for(int i = r + 1; i < 8; i++){
+            ChessPiece p = b.getPieceAt(i, c);
+            if(p != null && (p.isWhite() ^ indicatedPiece.isWhite())){
+                legalMoves.add(new Point(i, c));
+            }
+        }
+
+        // go forward on cols
+        for(int i = c + 1; i < 8; i++){
+            ChessPiece p = b.getPieceAt(r, i);
+            if(p != null && (p.isWhite() ^ indicatedPiece.isWhite())){
+                legalMoves.add(new Point(r, i));
+            }
+        }
+
         return legalMoves;
     }
 }
