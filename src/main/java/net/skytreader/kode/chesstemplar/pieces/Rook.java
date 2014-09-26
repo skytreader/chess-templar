@@ -26,32 +26,52 @@ public class Rook extends ChessPiece{
         // first go backward on rows
         for(int i = r - 1; i >= 0; i--){
             ChessPiece p = b.getPieceAt(i, c);
-            if(p != null && (p.isWhite() ^ indicatedPiece.isWhite())){
+
+            if(p == null){
                 legalMoves.add(new Point(i, c));
+            }else if(p != null && (p.isWhite() ^ indicatedPiece.isWhite())){
+                legalMoves.add(new Point(i, c));
+            } else if(p != null && p.isWhite() && indicatedPiece.isWhite()){
+                break;
             }
         }
 
         // go backward on cols
         for(int i = c - 1; i >= 0; i--){
             ChessPiece p = b.getPieceAt(r, i);
-            if(p != null && (p.isWhite() ^ indicatedPiece.isWhite())){
+
+            if(p == null){
                 legalMoves.add(new Point(r, i));
+            } else if(p != null && (p.isWhite() ^ indicatedPiece.isWhite())){
+                legalMoves.add(new Point(r, i));
+            } else if(p != null && p.isWhite() && indicatedPiece.isWhite()){
+                break;
             }
         }
 
         // go forward on rows
         for(int i = r + 1; i < 8; i++){
             ChessPiece p = b.getPieceAt(i, c);
-            if(p != null && (p.isWhite() ^ indicatedPiece.isWhite())){
+
+            if(p == null){
                 legalMoves.add(new Point(i, c));
+            } else if(p != null && (p.isWhite() ^ indicatedPiece.isWhite())){
+                legalMoves.add(new Point(i, c));
+            } else if(p != null && p.isWhite() && indicatedPiece.isWhite()){
+                break;
             }
         }
 
         // go forward on cols
         for(int i = c + 1; i < 8; i++){
             ChessPiece p = b.getPieceAt(r, i);
-            if(p != null && (p.isWhite() ^ indicatedPiece.isWhite())){
+
+            if(p == null){
                 legalMoves.add(new Point(r, i));
+            } else if(p != null && (p.isWhite() ^ indicatedPiece.isWhite())){
+                legalMoves.add(new Point(r, i));
+            } else if(p != null && p.isWhite() && indicatedPiece.isWhite()){
+                break;
             }
         }
 
