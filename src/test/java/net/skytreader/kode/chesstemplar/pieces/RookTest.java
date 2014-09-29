@@ -109,6 +109,27 @@ public class RookTest{
     }
 
     @Test
+    public void testCornerCasesBlack(){
+        try{
+            BlankBoard testBoard = new BlankBoard();
+            
+            // Put it at all corners!
+            testBoard.addPiece(whiteRook, 0, 0);
+            HashSet<Point> legalMoves = new HashSet<Point>();
+            
+            for(int i = 1; i < 8; i++){
+                legalMoves.add(new Point(0, i));
+                legalMoves.add(new Point(i, 0));
+            }
+
+            Set<Point> actualMoves = whiteRook.getLegalMoves(0, 0, testBoard);
+        } catch(NotMeException nme){
+            Assert.fail("NotMeException thrown while testing corner cases.");
+            nme.printStackTrace();
+        }
+    }
+
+    @Test
     public void testCommonLegalMovesWhite(){
         try{
             BlankBoard testBoard = new BlankBoard();
