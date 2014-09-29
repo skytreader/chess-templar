@@ -114,15 +114,134 @@ public class RookTest{
             BlankBoard testBoard = new BlankBoard();
             
             // Put it at all corners!
-            testBoard.addPiece(whiteRook, 0, 0);
-            HashSet<Point> legalMoves = new HashSet<Point>();
+            testBoard.addPiece(blackRook, 0, 0);
+            HashSet<Point> legalMoves00 = new HashSet<Point>();
             
             for(int i = 1; i < 8; i++){
-                legalMoves.add(new Point(0, i));
-                legalMoves.add(new Point(i, 0));
+                legalMoves00.add(new Point(0, i));
+                legalMoves00.add(new Point(i, 0));
             }
 
-            Set<Point> actualMoves = whiteRook.getLegalMoves(0, 0, testBoard);
+            Set<Point> actualMoves00 = blackRook.getLegalMoves(0, 0, testBoard);
+            Assert.assertEquals(legalMoves00, actualMoves00);
+            testBoard.removePiece(0, 0);
+
+            testBoard.addPiece(blackRook, 0, 7);
+            HashSet<Point> legalMoves07 = new HashSet<Point>();
+
+            for(int i = 0; i < 8; i++){
+                if(i == 0){
+                    legalMoves07.add(new Point(0, i));
+                } else if(i == 7){
+                    legalMoves07.add(new Point(i, 7));
+                } else {
+                    legalMoves07.add(new Point(0, i));
+                    legalMoves07.add(new Point(i, 7));
+                }
+            }
+
+            Set<Point> actualMoves07 = blackRook.getLegalMoves(0, 7, testBoard);
+            Assert.assertEquals(legalMoves07, actualMoves07);
+            testBoard.removePiece(0, 7);
+
+            testBoard.addPiece(blackRook, 7, 0);
+            HashSet<Point> legalMoves70 = new HashSet<Point>();
+
+            for(int i = 0; i < 8; i++){
+                if(i == 0){
+                    legalMoves70.add(new Point(i, 0));
+                } else if(i == 7){
+                    legalMoves70.add(new Point(7, i));
+                } else{
+                    legalMoves70.add(new Point(i, 0));
+                    legalMoves70.add(new Point(7, i));
+                }
+            }
+
+            Set<Point> actualMoves70 = blackRook.getLegalMoves(7, 0, testBoard);
+            Assert.assertEquals(legalMoves70, actualMoves70);
+            testBoard.removePiece(7, 0);
+
+            testBoard.addPiece(blackRook, 7, 7);
+            HashSet<Point> legalMoves77 = new HashSet<Point>();
+
+            for(int i = 0; i < 7; i++){
+                legalMoves77.add(new Point(i, 7));
+                legalMoves77.add(new Point(7, i));
+            }
+
+            Set<Point> actualMoves77 = blackRook.getLegalMoves(7, 7, testBoard);
+            Assert.assertEquals(legalMoves77, actualMoves77);
+        } catch(NotMeException nme){
+            Assert.fail("NotMeException thrown while testing corner cases.");
+            nme.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testCornerCasesWhite(){
+        try{
+            BlankBoard testBoard = new BlankBoard();
+            
+            // Put it at all corners!
+            testBoard.addPiece(whiteRook, 0, 0);
+            HashSet<Point> legalMoves00 = new HashSet<Point>();
+            
+            for(int i = 1; i < 8; i++){
+                legalMoves00.add(new Point(0, i));
+                legalMoves00.add(new Point(i, 0));
+            }
+
+            Set<Point> actualMoves00 = whiteRook.getLegalMoves(0, 0, testBoard);
+            Assert.assertEquals(legalMoves00, actualMoves00);
+            testBoard.removePiece(0, 0);
+
+            testBoard.addPiece(whiteRook, 0, 7);
+            HashSet<Point> legalMoves07 = new HashSet<Point>();
+
+            for(int i = 0; i < 8; i++){
+                if(i == 0){
+                    legalMoves07.add(new Point(0, i));
+                } else if(i == 7){
+                    legalMoves07.add(new Point(i, 7));
+                } else {
+                    legalMoves07.add(new Point(0, i));
+                    legalMoves07.add(new Point(i, 7));
+                }
+            }
+
+            Set<Point> actualMoves07 = whiteRook.getLegalMoves(0, 7, testBoard);
+            Assert.assertEquals(legalMoves07, actualMoves07);
+            testBoard.removePiece(0, 7);
+
+            testBoard.addPiece(whiteRook, 7, 0);
+            HashSet<Point> legalMoves70 = new HashSet<Point>();
+
+            for(int i = 0; i < 8; i++){
+                if(i == 0){
+                    legalMoves70.add(new Point(i, 0));
+                } else if(i == 7){
+                    legalMoves70.add(new Point(7, i));
+                } else{
+                    legalMoves70.add(new Point(i, 0));
+                    legalMoves70.add(new Point(7, i));
+                }
+            }
+
+            Set<Point> actualMoves70 = whiteRook.getLegalMoves(7, 0, testBoard);
+            Assert.assertEquals(legalMoves70, actualMoves70);
+            testBoard.removePiece(7, 0);
+
+            testBoard.addPiece(whiteRook, 7, 7);
+            HashSet<Point> legalMoves77 = new HashSet<Point>();
+
+            for(int i = 0; i < 7; i++){
+                legalMoves77.add(new Point(i, 7));
+                legalMoves77.add(new Point(7, i));
+            }
+
+            Set<Point> actualMoves77 = whiteRook.getLegalMoves(7, 7, testBoard);
+            Assert.assertEquals(legalMoves77, actualMoves77);
         } catch(NotMeException nme){
             Assert.fail("NotMeException thrown while testing corner cases.");
             nme.printStackTrace();
