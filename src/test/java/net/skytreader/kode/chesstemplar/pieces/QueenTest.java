@@ -107,4 +107,13 @@ public class QueenTest{
             nme.printStackTrace();
         }
     }
+
+    @Test
+    public void testNotMe() throws NotMeException{
+        exception.expect(NotMeException.class);
+        Board testBoard = new GridBoard();
+    
+        // Try to use a white rook to move the black rook at (0, 0).
+        whiteQueen.getLegalMoves(0, 0, testBoard);
+    }
 }
