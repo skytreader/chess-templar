@@ -93,15 +93,11 @@ public class QueenTest{
         try{
             Board testBoard = new GridBoard();
             HashSet<Point> emptySet = new HashSet<Point>();
-            Set<Point> black00 = blackQueen.getLegalMoves(0, 0, testBoard);
-            Set<Point> black07 = blackQueen.getLegalMoves(0, 7, testBoard);
-            Set<Point> white70 = whiteQueen.getLegalMoves(7, 0, testBoard);
-            Set<Point> white77 = whiteQueen.getLegalMoves(7, 7, testBoard);
+            Set<Point> black03 = blackQueen.getLegalMoves(0, 3, testBoard);
+            Set<Point> white73 = whiteQueen.getLegalMoves(7, 3, testBoard);
 
-            Assert.assertEquals(black00, emptySet);
-            Assert.assertEquals(black07, emptySet);
-            Assert.assertEquals(white70, emptySet);
-            Assert.assertEquals(white77, emptySet);
+            Assert.assertEquals(black03, emptySet);
+            Assert.assertEquals(white73, emptySet);
         } catch(NotMeException nme){
             Assert.fail("NotMeException thrown while testing initial configuration.");
             nme.printStackTrace();
