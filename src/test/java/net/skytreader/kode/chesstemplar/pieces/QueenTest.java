@@ -127,7 +127,7 @@ public class QueenTest{
             queenExpectedMoves.addAll(rookMoves);
             queenExpectedMoves.addAll(bishopMoves);
 
-            Set<Point> queenMoves = blackQueen.getLegalMoves(4, 4, dummyBoard);
+            Set<Point> queenMoves = blackQueen.getLegalMoves(4, 4, testBoard);
             Assert.assertEquals(queenExpectedMoves, queenMoves);
         } catch(NotMeException nme){
             Assert.fail("NotMeException thrown while testing common legal moves.");
@@ -154,7 +154,7 @@ public class QueenTest{
             queenExpectedMoves.addAll(rookMoves);
             queenExpectedMoves.addAll(bishopMoves);
 
-            Set<Point> queenMoves = whiteQueen.getLegalMoves(4, 4, dummyBoard);
+            Set<Point> queenMoves = whiteQueen.getLegalMoves(4, 4, testBoard);
             Assert.assertEquals(queenExpectedMoves, queenMoves);
         } catch(NotMeException nme){
             Assert.fail("NotMeException thrown while testing common legal moves.");
