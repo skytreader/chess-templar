@@ -20,7 +20,7 @@ public class GameArbiter{
         board = b;
         whiteKingMoved = false;
         whiteKingsideRookMoved = false;
-        whiteQueensideRookMoced = false;
+        whiteQueensideRookMoved = false;
         blackKingMoved = false;
         blackKingsideRookMoved = false;
         blackQueensideRookMoved = false;
