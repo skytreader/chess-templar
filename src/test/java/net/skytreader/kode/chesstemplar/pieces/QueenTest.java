@@ -167,7 +167,7 @@ public class QueenTest{
         exception.expect(NotMeException.class);
         Board testBoard = new GridBoard();
     
-        // Try to use a white rook to move the black rook at (0, 0).
+        // Try to use a white queen to move the black rook at (0, 0).
         whiteQueen.getLegalMoves(0, 0, testBoard);
     }
 }
