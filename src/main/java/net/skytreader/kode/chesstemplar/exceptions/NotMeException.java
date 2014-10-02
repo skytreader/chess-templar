@@ -1,4 +1,4 @@
-package net.skytreader.kode.chesstemplar.pieces;
+package net.skytreader.kode.chesstemplar.exceptions;
 
 /**
 This exception is thrown when you try to get the moves of a piece not equivalent

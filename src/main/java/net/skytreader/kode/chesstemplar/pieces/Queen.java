@@ -7,6 +7,8 @@ import java.util.Set;
 
 import net.skytreader.kode.chesstemplar.Board;
 
+import net.skytreader.kode.chesstemplar.exceptions.NotMeException;
+
 public class Queen extends ChessPiece{
     
     public Queen(boolean isWhite){

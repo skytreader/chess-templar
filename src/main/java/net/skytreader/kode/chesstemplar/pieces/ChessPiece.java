@@ -6,6 +6,8 @@ import java.util.Set;
 
 import net.skytreader.kode.chesstemplar.Board;
 
+import net.skytreader.kode.chesstemplar.exceptions.NotMeException;
+
 public abstract class ChessPiece{
     /**
     And then, "override" these properties as private. It is crucial that you
