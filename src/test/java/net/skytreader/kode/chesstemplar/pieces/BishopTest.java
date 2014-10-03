@@ -10,6 +10,8 @@ import net.skytreader.kode.chesstemplar.Board;
 import net.skytreader.kode.chesstemplar.GridBoard;
 import net.skytreader.kode.chesstemplar.BlankBoard;
 
+import net.skytreader.kode.chesstemplar.exceptions.NotMeException;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Ignore;
