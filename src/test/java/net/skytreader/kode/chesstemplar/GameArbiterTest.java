@@ -27,8 +27,7 @@ public class GameArbiterTest{
     }
 
     @Test
-    public void testContrivedCastleScenarioWhite(){
-        concreteBoard.removePiece(7, 4);
+    public void testContrivedKingsideCastleScenarioWhite(){
         concreteBoard.removePiece(7, 5);
         concreteBoard.removePiece(7, 6);
         Assert.assertTrue(rigidArbiter.canWhiteKingCastle());
