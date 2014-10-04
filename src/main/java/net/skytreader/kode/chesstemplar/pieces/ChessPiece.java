@@ -19,7 +19,7 @@ public abstract class ChessPiece{
 
     public static final boolean WHITE = true;
     /**
-    Get all the legal moves of the piece, given its current position. If the
+    Get all the moves of the piece, given its current position. If the
     piece at the given row and column is not equal to this ChessPiece, raise
     hell.
 
@@ -27,7 +27,7 @@ public abstract class ChessPiece{
     this piece at the position specified, this piece should be able to give
     all the legal moves for that piece.
 
-    Legal moves include squares in which a capture is possible.
+    Moves include squares in which a capture is possible.
 
     @param r
         An integer describing the current row of the piece. Range 0-7. In
@@ -41,11 +41,11 @@ public abstract class ChessPiece{
         When the piece at the given row and column in the Board is not equal to
         this piece.
     @return
-        A Set of Point objects containing all the legal moves for this piece.
+        A Set of Point objects containing all the moves for this piece.
         The x attribute corresponds to the row while the y attribute corresponds
         to the column.
     */
-    public abstract Set<Point> getLegalMoves(int r, int c, Board b) throws NotMeException;
+    public abstract Set<Point> getMoves(int r, int c, Board b) throws NotMeException;
 
     /**
     Check if the piece at the given coordinates in the board is equal to this

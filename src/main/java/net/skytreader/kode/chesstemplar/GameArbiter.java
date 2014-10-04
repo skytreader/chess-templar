@@ -56,7 +56,7 @@ public class GameArbiter{
     }
 
     public Set<Point> legalMovesFilter(ChessPiece cp, int r, int c, Board b) throws NotMeException{
-        Set<Point> pieceMoves = cp.getLegalMoves(r, c, b);
+        Set<Point> pieceMoves = cp.getMoves(r, c, b);
 
         return pieceMoves;
     }

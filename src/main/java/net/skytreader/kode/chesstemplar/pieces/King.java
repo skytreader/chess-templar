@@ -20,9 +20,8 @@ public class King extends ChessPiece{
         return 0 <= p.x && p.x < 8 && 0<= p.y && p.y < 8;
     }
 
-    // FIXME Check cases, and other corner cases.
     @Override
-    public Set<Point> getLegalMoves(int r, int c, Board b) throws NotMeException{
+    public Set<Point> getMoves(int r, int c, Board b) throws NotMeException{
         ChessPiece indicatedPiece = b.getPieceAt(r, c);
         if(!this.equals(indicatedPiece)){
             throw new NotMeException("Attempting to move piece " +
