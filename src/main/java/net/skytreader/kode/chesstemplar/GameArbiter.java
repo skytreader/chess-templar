@@ -55,9 +55,31 @@ public class GameArbiter{
         return false;
     }
 
+    /**
+    Edits the moveset returned by the ChessPiece to take Chess rules in
+    consideration.
+
+    Among the edits involved are removing moves that will expose the King to
+    a check and, in the case of the King, add the possibility of castles.
+    */
     public Set<Point> legalMovesFilter(ChessPiece cp, int r, int c, Board b) throws NotMeException{
         Set<Point> pieceMoves = cp.getMoves(r, c, b);
 
         return pieceMoves;
+    }
+    
+    /**
+    Checks if the described move is possible and legal and enacts it on the Board
+    if it is so. The move is described as (r1, c1) being the initial square and
+    (r2, c2) being the terminal square.
+
+    @param b
+    @param r1
+    @param c1
+    @param r2
+    @param c2
+    */
+    public boolean requestMove(Board b, int r1, int c1, int r2, int c2){
+        return false;
     }
 }

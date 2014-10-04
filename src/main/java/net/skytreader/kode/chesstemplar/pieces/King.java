@@ -20,6 +20,14 @@ public class King extends ChessPiece{
         return 0 <= p.x && p.x < 8 && 0<= p.y && p.y < 8;
     }
 
+    /**
+    The King's moveset does not include the possibility of castling since the
+    King piece should be oblivious to the conditions of castling.
+
+    @param r
+    @param c
+    @param b
+    */
     @Override
     public Set<Point> getMoves(int r, int c, Board b) throws NotMeException{
         ChessPiece indicatedPiece = b.getPieceAt(r, c);
