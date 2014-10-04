@@ -1,5 +1,14 @@
 package net.skytreader.kode.chesstemplar;
 
+import java.awt.Point;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import net.skytreader.kode.chesstemplar.exceptions.NotMeException;
+
+import net.skytreader.kode.chesstemplar.pieces.ChessPiece;
+
 /**
 The GameArbiter imposes the rules of Chess. An arbiter is tied to a particular
 game. You can't make an Arbiter judge on multiple boards at a time!
@@ -44,5 +53,11 @@ public class GameArbiter{
 
     public boolean isEndgame(){
         return false;
+    }
+
+    public Set<Point> legalMovesFilter(ChessPiece cp, int r, int c, Board b) throws NotMeException{
+        Set<Point> pieceMoves = cp.getLegalMoves(r, c, b);
+
+        return pieceMoves;
     }
 }
