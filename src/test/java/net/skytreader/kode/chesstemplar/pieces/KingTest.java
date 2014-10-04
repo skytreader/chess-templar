@@ -97,11 +97,11 @@ public class KingTest{
 
             // Kings at 0,4 and 7,4
             HashSet<Point> blackMoves = new HashSet<Point>();
-            Set<Point> fromBlack = blackKing.getLegalMoves(0, 4, board);
+            Set<Point> fromBlack = blackKing.getMoves(0, 4, board);
             Assert.assertEquals(blackMoves, fromBlack);
 
             HashSet<Point> whiteMoves = new HashSet<Point>();
-            Set<Point> fromWhite = whiteKing.getLegalMoves(7, 4, board);
+            Set<Point> fromWhite = whiteKing.getMoves(7, 4, board);
             Assert.assertEquals(whiteMoves, fromWhite);
         } catch(NotMeException nme){
             Assert.fail("NotMeException when testing King's initial state.");
@@ -120,21 +120,21 @@ public class KingTest{
               new Point(3, 3), new Point(3, 5), new Point(4, 3), new Point(5, 3),
               new Point(5, 4), new Point(5, 5)};
             HashSet<Point> expectedSet = new HashSet<Point>(Arrays.asList(expectedMoves));
-            Set<Point> actual1 = whiteKing.getLegalMoves(4, 4, board);
+            Set<Point> actual1 = whiteKing.getMoves(4, 4, board);
             Assert.assertEquals(expectedSet, actual1);
 
             // Put a white pawn in front of the white king
             board.addPiece(new Pawn(true), 3, 4);
             // remove 3, 4 in expected moves
             expectedSet.remove(new Point(3, 4));
-            Set<Point> actual2 = whiteKing.getLegalMoves(4, 4, board);
+            Set<Point> actual2 = whiteKing.getMoves(4, 4, board);
             Assert.assertEquals(expectedSet, actual2);
 
             // Make that a black pawn
             board.removePiece(3, 4);
             board.addPiece(new Pawn(false), 3, 4);
             expectedSet.add(new Point(3, 4));
-            Set<Point> actual3 = whiteKing.getLegalMoves(4, 4, board);
+            Set<Point> actual3 = whiteKing.getMoves(4, 4, board);
             Assert.assertEquals(expectedSet, actual3);
         } catch(NotMeException nme){
             Assert.fail("NotMeException when testing common moves for a King.");
@@ -153,21 +153,21 @@ public class KingTest{
               new Point(3, 3), new Point(3, 5), new Point(4, 3), new Point(5, 3),
               new Point(5, 4), new Point(5, 5)};
             HashSet<Point> expectedSet = new HashSet<Point>(Arrays.asList(expectedMoves));
-            Set<Point> actual1 = blackKing.getLegalMoves(4, 4, board);
+            Set<Point> actual1 = blackKing.getMoves(4, 4, board);
             Assert.assertEquals(expectedSet, actual1);
 
             // Put a black pawn in front of the black king
             board.addPiece(new Pawn(false), 3, 4);
             // remove 3, 4 in expected moves
             expectedSet.remove(new Point(3, 4));
-            Set<Point> actual2 = blackKing.getLegalMoves(4, 4, board);
+            Set<Point> actual2 = blackKing.getMoves(4, 4, board);
             Assert.assertEquals(expectedSet, actual2);
 
             // Make that a black pawn
             board.removePiece(3, 4);
             board.addPiece(new Pawn(true), 3, 4);
             expectedSet.add(new Point(3, 4));
-            Set<Point> actual3 = blackKing.getLegalMoves(4, 4, board);
+            Set<Point> actual3 = blackKing.getMoves(4, 4, board);
             Assert.assertEquals(expectedSet, actual3);
         } catch(NotMeException nme){
             Assert.fail("NotMeException when testing common moves for a King.");
@@ -181,7 +181,7 @@ public class KingTest{
         Board testBoard = new GridBoard();
 
         // Use the white king to get the moves of the black king
-        whiteKing.getLegalMoves(0, 4, testBoard);
+        whiteKing.getMoves(0, 4, testBoard);
     }
 
     @Test
@@ -191,28 +191,28 @@ public class KingTest{
         testBoard.addPiece(whiteKing, 0, 0);
         Point[] cornerCase00 = {new Point(0, 1), new Point(1, 0), new Point(1, 1)};
         HashSet<Point> expected00 = new HashSet<Point>(Arrays.asList(cornerCase00));
-        Set<Point> actual00 = whiteKing.getLegalMoves(0, 0, testBoard);
+        Set<Point> actual00 = whiteKing.getMoves(0, 0, testBoard);
         Assert.assertEquals(expected00, actual00);
 
         testBoard.removePiece(0, 0);
         testBoard.addPiece(whiteKing, 0, 7);
         Point[] cornerCase07 = {new Point(0, 6), new Point(1, 6), new Point(1, 7)};
         HashSet<Point> expected07 = new HashSet<Point>(Arrays.asList(cornerCase07));
-        Set<Point> actual07 = whiteKing.getLegalMoves(0, 7, testBoard);
+        Set<Point> actual07 = whiteKing.getMoves(0, 7, testBoard);
         Assert.assertEquals(expected07, actual07);
 
         testBoard.removePiece(0, 7);
         testBoard.addPiece(whiteKing, 7, 0);
         Point[] cornerCase70 = {new Point(6, 0), new Point(6, 1), new Point(7, 1)};
         HashSet<Point> expected70 = new HashSet<Point>(Arrays.asList(cornerCase70));
-        Set<Point> actual70 = whiteKing.getLegalMoves(7, 0, testBoard);
+        Set<Point> actual70 = whiteKing.getMoves(7, 0, testBoard);
         Assert.assertEquals(expected70, actual70);
 
         testBoard.removePiece(7, 0);
         testBoard.addPiece(whiteKing, 7, 7);
         Point[] cornerCase77 = {new Point(6, 6), new Point(6, 7), new Point(7, 6)};
         HashSet<Point> expected77 = new HashSet<Point>(Arrays.asList(cornerCase77));
-        Set<Point> actual77 = whiteKing.getLegalMoves(7, 7, testBoard);
+        Set<Point> actual77 = whiteKing.getMoves(7, 7, testBoard);
         Assert.assertEquals(expected77, actual77);
     }
 }

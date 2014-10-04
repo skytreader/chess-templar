@@ -95,10 +95,10 @@ public class RookTest{
         try{
             Board testBoard = new GridBoard();
             HashSet<Point> emptySet = new HashSet<Point>();
-            Set<Point> black00 = blackRook.getLegalMoves(0, 0, testBoard);
-            Set<Point> black07 = blackRook.getLegalMoves(0, 7, testBoard);
-            Set<Point> white70 = whiteRook.getLegalMoves(7, 0, testBoard);
-            Set<Point> white77 = whiteRook.getLegalMoves(7, 7, testBoard);
+            Set<Point> black00 = blackRook.getMoves(0, 0, testBoard);
+            Set<Point> black07 = blackRook.getMoves(0, 7, testBoard);
+            Set<Point> white70 = whiteRook.getMoves(7, 0, testBoard);
+            Set<Point> white77 = whiteRook.getMoves(7, 7, testBoard);
 
             Assert.assertEquals(black00, emptySet);
             Assert.assertEquals(black07, emptySet);
@@ -124,7 +124,7 @@ public class RookTest{
                 legalMoves00.add(new Point(i, 0));
             }
 
-            Set<Point> actualMoves00 = blackRook.getLegalMoves(0, 0, testBoard);
+            Set<Point> actualMoves00 = blackRook.getMoves(0, 0, testBoard);
             Assert.assertEquals(legalMoves00, actualMoves00);
             testBoard.removePiece(0, 0);
 
@@ -142,7 +142,7 @@ public class RookTest{
                 }
             }
 
-            Set<Point> actualMoves07 = blackRook.getLegalMoves(0, 7, testBoard);
+            Set<Point> actualMoves07 = blackRook.getMoves(0, 7, testBoard);
             Assert.assertEquals(legalMoves07, actualMoves07);
             testBoard.removePiece(0, 7);
 
@@ -160,7 +160,7 @@ public class RookTest{
                 }
             }
 
-            Set<Point> actualMoves70 = blackRook.getLegalMoves(7, 0, testBoard);
+            Set<Point> actualMoves70 = blackRook.getMoves(7, 0, testBoard);
             Assert.assertEquals(legalMoves70, actualMoves70);
             testBoard.removePiece(7, 0);
 
@@ -172,7 +172,7 @@ public class RookTest{
                 legalMoves77.add(new Point(7, i));
             }
 
-            Set<Point> actualMoves77 = blackRook.getLegalMoves(7, 7, testBoard);
+            Set<Point> actualMoves77 = blackRook.getMoves(7, 7, testBoard);
             Assert.assertEquals(legalMoves77, actualMoves77);
         } catch(NotMeException nme){
             Assert.fail("NotMeException thrown while testing corner cases.");
@@ -194,7 +194,7 @@ public class RookTest{
                 legalMoves00.add(new Point(i, 0));
             }
 
-            Set<Point> actualMoves00 = whiteRook.getLegalMoves(0, 0, testBoard);
+            Set<Point> actualMoves00 = whiteRook.getMoves(0, 0, testBoard);
             Assert.assertEquals(legalMoves00, actualMoves00);
             testBoard.removePiece(0, 0);
 
@@ -212,7 +212,7 @@ public class RookTest{
                 }
             }
 
-            Set<Point> actualMoves07 = whiteRook.getLegalMoves(0, 7, testBoard);
+            Set<Point> actualMoves07 = whiteRook.getMoves(0, 7, testBoard);
             Assert.assertEquals(legalMoves07, actualMoves07);
             testBoard.removePiece(0, 7);
 
@@ -230,7 +230,7 @@ public class RookTest{
                 }
             }
 
-            Set<Point> actualMoves70 = whiteRook.getLegalMoves(7, 0, testBoard);
+            Set<Point> actualMoves70 = whiteRook.getMoves(7, 0, testBoard);
             Assert.assertEquals(legalMoves70, actualMoves70);
             testBoard.removePiece(7, 0);
 
@@ -242,7 +242,7 @@ public class RookTest{
                 legalMoves77.add(new Point(7, i));
             }
 
-            Set<Point> actualMoves77 = whiteRook.getLegalMoves(7, 7, testBoard);
+            Set<Point> actualMoves77 = whiteRook.getMoves(7, 7, testBoard);
             Assert.assertEquals(legalMoves77, actualMoves77);
         } catch(NotMeException nme){
             Assert.fail("NotMeException thrown while testing corner cases.");
@@ -251,7 +251,7 @@ public class RookTest{
     }
 
     @Test
-    public void testCommonLegalMovesWhite(){
+    public void testCommonMovesWhite(){
         try{
             BlankBoard testBoard = new BlankBoard();
             testBoard.addPiece(whiteRook, 4, 4);
@@ -264,7 +264,7 @@ public class RookTest{
                 }
             }
 
-            Set<Point> actualMoves = whiteRook.getLegalMoves(4, 4, testBoard);
+            Set<Point> actualMoves = whiteRook.getMoves(4, 4, testBoard);
             Assert.assertEquals(expectedSet, actualMoves);
 
         } catch(NotMeException nme){
@@ -273,7 +273,7 @@ public class RookTest{
     }
 
     @Test
-    public void testCommonLegalMovesBlack(){
+    public void testCommonMovesBlack(){
         try{
             BlankBoard testBoard = new BlankBoard();
             testBoard.addPiece(blackRook, 4, 4);
@@ -286,7 +286,7 @@ public class RookTest{
                 }
             }
 
-            Set<Point> actualMoves = blackRook.getLegalMoves(4, 4, testBoard);
+            Set<Point> actualMoves = blackRook.getMoves(4, 4, testBoard);
             Assert.assertEquals(expectedSet, actualMoves);
 
         } catch(NotMeException nme){
@@ -300,6 +300,6 @@ public class RookTest{
         Board testBoard = new GridBoard();
     
         // Try to use a white rook to move the black rook at (0, 0).
-        whiteRook.getLegalMoves(0, 0, testBoard);
+        whiteRook.getMoves(0, 0, testBoard);
     }
 }

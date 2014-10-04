@@ -95,8 +95,8 @@ public class QueenTest{
         try{
             Board testBoard = new GridBoard();
             HashSet<Point> emptySet = new HashSet<Point>();
-            Set<Point> black03 = blackQueen.getLegalMoves(0, 3, testBoard);
-            Set<Point> white73 = whiteQueen.getLegalMoves(7, 3, testBoard);
+            Set<Point> black03 = blackQueen.getMoves(0, 3, testBoard);
+            Set<Point> white73 = whiteQueen.getMoves(7, 3, testBoard);
 
             Assert.assertEquals(black03, emptySet);
             Assert.assertEquals(white73, emptySet);
@@ -111,7 +111,7 @@ public class QueenTest{
     Rook and a Bishop.
     */
     @Test
-    public void testCommonLegalMovesBlack(){
+    public void testCommonMovesBlack(){
         try{
             BlankBoard testBoard = new BlankBoard();
             testBoard.addPiece(blackQueen, 4, 4);
@@ -119,17 +119,17 @@ public class QueenTest{
             BlankBoard dummyBoard = new BlankBoard();
             Rook blackRook = new Rook(false);
             dummyBoard.addPiece(blackRook, 4, 4);
-            Set<Point> rookMoves = blackRook.getLegalMoves(4, 4, dummyBoard);
+            Set<Point> rookMoves = blackRook.getMoves(4, 4, dummyBoard);
             dummyBoard.removePiece(4, 4);
             Bishop blackBishop = new Bishop(false);
             dummyBoard.addPiece(blackBishop, 4, 4);
-            Set<Point> bishopMoves = blackBishop.getLegalMoves(4, 4, dummyBoard);
+            Set<Point> bishopMoves = blackBishop.getMoves(4, 4, dummyBoard);
 
             HashSet<Point> queenExpectedMoves = new HashSet<Point>();
             queenExpectedMoves.addAll(rookMoves);
             queenExpectedMoves.addAll(bishopMoves);
 
-            Set<Point> queenMoves = blackQueen.getLegalMoves(4, 4, testBoard);
+            Set<Point> queenMoves = blackQueen.getMoves(4, 4, testBoard);
             Assert.assertEquals(queenExpectedMoves, queenMoves);
         } catch(NotMeException nme){
             Assert.fail("NotMeException thrown while testing common legal moves.");
@@ -138,7 +138,7 @@ public class QueenTest{
     }
 
     @Test
-    public void testCommonLegalMovesWhite(){
+    public void testCommonMovesWhite(){
         try{
             BlankBoard testBoard = new BlankBoard();
             testBoard.addPiece(whiteQueen, 4, 4);
@@ -146,17 +146,17 @@ public class QueenTest{
             BlankBoard dummyBoard = new BlankBoard();
             Rook whiteRook = new Rook(false);
             dummyBoard.addPiece(whiteRook, 4, 4);
-            Set<Point> rookMoves = whiteRook.getLegalMoves(4, 4, dummyBoard);
+            Set<Point> rookMoves = whiteRook.getMoves(4, 4, dummyBoard);
             dummyBoard.removePiece(4, 4);
             Bishop whiteBishop = new Bishop(false);
             dummyBoard.addPiece(whiteBishop, 4, 4);
-            Set<Point> bishopMoves = whiteBishop.getLegalMoves(4, 4, dummyBoard);
+            Set<Point> bishopMoves = whiteBishop.getMoves(4, 4, dummyBoard);
 
             HashSet<Point> queenExpectedMoves = new HashSet<Point>();
             queenExpectedMoves.addAll(rookMoves);
             queenExpectedMoves.addAll(bishopMoves);
 
-            Set<Point> queenMoves = whiteQueen.getLegalMoves(4, 4, testBoard);
+            Set<Point> queenMoves = whiteQueen.getMoves(4, 4, testBoard);
             Assert.assertEquals(queenExpectedMoves, queenMoves);
         } catch(NotMeException nme){
             Assert.fail("NotMeException thrown while testing common legal moves.");
@@ -170,6 +170,6 @@ public class QueenTest{
         Board testBoard = new GridBoard();
     
         // Try to use a white queen to move the black rook at (0, 0).
-        whiteQueen.getLegalMoves(0, 0, testBoard);
+        whiteQueen.getMoves(0, 0, testBoard);
     }
 }

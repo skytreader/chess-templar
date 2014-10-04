@@ -101,7 +101,7 @@ public class PawnTest{
             // Test unmoved white pawn at (6, 1)
             Point[] whiteUnmoves = {new Point(5, 1), new Point(4, 1)};
             HashSet<Point> whiteUnmovesSet = new HashSet<Point>(Arrays.asList(whiteUnmoves));
-            Set<Point> fromUnmovedWhite = whitePawn.getLegalMoves(6, 1, testBoard);
+            Set<Point> fromUnmovedWhite = whitePawn.getMoves(6, 1, testBoard);
             Assert.assertEquals(whiteUnmovesSet, fromUnmovedWhite);
         } catch(NotMeException nme){
             Assert.fail("NotMeException while testing legal moves for white unmoved.");
@@ -117,21 +117,21 @@ public class PawnTest{
             // Test unmoved black pawn at (1, 1)
             Point[] blackUnmoves = {new Point(2, 1), new Point(3, 1)};
             HashSet<Point> blackUnmovesSet = new HashSet<Point>(Arrays.asList(blackUnmoves));
-            Set<Point> fromUnmovedBlack = blackPawn.getLegalMoves(1, 1, testBoard);
+            Set<Point> fromUnmovedBlack = blackPawn.getMoves(1, 1, testBoard);
             Assert.assertEquals(blackUnmovesSet, fromUnmovedBlack);
         } catch(NotMeException nme){
         }
     }
     
     /**
-    Test that black pawn's capture moves are still covered by getLegalMoves.
+    Test that black pawn's capture moves are still covered by getMoves.
     */
     @Test
     public void testThreatenBlack(){
         try{
             Board testBoard = new GridBoard();
 
-            // Move pawns into threatening positions and see that getLegalMoves
+            // Move pawns into threatening positions and see that getMoves
             // includes the possibility of capture
             testBoard.move(1, 1, 3, 1);
             // Move white pawns into threatening positions
@@ -142,7 +142,7 @@ public class PawnTest{
             Point[] legalMoves = {new Point(4, 0), new Point(4, 1),
               new Point(4, 2)};
             HashSet<Point> legalSet = new HashSet<Point>(Arrays.asList(legalMoves));
-            Set<Point> fromPawn = blackPawn.getLegalMoves(3, 1, testBoard);
+            Set<Point> fromPawn = blackPawn.getMoves(3, 1, testBoard);
             Assert.assertEquals(legalSet, fromPawn);
         } catch(NotMeException nme){
             Assert.fail("NotMeException while testing legal moves for black captures.");
@@ -151,14 +151,14 @@ public class PawnTest{
     }
     
     /**
-    Test that white pawn's capture moves are still covered by getLegalMoves.
+    Test that white pawn's capture moves are still covered by getMoves.
     */
     @Test
     public void testThreatenWhite(){
         try{
             Board testBoard = new GridBoard();
 
-            // Move pawns into threatening positions and see that getLegalMoves
+            // Move pawns into threatening positions and see that getMoves
             // includes the possibility of capture
             testBoard.move(1, 1, 3, 1);
             // Move white pawns into threatening positions
@@ -166,15 +166,15 @@ public class PawnTest{
             testBoard.move(6, 2, 4, 2);
 
             // test the white pawn at 4, 0
-            Point[] whiteLegalMovesRight = {new Point(3, 0), new Point(3, 1)};
-            HashSet<Point> whiteLegalRight = new HashSet<Point>(Arrays.asList(whiteLegalMovesRight));
-            Set<Point> fromWhiteRight = whitePawn.getLegalMoves(4, 0, testBoard);
-            Assert.assertEquals(whiteLegalRight, fromWhiteRight);
+            Point[] whiteMovesRight = {new Point(3, 0), new Point(3, 1)};
+            HashSet<Point> whiteRight = new HashSet<Point>(Arrays.asList(whiteMovesRight));
+            Set<Point> fromWhiteRight = whitePawn.getMoves(4, 0, testBoard);
+            Assert.assertEquals(whiteRight, fromWhiteRight);
 
-            Point[] whiteLegalMovesLeft = {new Point(3, 2), new Point(3, 1)};
-            HashSet<Point> whiteLegalLeft = new HashSet<Point>(Arrays.asList(whiteLegalMovesLeft));
-            Set<Point> fromWhiteLeft = whitePawn.getLegalMoves(4, 2, testBoard);
-            Assert.assertEquals(whiteLegalLeft, fromWhiteLeft);
+            Point[] whiteMovesLeft = {new Point(3, 2), new Point(3, 1)};
+            HashSet<Point> whiteLeft = new HashSet<Point>(Arrays.asList(whiteMovesLeft));
+            Set<Point> fromWhiteLeft = whitePawn.getMoves(4, 2, testBoard);
+            Assert.assertEquals(whiteLeft, fromWhiteLeft);
         } catch(NotMeException nme){
             Assert.fail("NotMeException while testing legal moves for white captures.");
             nme.printStackTrace();
@@ -182,7 +182,7 @@ public class PawnTest{
     }
 
     @Test
-    public void testLegalMoves(){
+    public void testMoves(){
         try{
             Board testBoard = new GridBoard();
             
@@ -190,7 +190,7 @@ public class PawnTest{
             // Enumerate its legal moves.
             Point[] legalMoves = {new Point(2, 0), new Point(3, 0)};
             HashSet<Point> legalSet = new HashSet<Point>(Arrays.asList(legalMoves));
-            Set<Point> fromPawn = blackPawn.getLegalMoves(1, 0, testBoard);
+            Set<Point> fromPawn = blackPawn.getMoves(1, 0, testBoard);
             Assert.assertEquals(legalSet, fromPawn);
         } catch(NotMeException nme){
             Assert.fail("NotMeException thrown while testing legal moves.");
@@ -204,6 +204,6 @@ public class PawnTest{
         Board testBoard = new GridBoard();
     
         // Try to use a white pawn to move the rook at (0, 0).
-        whitePawn.getLegalMoves(0, 0, testBoard);
+        whitePawn.getMoves(0, 0, testBoard);
     }
 }
