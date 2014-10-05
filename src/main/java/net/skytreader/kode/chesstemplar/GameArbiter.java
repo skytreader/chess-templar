@@ -71,13 +71,17 @@ public class GameArbiter{
     /**
     Checks if the described move is possible and legal and enacts it on the Board
     if it is so. The move is described as (r1, c1) being the initial square and
-    (r2, c2) being the terminal square.
+    (r2, c2) being the terminal square. This method returns true if the move
+    described is possible and legal and has been enacted succesfully on the given
+    Board.
 
     @param b
     @param r1
     @param c1
     @param r2
     @param c2
+    @return true if the move described is possible and legal and has been enacted
+      successfully on the given Board.
     */
     public boolean requestMove(Board b, int r1, int c1, int r2, int c2){
         return false;
