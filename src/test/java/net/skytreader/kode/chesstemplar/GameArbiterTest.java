@@ -43,6 +43,12 @@ public class GameArbiterTest{
     }
 
     @Test
+    public void testKingsideCastleFilter(){
+        concreteBoard.removePiece(7, 5);
+        concreteBoard.removePiece(7, 6);
+    }
+
+    @Test
     public void testContrivedQueensideCastleScenarioWhite(){
         concreteBoard.removePiece(7, 3);
         concreteBoard.removePiece(7, 2);
@@ -82,8 +88,8 @@ public class GameArbiterTest{
         for(Point defenderLocation : validDefenders){
             ChessPiece defender = concreteBoard.getPieceAt(defenderLocation.x,
               defenderLocation.y);
-            Set<Point> defenderMoves = defender.getMoves(defenderLocation.x,
-              defenderLocation.y, concreteBoard);
+            Set<Point> defenderMoves = rigidArbiter.legalMovesFilter(defender,
+              defenderLocation.x, defenderLocation.y, concreteBoard);
 
             Assert.assertEquals(coverMove, defenderMoves);
         }
