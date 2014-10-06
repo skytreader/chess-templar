@@ -8,6 +8,7 @@ import java.util.Set;
 import net.skytreader.kode.chesstemplar.exceptions.NotMeException;
 
 import net.skytreader.kode.chesstemplar.pieces.ChessPiece;
+import net.skytreader.kode.chesstemplar.pieces.King;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -41,11 +42,23 @@ public class GameArbiterTest{
         concreteBoard.removePiece(7, 6);
         Assert.assertTrue(rigidArbiter.canWhiteKingCastle());
     }
-
+    
     @Test
-    public void testKingsideCastleFilter(){
+    public void testKingsideCastleFilter() throws NotMeException{
+        // TODO Specify, by means of this test case, the relationship between
+        // a piece's plain getMoves and GameArbiter's legalMovesFilter.
         concreteBoard.removePiece(7, 5);
         concreteBoard.removePiece(7, 6);
+
+        Set<Point> withCastleMoves = new HashSet<Point>();
+        withCastleMoves.add(new Point(7, 5));
+        withCastleMoves.add(new Point(7, 6));
+
+        King whiteKing = new King(true);
+        Set<Point> kingLegalMoves = rigidArbiter.legalMovesFilter(whiteKing,
+          7, 4, concreteBoard);
+
+        Assert.assertEquals(withCastleMoves, kingLegalMoves);
     }
 
     @Test
@@ -103,7 +116,8 @@ public class GameArbiterTest{
                 continue;
             }
             ChessPiece pawn = concreteBoard.getPieceAt(6, i);
-            Set<Point> pawnMoves = pawn.getMoves(6, i, concreteBoard);
+            Set<Point> pawnMoves = rigidArbiter.legalMovesFilter(pawn, 6, i,
+              concreteBoard);
 
             Assert.assertEquals(emptySet, pawnMoves);
         }
@@ -114,6 +128,8 @@ public class GameArbiterTest{
                 continue;
             }
             ChessPiece p = concreteBoard.getPieceAt(7, i);
+            Set<Point> pawnMoves = rigidArbiter.legalMovesFilter(p, 7, i,
+              concreteBoard);
             Set<Point> pieceMoves = p.getMoves(7, i, concreteBoard);
 
             Assert.assertEquals(emptySet, pieceMoves);
