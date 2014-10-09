@@ -75,6 +75,40 @@ public class GameArbiterTest{
 
         Assert.assertEquals(withCastleMoves, kingLegalMoves);
     }
+    
+    /**
+    Test that the right of castling is invalidated when the Kingside Rook moves.
+    */
+    @Test
+    public void testWhiteKingsideRookNoCastle(){
+        concreteBoard.removePiece(7, 5);
+        concreteBoard.removePiece(7, 6);
+        
+        // Move the white Kingside Rook
+        Assert.assertTrue(rigidArbiter.requestMove(concreteBoard, 7, 7, 7, 6));
+        // Move a black pawn
+        Assert.assertTrue(rigidArbiter.requestMove(concreteBoard, 1, 0, 2, 0));
+        // Move back the white Kingside Rook
+        Assert.assertTrue(rigidArbiter.requestMove(concreteBoard, 7, 6, 7, 7));
+        
+        Assert.assertFalse(rigidArbiter.canWhiteKingCastle());
+    }
+
+    /**
+    Test that the right of castling is invalidated when the King moves.
+    */
+    @Test
+    public void testWhiteKingNoCastle(){
+        concreteBoard.removePiece(7, 5);
+        concreteBoard.removePiece(7, 6);
+
+        // Move the white King NOT CASTLE MOVE!
+        Assert.assertTrue(rigidArbiter.requestMove(concreteBoard, 7, 4, 7, 5));
+        Assert.assertTrue(rigidArbiter.requestMove(concreteBoard, 1, 0, 2, 0));
+        Assert.assertTrue(rigidArbiter.requestMove(concreteBoard, 7, 5, 7, 4)); 
+
+        Assert.assertFalse(rigidArbiter.canWhiteKingCastle());
+    }
 
     @Test
     public void testContrivedQueensideCastleScenarioWhite(){
