@@ -13,6 +13,9 @@ import net.skytreader.kode.chesstemplar.pieces.ChessPiece;
 The GameArbiter imposes the rules of Chess. An arbiter is tied to a particular
 game. You can't make an Arbiter judge on multiple boards at a time!
 
+By design, the GameArbiter is the only class that can interact with a Board
+instance.
+
 @author Chad Estioco
 */
 public class GameArbiter{
@@ -74,6 +77,10 @@ public class GameArbiter{
     (r2, c2) being the terminal square. This method returns true if the move
     described is possible and legal and has been enacted succesfully on the given
     Board.
+
+    The legality of the move takes into consideration whose turn is it to move.
+    That is, you can't call requestMove two consecutive times on an r1, c1 tile
+    holding a piece with the same color.
 
     @param b
     @param r1
