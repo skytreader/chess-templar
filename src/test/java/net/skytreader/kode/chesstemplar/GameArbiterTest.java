@@ -199,4 +199,24 @@ public class GameArbiterTest{
         Assert.assertTrue(rigidArbiter.requestMove(concreteBoard, 1, 4, 2, 4));
         Assert.assertFalse(rigidArbiter.requestMove(concreteBoard, 2, 4, 3, 4));
     }
+
+    @Test
+    public void testWhiteKingsideCastleRequest(){
+        // TODO
+    }
+
+    @Test
+    public void testWhiteQueensideCastleRequest(){
+        // TODO
+    }
+
+    @Test
+    public void testBlackKingsideCastleRequest(){
+        // TODO
+    }
+
+    @Test
+    public void testBlackQueensideCastleRequest(){
+        // TODO
+    }
 }

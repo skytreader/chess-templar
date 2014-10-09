@@ -82,6 +82,9 @@ public class GameArbiter{
     That is, you can't call requestMove two consecutive times on an r1, c1 tile
     holding a piece with the same color.
 
+    To describe a castle move, move the King to it's terminal position once the
+    move is castle is done.
+
     @param b
     @param r1
     @param c1
