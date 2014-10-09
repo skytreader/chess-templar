@@ -45,16 +45,31 @@ public class GameArbiterTest{
     
     @Test
     public void testKingsideCastleFilter() throws NotMeException{
-        // TODO Specify, by means of this test case, the relationship between
-        // a piece's plain getMoves and GameArbiter's legalMovesFilter.
         concreteBoard.removePiece(7, 5);
         concreteBoard.removePiece(7, 6);
 
-        Set<Point> withCastleMoves = new HashSet<Point>();
-        withCastleMoves.add(new Point(7, 5));
+        King whiteKing = new King(true);
+        Set<Point> withCastleMoves = whiteKing.getMoves(7, 4, concreteBoard);
+        // extra move for castle
         withCastleMoves.add(new Point(7, 6));
 
+        Set<Point> kingLegalMoves = rigidArbiter.legalMovesFilter(whiteKing,
+          7, 4, concreteBoard);
+
+        Assert.assertEquals(withCastleMoves, kingLegalMoves);
+    }
+
+    @Test
+    public void testQueensideCastleFilter() throws NotMeException{
+        concreteBoard.removePiece(7, 1);
+        concreteBoard.removePiece(7, 2);
+        concreteBoard.removePiece(7, 3);
+
         King whiteKing = new King(true);
+        Set<Point> withCastleMoves = whiteKing.getMoves(7, 4, concreteBoard);
+        // extra move for castle
+        withCastleMoves.add(new Point(7, 2));
+
         Set<Point> kingLegalMoves = rigidArbiter.legalMovesFilter(whiteKing,
           7, 4, concreteBoard);
 
