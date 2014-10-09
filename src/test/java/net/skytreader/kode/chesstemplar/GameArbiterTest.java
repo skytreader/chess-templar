@@ -184,4 +184,19 @@ public class GameArbiterTest{
             Assert.assertEquals(emptySet, pieceMoves);
         }
     }
+
+    @Test
+    public void testNoConsecutiveWhite(){
+        Assert.assertTrue(rigidArbiter.requestMove(concreteBoard, 6, 4, 5, 4));
+        // TODO test that a true move actually happened on the board
+        Assert.assertFalse(rigidArbiter.requestMove(concreteBoard, 5, 4, 4, 4));
+    }
+
+    @Test
+    public void testNoConsecutiveBlack(){
+        // just move a white piece first
+        Assert.assertTrue(rigidArbiter.requestMove(concreteBoard, 6, 4, 5, 4));
+        Assert.assertTrue(rigidArbiter.requestMove(concreteBoard, 1, 4, 2, 4));
+        Assert.assertFalse(rigidArbiter.requestMove(concreteBoard, 2, 4, 3, 4));
+    }
 }
