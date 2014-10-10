@@ -210,7 +210,10 @@ public class GameArbiterTest{
 
     @Test
     public void testWhiteKingsideCastleRequest(){
-        // TODO
+        concreteBoard.removePiece(7, 5);
+        concreteBoard.removePiece(7, 6);
+        Assert.assertTrue(rigidArbiter.requestMove(concreteBoard, 7, 4, 7, 6));
+        // TODO Check that it actually happened
     }
 
     @Test
