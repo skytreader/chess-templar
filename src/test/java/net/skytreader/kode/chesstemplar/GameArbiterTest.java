@@ -186,9 +186,17 @@ public class GameArbiterTest{
     }
 
     @Test
+    public void testActualMove(){
+        Assert.assertTrue(concreteBoard.getPieceAt(5, 4) == null);
+        ChessPiece forMoving = concreteBoard.getPieceAt(6, 4);
+        Assert.assertTrue(rigidArbiter.requestMove(concreteBoard, 6, 4, 5, 4));
+        Assert.assertTrue(concreteBoard.getPieceAt(6, 4) == null);
+        Assert.assertTrue(concreteBoard.getPieceAt(5, 4).equals(forMoving));
+    }
+
+    @Test
     public void testNoConsecutiveWhite(){
         Assert.assertTrue(rigidArbiter.requestMove(concreteBoard, 6, 4, 5, 4));
-        // TODO test that a true move actually happened on the board
         Assert.assertFalse(rigidArbiter.requestMove(concreteBoard, 5, 4, 4, 4));
     }
 
