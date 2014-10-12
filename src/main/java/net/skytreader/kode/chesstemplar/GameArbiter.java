@@ -99,6 +99,9 @@ public class GameArbiter{
         // The move has been done if, after this call, (r2, c2) contains the piece
         // previously at (r1, c1).
         ChessPiece cp1 = b.getPieceAt(r1, c1);
+        if(cp1 == null){
+            return false;
+        }
         b.move(r1, c1, r2, c2);
         ChessPiece cp2 = b.getPieceAt(r2, c2);
         ChessPiece shouldBeNull = b.getPieceAt(r1, c1);

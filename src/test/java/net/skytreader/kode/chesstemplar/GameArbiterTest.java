@@ -214,7 +214,7 @@ public class GameArbiterTest{
     @Test
     public void testBlankSquareMove(){
         Assert.assertFalse(rigidArbiter.requestMove(concreteBoard, 4, 4, 5, 4));
-        // TODO test that it's fine to request moves _to_ a blank square.
+        Assert.assertTrue(rigidArbiter.requestMove(concreteBoard, 6, 4, 5, 4));
     }
 
     @Test
