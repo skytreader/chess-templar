@@ -7,6 +7,9 @@ import java.util.Set;
 
 import net.skytreader.kode.chesstemplar.exceptions.NotMeException;
 
+import net.skytreader.kode.chesstemplar.pieces.King;
+import net.skytreader.kode.chesstemplar.pieces.Rook;
+
 import net.skytreader.kode.chesstemplar.pieces.ChessPiece;
 
 /**
@@ -27,6 +30,12 @@ public class GameArbiter{
     private boolean blackKingMoved;
     private boolean blackKingsideRookMoved;
     private boolean blackQueensideRookMoved;
+
+    // Use these for comparisons
+    private final King WHITE_KING = new King(true);
+    private final King BLACK_KING = new King(false);
+    private final Rook WHITE_ROOK = new Rook(true);
+    private final Rook BLACK_ROOK = new Rook(false);
 
     public GameArbiter(Board b){
         board = b;
@@ -101,6 +110,10 @@ public class GameArbiter{
         ChessPiece cp1 = b.getPieceAt(r1, c1);
         if(cp1 == null){
             return false;
+        } else if(cp1.equals(WHITE_KING)){
+            whiteKingMoved = true;
+        } else if(cp1.equals(BLACK_KING)){
+            blackKingMoved = true;
         }
         b.move(r1, c1, r2, c2);
         ChessPiece cp2 = b.getPieceAt(r2, c2);
