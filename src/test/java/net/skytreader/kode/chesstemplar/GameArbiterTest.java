@@ -207,6 +207,15 @@ public class GameArbiterTest{
         Assert.assertTrue(rigidArbiter.requestMove(concreteBoard, 1, 4, 2, 4));
         Assert.assertFalse(rigidArbiter.requestMove(concreteBoard, 2, 4, 3, 4));
     }
+    
+    /**
+    Moves requested from a blank square should return false.
+    */
+    @Test
+    public void testBlankSquareMove(){
+        Assert.assertFalse(rigidArbiter.requestMove(concreteBoard, 4, 4, 5, 4));
+        // TODO test that it's fine to request moves _to_ a blank square.
+    }
 
     @Test
     public void testWhiteKingsideCastleRequest(){
