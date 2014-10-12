@@ -94,6 +94,17 @@ public class GameArbiter{
       successfully on the given Board.
     */
     public boolean requestMove(Board b, int r1, int c1, int r2, int c2){
-        return false;
+        boolean isMoveDone = false;
+
+        // The move has been done if, after this call, (r2, c2) contains the piece
+        // previously at (r1, c1).
+        ChessPiece cp1 = b.getPieceAt(r1, c1);
+        b.move(r1, c1, r2, c2);
+        ChessPiece cp2 = b.getPieceAt(r2, c2);
+        ChessPiece shouldBeNull = b.getPieceAt(r1, c1);
+
+        isMoveDone = cp1.equals(cp2) && shouldBeNull == null;
+
+        return isMoveDone;
     }
 }
