@@ -48,11 +48,14 @@ public class GameArbiter{
     }
 
     public boolean canWhiteKingCastle(){
-        return false;
+        // FIXME Of course this is not yet all!
+        return (!whiteKingMoved && !whiteKingsideRookMoved) ||
+          (!whiteKingMoved && !whiteQueensideRookMoved);
     }
 
     public boolean canBlackKingCastle(){
-        return false;
+        return (!blackKingMoved && !blackKingsideRookMoved) ||
+          (!blackKingMoved && !blackQueensideRookMoved);
     }
 
     public boolean isWhiteKingChecked(){
@@ -108,13 +111,24 @@ public class GameArbiter{
         // The move has been done if, after this call, (r2, c2) contains the piece
         // previously at (r1, c1).
         ChessPiece cp1 = b.getPieceAt(r1, c1);
+
+        // Piece checks
         if(cp1 == null){
             return false;
         } else if(cp1.equals(WHITE_KING)){
             whiteKingMoved = true;
         } else if(cp1.equals(BLACK_KING)){
             blackKingMoved = true;
+        } else if(cp1.equals(WHITE_ROOK) && r1 == 7 && c1 == 7){
+            whiteKingsideRookMoved = true;
+        } else if(cp1.equals(WHITE_ROOK) && r1 == 7 && c1 == 0){
+            whiteQueensideRookMoved = true;
+        } else if(cp1.equals(BLACK_ROOK) && r1 == 0 && c1 == 7){
+            blackKingsideRookMoved = true;
+        } else if(cp1.equals(BLACK_ROOK) && r1 == 0 && c1 == 0){
+            blackQueensideRookMoved = true;
         }
+
         b.move(r1, c1, r2, c2);
         ChessPiece cp2 = b.getPieceAt(r2, c2);
         ChessPiece shouldBeNull = b.getPieceAt(r1, c1);
