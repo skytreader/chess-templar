@@ -50,12 +50,43 @@ public class GameArbiter{
         lastMoveWhite = false;
     }
 
+    /**
+    In the current state of the board right now, can white king perform a castle
+    move on its next turn?
+
+    @return The answer to the question above.
+    */
     public boolean canWhiteKingCastle(){
+        boolean kingSideClear = true;
+        boolean queenSideClear = true;
+
+        // Check if the king side is clear
+        for(int i = 5; i < 7; i++){
+            if(board.getPieceAt(7, i) != null){
+                kingSideClear = false;
+                break;
+            }
+        }
+
+        // Check if the queen side is clear
+        for(int i = 1; i < 5; i++){
+            if(board.getPieceAt(7, i) != null){
+                queenSideClear = false;
+                break;
+            }
+        }
+
         // FIXME Of course this is not yet all!
-        return (!whiteKingMoved && !whiteKingsideRookMoved) ||
-          (!whiteKingMoved && !whiteQueensideRookMoved);
+        return (!whiteKingMoved && !whiteKingsideRookMoved && kingSideClear) ||
+          (!whiteKingMoved && !whiteQueensideRookMoved && queenSideClear);
     }
 
+    /**
+    In the current state of the board right now, can black king perform a castle
+    move on its next turn?
+
+    @return The answer to the question above.
+    */
     public boolean canBlackKingCastle(){
         return (!blackKingMoved && !blackKingsideRookMoved) ||
           (!blackKingMoved && !blackQueensideRookMoved);
@@ -108,17 +139,13 @@ public class GameArbiter{
     @return true if the move described is possible and legal and has been enacted
       successfully on the given Board.
     */
+    // FIXME Don't take in a board parameter anymore! Get the board assigned to you!
     public boolean requestMove(Board b, int r1, int c1, int r2, int c2){
         boolean isMoveDone = false;
 
         // The move has been done if, after this call, (r2, c2) contains the piece
         // previously at (r1, c1).
         ChessPiece cp1 = b.getPieceAt(r1, c1);
-
-        if((cp1.isWhite() && lastMoveWhite) || (!cp1.isWhite() &&
-          !lastMoveWhite)){
-            return false;
-        }
 
         // Piece checks
         if(cp1 == null){
@@ -135,6 +162,12 @@ public class GameArbiter{
             blackKingsideRookMoved = true;
         } else if(cp1.equals(BLACK_ROOK) && r1 == 0 && c1 == 0){
             blackQueensideRookMoved = true;
+        }
+
+
+        if((cp1.isWhite() && lastMoveWhite) || (!cp1.isWhite() &&
+          !lastMoveWhite)){
+            return false;
         }
 
         b.move(r1, c1, r2, c2);
