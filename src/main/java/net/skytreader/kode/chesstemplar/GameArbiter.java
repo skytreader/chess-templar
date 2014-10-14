@@ -31,6 +31,8 @@ public class GameArbiter{
     private boolean blackKingsideRookMoved;
     private boolean blackQueensideRookMoved;
 
+    private boolean lastMoveWhite;
+
     // Use these for comparisons
     private final King WHITE_KING = new King(true);
     private final King BLACK_KING = new King(false);
@@ -45,6 +47,7 @@ public class GameArbiter{
         blackKingMoved = false;
         blackKingsideRookMoved = false;
         blackQueensideRookMoved = false;
+        lastMoveWhite = false;
     }
 
     public boolean canWhiteKingCastle(){
@@ -112,6 +115,11 @@ public class GameArbiter{
         // previously at (r1, c1).
         ChessPiece cp1 = b.getPieceAt(r1, c1);
 
+        if((cp1.isWhite() && lastMoveWhite) || (!cp1.isWhite() &&
+          !lastMoveWhite)){
+            return false;
+        }
+
         // Piece checks
         if(cp1 == null){
             return false;
@@ -134,6 +142,8 @@ public class GameArbiter{
         ChessPiece shouldBeNull = b.getPieceAt(r1, c1);
 
         isMoveDone = cp1.equals(cp2) && shouldBeNull == null;
+
+        lastMoveWhite = isMoveDone && cp1.isWhite();
 
         return isMoveDone;
     }
