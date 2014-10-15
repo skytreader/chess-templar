@@ -163,7 +163,7 @@ public class GameArbiter{
             blackQueensideRookMoved = true;
         }
 
-
+        // Check that consecutive moves from a given side does not happen.
         if((cp1.isWhite() && lastMoveWhite) || (!cp1.isWhite() &&
           !lastMoveWhite)){
             return false;

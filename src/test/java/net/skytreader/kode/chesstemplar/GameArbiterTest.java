@@ -9,6 +9,7 @@ import net.skytreader.kode.chesstemplar.exceptions.NotMeException;
 
 import net.skytreader.kode.chesstemplar.pieces.ChessPiece;
 import net.skytreader.kode.chesstemplar.pieces.King;
+import net.skytreader.kode.chesstemplar.pieces.Rook;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -185,6 +186,10 @@ public class GameArbiterTest{
         }
     }
 
+    /**
+    Test that on request of move, the square (r1, c1) is indeed vacated and that
+    the piece is now in the square (r2, c2).
+    */
     @Test
     public void testActualMove(){
         Assert.assertTrue(concreteBoard.getPieceAt(5, 4) == null);
@@ -222,7 +227,12 @@ public class GameArbiterTest{
         concreteBoard.removePiece(7, 5);
         concreteBoard.removePiece(7, 6);
         Assert.assertTrue(rigidArbiter.requestMove(7, 4, 7, 6));
-        // TODO Check that it actually happened
+
+        King whiteKing = new King(true);
+        Rook whiteRook = new Rook(true);
+
+        Assert.assertEquals(concreteBoard.getPieceAt(7, 6), whiteKing);
+        Assert.assertEquals(concreteBoard.getPieceAt(7, 5), whiteRook);
     }
 
     @Test
