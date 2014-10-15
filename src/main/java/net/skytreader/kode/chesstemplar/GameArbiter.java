@@ -131,7 +131,6 @@ public class GameArbiter{
     To describe a castle move, move the King to it's terminal position once the
     move is castle is done.
 
-    @param b
     @param r1
     @param c1
     @param r2
@@ -140,12 +139,12 @@ public class GameArbiter{
       successfully on the given Board.
     */
     // FIXME Don't take in a board parameter anymore! Get the board assigned to you!
-    public boolean requestMove(Board b, int r1, int c1, int r2, int c2){
+    public boolean requestMove(int r1, int c1, int r2, int c2){
         boolean isMoveDone = false;
 
         // The move has been done if, after this call, (r2, c2) contains the piece
         // previously at (r1, c1).
-        ChessPiece cp1 = b.getPieceAt(r1, c1);
+        ChessPiece cp1 = board.getPieceAt(r1, c1);
 
         // Piece checks
         if(cp1 == null){
@@ -170,9 +169,9 @@ public class GameArbiter{
             return false;
         }
 
-        b.move(r1, c1, r2, c2);
-        ChessPiece cp2 = b.getPieceAt(r2, c2);
-        ChessPiece shouldBeNull = b.getPieceAt(r1, c1);
+        board.move(r1, c1, r2, c2);
+        ChessPiece cp2 = board.getPieceAt(r2, c2);
+        ChessPiece shouldBeNull = board.getPieceAt(r1, c1);
 
         isMoveDone = cp1.equals(cp2) && shouldBeNull == null;
 

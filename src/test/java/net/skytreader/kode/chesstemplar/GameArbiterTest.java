@@ -85,11 +85,11 @@ public class GameArbiterTest{
         concreteBoard.removePiece(7, 6);
         
         // Move the white Kingside Rook
-        Assert.assertTrue(rigidArbiter.requestMove(concreteBoard, 7, 7, 7, 6));
+        Assert.assertTrue(rigidArbiter.requestMove(7, 7, 7, 6));
         // Move a black pawn
-        Assert.assertTrue(rigidArbiter.requestMove(concreteBoard, 1, 0, 2, 0));
+        Assert.assertTrue(rigidArbiter.requestMove(1, 0, 2, 0));
         // Move back the white Kingside Rook
-        Assert.assertTrue(rigidArbiter.requestMove(concreteBoard, 7, 6, 7, 7));
+        Assert.assertTrue(rigidArbiter.requestMove(7, 6, 7, 7));
         
         Assert.assertFalse(rigidArbiter.canWhiteKingCastle());
     }
@@ -103,9 +103,9 @@ public class GameArbiterTest{
         concreteBoard.removePiece(7, 6);
 
         // Move the white King NOT CASTLE MOVE!
-        Assert.assertTrue(rigidArbiter.requestMove(concreteBoard, 7, 4, 7, 5));
-        Assert.assertTrue(rigidArbiter.requestMove(concreteBoard, 1, 0, 2, 0));
-        Assert.assertTrue(rigidArbiter.requestMove(concreteBoard, 7, 5, 7, 4)); 
+        Assert.assertTrue(rigidArbiter.requestMove(7, 4, 7, 5));
+        Assert.assertTrue(rigidArbiter.requestMove(1, 0, 2, 0));
+        Assert.assertTrue(rigidArbiter.requestMove(7, 5, 7, 4)); 
 
         Assert.assertFalse(rigidArbiter.canWhiteKingCastle());
     }
@@ -189,23 +189,23 @@ public class GameArbiterTest{
     public void testActualMove(){
         Assert.assertTrue(concreteBoard.getPieceAt(5, 4) == null);
         ChessPiece forMoving = concreteBoard.getPieceAt(6, 4);
-        Assert.assertTrue(rigidArbiter.requestMove(concreteBoard, 6, 4, 5, 4));
+        Assert.assertTrue(rigidArbiter.requestMove(6, 4, 5, 4));
         Assert.assertTrue(concreteBoard.getPieceAt(6, 4) == null);
         Assert.assertTrue(concreteBoard.getPieceAt(5, 4).equals(forMoving));
     }
 
     @Test
     public void testNoConsecutiveWhite(){
-        Assert.assertTrue(rigidArbiter.requestMove(concreteBoard, 6, 4, 5, 4));
-        Assert.assertFalse(rigidArbiter.requestMove(concreteBoard, 5, 4, 4, 4));
+        Assert.assertTrue(rigidArbiter.requestMove(6, 4, 5, 4));
+        Assert.assertFalse(rigidArbiter.requestMove(5, 4, 4, 4));
     }
 
     @Test
     public void testNoConsecutiveBlack(){
         // just move a white piece first
-        Assert.assertTrue(rigidArbiter.requestMove(concreteBoard, 6, 4, 5, 4));
-        Assert.assertTrue(rigidArbiter.requestMove(concreteBoard, 1, 4, 2, 4));
-        Assert.assertFalse(rigidArbiter.requestMove(concreteBoard, 2, 4, 3, 4));
+        Assert.assertTrue(rigidArbiter.requestMove(6, 4, 5, 4));
+        Assert.assertTrue(rigidArbiter.requestMove(1, 4, 2, 4));
+        Assert.assertFalse(rigidArbiter.requestMove(2, 4, 3, 4));
     }
     
     /**
@@ -213,15 +213,15 @@ public class GameArbiterTest{
     */
     @Test
     public void testBlankSquareMove(){
-        Assert.assertFalse(rigidArbiter.requestMove(concreteBoard, 4, 4, 5, 4));
-        Assert.assertTrue(rigidArbiter.requestMove(concreteBoard, 6, 4, 5, 4));
+        Assert.assertFalse(rigidArbiter.requestMove(4, 4, 5, 4));
+        Assert.assertTrue(rigidArbiter.requestMove(6, 4, 5, 4));
     }
 
     @Test
     public void testWhiteKingsideCastleRequest(){
         concreteBoard.removePiece(7, 5);
         concreteBoard.removePiece(7, 6);
-        Assert.assertTrue(rigidArbiter.requestMove(concreteBoard, 7, 4, 7, 6));
+        Assert.assertTrue(rigidArbiter.requestMove(7, 4, 7, 6));
         // TODO Check that it actually happened
     }
 
