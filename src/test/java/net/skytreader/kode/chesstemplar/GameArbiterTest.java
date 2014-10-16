@@ -48,6 +48,16 @@ public class GameArbiterTest{
         rigidArbiter.requestMove(1, 0, 3, 0);
         Assert.assertTrue(Arrays.equals(expected2, rigidArbiter.getLastMove()));
     }
+    
+    /**
+    Test that invalid requests should not be counted as "last move".
+    */
+    @Test
+    public void testInvalidLastMoves(){
+        // Move black first
+        Assert.assertFalse(rigidArbiter.requestMove(1, 0, 3, 0));
+        Assert.assertTrue(Arrays.equals(new Point[2], rigidArbiter.getLastMove()));
+    }
 
     /**
     Test conditions of the initial state of the game.
