@@ -37,19 +37,6 @@ public interface Board{
     public void move(int r1, int c1, int r2, int c2);
 
     /**
-    Return an array with two Point elements showing the last movement made on
-    this board. The first element is the source while the second element is the
-    destination.
-
-    The last move method performed on this board corresponds to the return value
-    of this method in the following manner:
-        
-        move(r1, c1, r2, c2) ->
-        {new Point(r1, c1), new Point(r2, c2)}
-    */
-    public Point[] getLastMove();
-
-    /**
     Remove a piece from the board. Use this for captures. If there is no piece
     at the indicated location, then nothing happens.
     */

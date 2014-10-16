@@ -185,12 +185,6 @@ public class GridBoard implements Board{
     }
 
     @Override
-    public Point[] getLastMove(){
-        Point[] retval = {lastSrc, lastDest};
-        return retval;
-    }
-
-    @Override
     public void removePiece(int r, int c){
         board[r][c] = -1;
     }

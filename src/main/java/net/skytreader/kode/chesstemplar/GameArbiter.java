@@ -50,6 +50,10 @@ public class GameArbiter{
         lastMoveWhite = false;
     }
 
+    public Point[] getLastMove(){
+        return null;
+    }
+
     /**
     In the current state of the board right now, can white king perform a castle
     move on its next turn?
