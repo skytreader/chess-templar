@@ -49,6 +49,9 @@ public class GameArbiterTest{
         Assert.assertTrue(Arrays.equals(expected2, rigidArbiter.getLastMove()));
     }
 
+    /**
+    Test conditions of the initial state of the game.
+    */
     @Test
     public void testConcreteInitialState(){
         Assert.assertFalse(rigidArbiter.isEndgame());

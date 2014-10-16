@@ -153,7 +153,6 @@ public class GameArbiter{
     @return true if the move described is possible and legal and has been enacted
       successfully on the given Board.
     */
-    // FIXME Don't take in a board parameter anymore! Get the board assigned to you!
     public boolean requestMove(int r1, int c1, int r2, int c2){
         boolean isMoveDone = false;
 
