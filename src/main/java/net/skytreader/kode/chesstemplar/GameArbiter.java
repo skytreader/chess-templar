@@ -33,6 +33,8 @@ public class GameArbiter{
 
     private boolean lastMoveWhite;
 
+    private Point[] lastMove;
+
     // Use these for comparisons
     private final King WHITE_KING = new King(true);
     private final King BLACK_KING = new King(false);
@@ -48,15 +50,16 @@ public class GameArbiter{
         blackKingsideRookMoved = false;
         blackQueensideRookMoved = false;
         lastMoveWhite = false;
+        lastMove = new Point[2];
     }
 
     public Point[] getLastMove(){
-        return null;
+        return lastMove;
     }
 
     /**
     In the current state of the board right now, can white king perform a castle
-    move on its next turn?
+    move assuming it is white's turn?
 
     @return The answer to the question above.
     */
@@ -87,7 +90,7 @@ public class GameArbiter{
 
     /**
     In the current state of the board right now, can black king perform a castle
-    move on its next turn?
+    move assuming it is black's turn?
 
     @return The answer to the question above.
     */
