@@ -53,6 +53,14 @@ public class GameArbiter{
         lastMove = new Point[2];
     }
 
+    /**
+    Get the last move allowed by this arbiter (i.e., the last move passed to
+    requestMove for which requestMove returned true). A Point array with two
+    elements is returned. The first element describes the initial square in the
+    last legal move with the second element descrives the terminal square in the
+    last legal move. If no moves have been performed on the board so far (i.e.,
+    initial game configuration), the elements of the array are both null.
+    */
     public Point[] getLastMove(){
         return lastMove;
     }
@@ -184,6 +192,8 @@ public class GameArbiter{
 
         lastMoveWhite = isMoveDone && cp1.isWhite();
 
+        lastMove[0] = new Point(r1, c1);
+        lastMove[1] = new Point(r2, c2);
         return isMoveDone;
     }
 }

@@ -37,7 +37,10 @@ public class GameArbiterTest{
         Point from1 = new Point(1, 0);
         Point to1 = new Point(3, 0);
         Point[] expected1 = {from1, to1};
-        rigidArbiter.requestMove(1, 0, 3, 0);
+        Assert.assertTrue(rigidArbiter.requestMove(1, 0, 3, 0));
+        System.out.println("TEST GETLASTMOVE");
+        System.out.println(Arrays.toString(expected1));
+        System.out.println(Arrays.toString(rigidArbiter.getLastMove()));
         Assert.assertTrue(Arrays.equals(expected1, rigidArbiter.getLastMove()));
 
         Point from2 = new Point(6, 0);
@@ -52,6 +55,11 @@ public class GameArbiterTest{
         Assert.assertFalse(rigidArbiter.isEndgame());
         Assert.assertFalse(rigidArbiter.canWhiteKingCastle());
         Assert.assertFalse(rigidArbiter.canBlackKingCastle());
+
+        // Test that, on its initial state, only the white side has legal moves
+        // Moving a black pawn should not be allowed
+        Assert.assertFalse(rigidArbiter.requestMove(1, 0, 3, 0));
+        Assert.assertTrue(rigidArbiter.requestMove(6, 0, 4, 0));
     }
 
     @Test
