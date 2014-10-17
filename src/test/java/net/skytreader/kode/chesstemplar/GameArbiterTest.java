@@ -97,7 +97,7 @@ public class GameArbiterTest{
         withCastleMoves.add(new Point(7, 6));
 
         Set<Point> kingLegalMoves = rigidArbiter.legalMovesFilter(whiteKing,
-          7, 4, concreteBoard);
+          7, 4);
 
         Assert.assertEquals(withCastleMoves, kingLegalMoves);
     }
@@ -114,7 +114,7 @@ public class GameArbiterTest{
         withCastleMoves.add(new Point(7, 2));
 
         Set<Point> kingLegalMoves = rigidArbiter.legalMovesFilter(whiteKing,
-          7, 4, concreteBoard);
+          7, 4);
 
         Assert.assertEquals(withCastleMoves, kingLegalMoves);
     }
@@ -214,7 +214,7 @@ public class GameArbiterTest{
             ChessPiece defender = concreteBoard.getPieceAt(defenderLocation.x,
               defenderLocation.y);
             Set<Point> defenderMoves = rigidArbiter.legalMovesFilter(defender,
-              defenderLocation.x, defenderLocation.y, concreteBoard);
+              defenderLocation.x, defenderLocation.y);
 
             Assert.assertEquals(coverMove, defenderMoves);
         }
@@ -228,8 +228,7 @@ public class GameArbiterTest{
                 continue;
             }
             ChessPiece pawn = concreteBoard.getPieceAt(6, i);
-            Set<Point> pawnMoves = rigidArbiter.legalMovesFilter(pawn, 6, i,
-              concreteBoard);
+            Set<Point> pawnMoves = rigidArbiter.legalMovesFilter(pawn, 6, i);
 
             Assert.assertEquals(emptySet, pawnMoves);
         }
@@ -240,8 +239,7 @@ public class GameArbiterTest{
                 continue;
             }
             ChessPiece p = concreteBoard.getPieceAt(7, i);
-            Set<Point> pawnMoves = rigidArbiter.legalMovesFilter(p, 7, i,
-              concreteBoard);
+            Set<Point> pawnMoves = rigidArbiter.legalMovesFilter(p, 7, i);
             Set<Point> pieceMoves = p.getMoves(7, i, concreteBoard);
 
             Assert.assertEquals(emptySet, pieceMoves);

@@ -125,9 +125,11 @@ public class GameArbiter{
 
     Among the edits involved are removing moves that will expose the King to
     a check and, in the case of the King, add the possibility of castles.
+
+    TODO I think this should be made protected?
     */
-    public Set<Point> legalMovesFilter(ChessPiece cp, int r, int c, Board b) throws NotMeException{
-        Set<Point> pieceMoves = cp.getMoves(r, c, b);
+    public Set<Point> legalMovesFilter(ChessPiece cp, int r, int c) throws NotMeException{
+        Set<Point> pieceMoves = cp.getMoves(r, c, board);
 
         return pieceMoves;
     }
@@ -185,7 +187,7 @@ public class GameArbiter{
 
         try{
             // Check that the destination is a legal move
-            Set<Point> legalMoves = legalMovesFilter(cp1, r1, c1, board);
+            Set<Point> legalMoves = legalMovesFilter(cp1, r1, c1);
             if(legalMoves.contains(new Point(r2, c2))){
                 // FIXME Why all the validations here?
                 board.move(r1, c1, r2, c2);
