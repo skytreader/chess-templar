@@ -72,6 +72,10 @@ public class GameArbiterTest{
         // Moving a black pawn should not be allowed
         Assert.assertFalse(rigidArbiter.requestMove(1, 0, 3, 0));
         Assert.assertTrue(rigidArbiter.requestMove(6, 0, 4, 0));
+
+        // Kings are not yet checked
+        Assert.assertFalse(rigidArbiter.isWhiteKingChecked());
+        Assert.assertFalse(rigidArbiter.isBlackKingChecked());
     }
 
     @Test
@@ -154,6 +158,26 @@ public class GameArbiterTest{
         concreteBoard.removePiece(7, 2);
         concreteBoard.removePiece(7, 1);
         Assert.assertTrue(rigidArbiter.canWhiteKingCastle());
+    }
+
+    @Test
+    public void testWhiteKingChecked(){
+        // Expose both Kings.
+        concreteBoard.removePiece(6, 4);
+        concreteBoard.removePiece(1, 4);
+        // Move black Queen to (1, 4) checking white King.
+        concreteBoard.move(0, 3, 1, 4);
+        Assert.assertTrue(rigidArbiter.isWhiteKingChecked());
+    }
+
+    @Test
+    public void testBlackKingChecked(){
+        // Expose both Kings.
+        concreteBoard.removePiece(6, 4);
+        concreteBoard.removePiece(1, 4);
+        // Move white Queen to (6, 4) checking the black King
+        concreteBoard.move(7, 3, 6, 4);
+        Assert.assertTrue(rigidArbiter.isBlackKingChecked());
     }
 
     /**
