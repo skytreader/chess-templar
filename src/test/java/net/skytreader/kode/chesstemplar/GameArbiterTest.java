@@ -50,12 +50,22 @@ public class GameArbiterTest{
     }
     
     /**
-    Test that invalid requests should not be counted as "last move".
+    Test that invalid requests should not be counted as "last move". This tests
+    the invalid scenario where black moves first.
     */
     @Test
-    public void testInvalidLastMoves(){
+    public void testInvalidLastMovesBlackFirst(){
         // Move black first
         Assert.assertFalse(rigidArbiter.requestMove(1, 0, 3, 0));
+        Assert.assertTrue(Arrays.equals(new Point[2], rigidArbiter.getLastMove()));
+    }
+    
+    /**
+    Test that invalid requests should not be counted as "last move". This tests
+    the invalid scenario where a move is requested from a blank square.
+    */
+    public void testInvalidLastMovesBlankSquare(){
+        Assert.assertFalse(rigidArbiter.requestMove(4, 4, 4, 5));
         Assert.assertTrue(Arrays.equals(new Point[2], rigidArbiter.getLastMove()));
     }
 
