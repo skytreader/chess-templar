@@ -59,15 +59,6 @@ public class GameArbiterTest{
         Assert.assertFalse(rigidArbiter.requestMove(1, 0, 3, 0));
         Assert.assertTrue(Arrays.equals(new Point[2], rigidArbiter.getLastMove()));
     }
-    
-    /**
-    Test that invalid requests should not be counted as "last move". This tests
-    the invalid scenario where a move is requested from a blank square.
-    */
-    public void testInvalidLastMovesBlankSquare(){
-        Assert.assertFalse(rigidArbiter.requestMove(4, 4, 4, 5));
-        Assert.assertTrue(Arrays.equals(new Point[2], rigidArbiter.getLastMove()));
-    }
 
     /**
     Test conditions of the initial state of the game.
@@ -269,6 +260,16 @@ public class GameArbiterTest{
         Assert.assertTrue(concreteBoard.getPieceAt(6, 4) == null);
         Assert.assertTrue(concreteBoard.getPieceAt(5, 4).equals(forMoving));
     }
+    
+    /**
+    Test that you can't just request pieces to be moved plain anywhere. The move
+    should be in the pieces legal moves.
+    */
+    @Test
+    public void testInvalidMoveRequest(){
+        Assert.assertFalse(rigidArbiter.requestMove(7, 1, 5, 1));
+        Assert.assertTrue(Arrays.equals(new Point[2], rigidArbiter.getLastMove()));
+    }
 
     @Test
     public void testNoConsecutiveWhite(){
@@ -285,11 +286,14 @@ public class GameArbiterTest{
     }
     
     /**
-    Moves requested from a blank square should return false.
+    Moves requested from a blank square should return false. Also tests that
+    request to move from a blank square shoudl not be taken as the game's
+    most recent move.
     */
     @Test
     public void testBlankSquareMove(){
         Assert.assertFalse(rigidArbiter.requestMove(4, 4, 5, 4));
+        Assert.assertTrue(Arrays.equals(new Point[2], rigidArbiter.getLastMove()));
         Assert.assertTrue(rigidArbiter.requestMove(6, 4, 5, 4));
     }
 
