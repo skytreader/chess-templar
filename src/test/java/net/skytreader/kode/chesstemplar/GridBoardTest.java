@@ -117,6 +117,26 @@ public class GridBoardTest{
         }
 
         Assert.assertEquals(initialConfig, testBoard.getPiecePositions());
+
+        // Remove the 5s
+        testBoard.removePiece(0, 5);
+        testBoard.removePiece(1, 5);
+        testBoard.removePiece(6, 5);
+        testBoard.removePiece(7, 5);
+        
+        initialConfig.remove(new Point(0, 5));
+        initialConfig.remove(new Point(1, 5));
+        initialConfig.remove(new Point(6, 5));
+        initialConfig.remove(new Point(7, 5));
+
+        Assert.assertEquals(initialConfig, testBoard.getPiecePositions());
+
+        // Move some pawns
+        testBoard.move(6, 4, 4, 4);
+        initialConfig.remove(new Point(6, 4));
+        initialConfig.add(new Point(4, 4));
+
+        Assert.assertEquals(initialConfig, testBoard.getPiecePositions());
     }
     
     /**
