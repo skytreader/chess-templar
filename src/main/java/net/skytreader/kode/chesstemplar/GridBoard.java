@@ -181,7 +181,16 @@ public class GridBoard implements Board{
 
     @Override
     public Set<Point> getPiecePositions(){
-        return null;
+        HashSet<Point> piecePositions = new HashSet<Point>();
+
+        for(int r = 0; r < 8; r++){
+            for(int c = 0; c < 8; c++){
+                if(getPieceAt(r, c) != null){
+                    piecePositions.add(new Point(r, c));
+                }
+            }
+        }
+        return piecePositions;
     }
 
     @Override
