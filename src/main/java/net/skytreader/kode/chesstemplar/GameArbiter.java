@@ -32,7 +32,9 @@ public class GameArbiter{
     private boolean blackQueensideRookMoved;
 
     private boolean lastMoveWhite;
-
+    
+    private Point whiteKingPosition;
+    private Point blackKingPosition;
     private Point[] lastMove;
 
     // Use these for comparisons
@@ -51,6 +53,11 @@ public class GameArbiter{
         blackQueensideRookMoved = false;
         lastMoveWhite = false;
         lastMove = new Point[2];
+
+        // FIXME Assuming that the board is set to normal initial state
+        // FIXME that is not always the case
+        whiteKingPosition = new Point(7, 4);
+        blackKingPosition = new Point(0, 4);
     }
 
     /**
@@ -161,14 +168,19 @@ public class GameArbiter{
         // The move has been done if, after this call, (r2, c2) contains the piece
         // previously at (r1, c1).
         ChessPiece cp1 = board.getPieceAt(r1, c1);
+        // Cache some booleans
+        boolean isWhiteKing = false;
+        boolean isBlackKing = false;
 
         // Piece checks
         if(cp1 == null){
             return false;
         } else if(cp1.equals(WHITE_KING)){
             whiteKingMoved = true;
+            isWhiteKing = true;
         } else if(cp1.equals(BLACK_KING)){
             blackKingMoved = true;
+            isBlackKing = true;
         } else if(cp1.equals(WHITE_ROOK) && r1 == 7 && c1 == 7){
             whiteKingsideRookMoved = true;
         } else if(cp1.equals(WHITE_ROOK) && r1 == 7 && c1 == 0){
@@ -196,7 +208,15 @@ public class GameArbiter{
                 lastMove[0] = new Point(r1, c1);
                 lastMove[1] = new Point(r2, c2);
 
+                // Check if the piece moved was a King and if so, note properly.
+                if(isWhiteKing){
+                    whiteKingPosition.setLocation(r2, c2);
+                } else if(isBlackKing){
+                    blackKingPosition.setLocation(r2, c2);
+                }
+
                 // Check if, in this new position, any King is checked.
+                // Be wary of discovered attacks!
 
                 return true;
             } else{
