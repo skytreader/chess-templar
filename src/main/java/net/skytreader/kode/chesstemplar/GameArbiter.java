@@ -189,18 +189,16 @@ public class GameArbiter{
             // Check that the destination is a legal move
             Set<Point> legalMoves = legalMovesFilter(cp1, r1, c1);
             if(legalMoves.contains(new Point(r2, c2))){
-                // FIXME Why all the validations here?
                 board.move(r1, c1, r2, c2);
-                ChessPiece cp2 = board.getPieceAt(r2, c2);
-                ChessPiece shouldBeNull = board.getPieceAt(r1, c1);
     
-                isMoveDone = cp1.equals(cp2) && shouldBeNull == null;
-    
-                lastMoveWhite = isMoveDone && cp1.isWhite();
+                lastMoveWhite = cp1.isWhite();
     
                 lastMove[0] = new Point(r1, c1);
                 lastMove[1] = new Point(r2, c2);
-                return isMoveDone;
+
+                // Check if, in this new position, any King is checked.
+
+                return true;
             } else{
                 return false;
             }
