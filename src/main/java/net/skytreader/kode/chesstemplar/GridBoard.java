@@ -2,6 +2,9 @@ package net.skytreader.kode.chesstemplar;
 
 import java.awt.Point;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import net.skytreader.kode.chesstemplar.pieces.Bishop;
 import net.skytreader.kode.chesstemplar.pieces.ChessPiece;
 import net.skytreader.kode.chesstemplar.pieces.King;
@@ -174,6 +177,11 @@ public class GridBoard implements Board{
         } else{
             return blackPieces[getBlackIndex(pieceRep)];
         }
+    }
+
+    @Override
+    public Set<Point> getPiecePositions(){
+        return null;
     }
 
     @Override
