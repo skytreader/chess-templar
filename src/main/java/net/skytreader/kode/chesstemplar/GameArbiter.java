@@ -231,11 +231,9 @@ public class GameArbiter{
                 for(Point pos : piecePositions){
                     ChessPiece posPiece = board.getPieceAt(pos.x, pos.y);
                     Set<Point> pieceMoves = legalMovesFilter(posPiece, pos.x, pos.y);
-                    if(pieceMoves.contains(whiteKingPosition)){
-                        whiteKingChecked = true;
-                    } else if(pieceMoves.contains(blackKingPosition)){
-                        blackKingChecked = true;
-                    }
+                    System.out.println(posPiece.toString() + " " + pieceMoves.toString());
+                    whiteKingChecked = pieceMoves.contains(whiteKingPosition);
+                    blackKingChecked = pieceMoves.contains(blackKingPosition);
                 }
 
                 return true;
