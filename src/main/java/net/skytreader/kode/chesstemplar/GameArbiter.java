@@ -16,8 +16,8 @@ import net.skytreader.kode.chesstemplar.pieces.ChessPiece;
 The GameArbiter imposes the rules of Chess. An arbiter is tied to a particular
 game. You can't make an Arbiter judge on multiple boards at a time!
 
-By design, the GameArbiter is the only class that can interact with a Board
-instance.
+By design, the GameArbiter is the only class that should directly interact with
+a Board instance.
 
 @author Chad Estioco
 */
