@@ -24,9 +24,11 @@ a Board instance.
 public class GameArbiter{
     
     private Board board;
+    private boolean whiteKingChecked;
     private boolean whiteKingMoved;
     private boolean whiteKingsideRookMoved;
     private boolean whiteQueensideRookMoved;
+    private boolean blackKingChecked;
     private boolean blackKingMoved;
     private boolean blackKingsideRookMoved;
     private boolean blackQueensideRookMoved;
@@ -58,6 +60,9 @@ public class GameArbiter{
         // FIXME that is not always the case
         whiteKingPosition = new Point(7, 4);
         blackKingPosition = new Point(0, 4);
+
+        whiteKingChecked = false;
+        blackKingChecked = false;
     }
 
     /**
@@ -115,11 +120,11 @@ public class GameArbiter{
     }
 
     public boolean isWhiteKingChecked(){
-        return false;
+        return whiteKingChecked;
     }
 
     public boolean isBlackKingChecked(){
-        return false;
+        return blackKingChecked;
     }
 
     public boolean isEndgame(){
@@ -217,6 +222,21 @@ public class GameArbiter{
 
                 // Check if, in this new position, any King is checked.
                 // Be wary of discovered attacks!
+                Set<Point> piecePositions = board.getPiecePositions();
+
+                // Set both to false for the meantime, just in case check has
+                // been avoided
+                whiteKingChecked = false;
+                blackKingChecked = false;
+                for(Point pos : piecePositions){
+                    ChessPiece posPiece = board.getPieceAt(pos.x, pos.y);
+                    Set<Point> pieceMoves = legalMovesFilter(posPiece, pos.x, pos.y);
+                    if(pieceMoves.contains(whiteKingPosition)){
+                        whiteKingChecked = true;
+                    } else if(pieceMoves.contains(blackKingPosition)){
+                        blackKingChecked = true;
+                    }
+                }
 
                 return true;
             } else{
