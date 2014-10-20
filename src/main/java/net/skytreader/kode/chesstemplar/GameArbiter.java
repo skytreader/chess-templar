@@ -32,7 +32,9 @@ public class GameArbiter{
     private boolean blackQueensideRookMoved;
 
     private boolean lastMoveWhite;
-
+    
+    private Point whiteKingPosition;
+    private Point blackKingPosition;
     private Point[] lastMove;
 
     // Use these for comparisons
@@ -51,6 +53,11 @@ public class GameArbiter{
         blackQueensideRookMoved = false;
         lastMoveWhite = false;
         lastMove = new Point[2];
+
+        // FIXME Assuming that the board is set to normal initial state
+        // FIXME that is not always the case
+        whiteKingPosition = new Point(7, 4);
+        blackKingPosition = new Point(0, 4);
     }
 
     /**
@@ -125,9 +132,11 @@ public class GameArbiter{
 
     Among the edits involved are removing moves that will expose the King to
     a check and, in the case of the King, add the possibility of castles.
+
+    TODO I think this should be made protected?
     */
-    public Set<Point> legalMovesFilter(ChessPiece cp, int r, int c, Board b) throws NotMeException{
-        Set<Point> pieceMoves = cp.getMoves(r, c, b);
+    public Set<Point> legalMovesFilter(ChessPiece cp, int r, int c) throws NotMeException{
+        Set<Point> pieceMoves = cp.getMoves(r, c, board);
 
         return pieceMoves;
     }
@@ -159,14 +168,19 @@ public class GameArbiter{
         // The move has been done if, after this call, (r2, c2) contains the piece
         // previously at (r1, c1).
         ChessPiece cp1 = board.getPieceAt(r1, c1);
+        // Cache some booleans
+        boolean isWhiteKing = false;
+        boolean isBlackKing = false;
 
         // Piece checks
         if(cp1 == null){
             return false;
         } else if(cp1.equals(WHITE_KING)){
             whiteKingMoved = true;
+            isWhiteKing = true;
         } else if(cp1.equals(BLACK_KING)){
             blackKingMoved = true;
+            isBlackKing = true;
         } else if(cp1.equals(WHITE_ROOK) && r1 == 7 && c1 == 7){
             whiteKingsideRookMoved = true;
         } else if(cp1.equals(WHITE_ROOK) && r1 == 7 && c1 == 0){
@@ -183,16 +197,35 @@ public class GameArbiter{
             return false;
         }
 
-        board.move(r1, c1, r2, c2);
-        ChessPiece cp2 = board.getPieceAt(r2, c2);
-        ChessPiece shouldBeNull = board.getPieceAt(r1, c1);
+        try{
+            // Check that the destination is a legal move
+            Set<Point> legalMoves = legalMovesFilter(cp1, r1, c1);
+            if(legalMoves.contains(new Point(r2, c2))){
+                board.move(r1, c1, r2, c2);
+    
+                lastMoveWhite = cp1.isWhite();
+    
+                lastMove[0] = new Point(r1, c1);
+                lastMove[1] = new Point(r2, c2);
 
-        isMoveDone = cp1.equals(cp2) && shouldBeNull == null;
+                // Check if the piece moved was a King and if so, note properly.
+                if(isWhiteKing){
+                    whiteKingPosition.setLocation(r2, c2);
+                } else if(isBlackKing){
+                    blackKingPosition.setLocation(r2, c2);
+                }
 
-        lastMoveWhite = isMoveDone && cp1.isWhite();
+                // Check if, in this new position, any King is checked.
+                // Be wary of discovered attacks!
 
-        lastMove[0] = new Point(r1, c1);
-        lastMove[1] = new Point(r2, c2);
-        return isMoveDone;
+                return true;
+            } else{
+                return false;
+            }
+        } catch(NotMeException nme){
+            // Should not happen at all
+            nme.printStackTrace();
+            return false;
+        }
     }
 }

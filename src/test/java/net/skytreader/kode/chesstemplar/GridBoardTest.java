@@ -3,6 +3,8 @@ package net.skytreader.kode.chesstemplar;
 import java.awt.Point;
 
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 import net.skytreader.kode.chesstemplar.pieces.Bishop;
 import net.skytreader.kode.chesstemplar.pieces.ChessPiece;
@@ -100,6 +102,41 @@ public class GridBoardTest{
         Assert.assertNotNull(testBoard.getPieceAt(0, 0));
         testBoard.removePiece(0, 0);
         Assert.assertNull(testBoard.getPieceAt(0, 0));
+    }
+
+    @Test
+    public void testGetPiecePositions(){
+        Board testBoard = new GridBoard();
+        HashSet<Point> initialConfig = new HashSet<Point>();
+
+        for(int i = 0; i < 8; i++){
+            initialConfig.add(new Point(0, i));
+            initialConfig.add(new Point(1, i));
+            initialConfig.add(new Point(6, i));
+            initialConfig.add(new Point(7, i));
+        }
+
+        Assert.assertEquals(initialConfig, testBoard.getPiecePositions());
+
+        // Remove the 5s
+        testBoard.removePiece(0, 5);
+        testBoard.removePiece(1, 5);
+        testBoard.removePiece(6, 5);
+        testBoard.removePiece(7, 5);
+        
+        initialConfig.remove(new Point(0, 5));
+        initialConfig.remove(new Point(1, 5));
+        initialConfig.remove(new Point(6, 5));
+        initialConfig.remove(new Point(7, 5));
+
+        Assert.assertEquals(initialConfig, testBoard.getPiecePositions());
+
+        // Move some pawns
+        testBoard.move(6, 4, 4, 4);
+        initialConfig.remove(new Point(6, 4));
+        initialConfig.add(new Point(4, 4));
+
+        Assert.assertEquals(initialConfig, testBoard.getPiecePositions());
     }
     
     /**

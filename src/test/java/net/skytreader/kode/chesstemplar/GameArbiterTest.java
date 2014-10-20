@@ -50,10 +50,11 @@ public class GameArbiterTest{
     }
     
     /**
-    Test that invalid requests should not be counted as "last move".
+    Test that invalid requests should not be counted as "last move". This tests
+    the invalid scenario where black moves first.
     */
     @Test
-    public void testInvalidLastMoves(){
+    public void testInvalidLastMovesBlackFirst(){
         // Move black first
         Assert.assertFalse(rigidArbiter.requestMove(1, 0, 3, 0));
         Assert.assertTrue(Arrays.equals(new Point[2], rigidArbiter.getLastMove()));
@@ -96,7 +97,7 @@ public class GameArbiterTest{
         withCastleMoves.add(new Point(7, 6));
 
         Set<Point> kingLegalMoves = rigidArbiter.legalMovesFilter(whiteKing,
-          7, 4, concreteBoard);
+          7, 4);
 
         Assert.assertEquals(withCastleMoves, kingLegalMoves);
     }
@@ -113,7 +114,7 @@ public class GameArbiterTest{
         withCastleMoves.add(new Point(7, 2));
 
         Set<Point> kingLegalMoves = rigidArbiter.legalMovesFilter(whiteKing,
-          7, 4, concreteBoard);
+          7, 4);
 
         Assert.assertEquals(withCastleMoves, kingLegalMoves);
     }
@@ -213,7 +214,7 @@ public class GameArbiterTest{
             ChessPiece defender = concreteBoard.getPieceAt(defenderLocation.x,
               defenderLocation.y);
             Set<Point> defenderMoves = rigidArbiter.legalMovesFilter(defender,
-              defenderLocation.x, defenderLocation.y, concreteBoard);
+              defenderLocation.x, defenderLocation.y);
 
             Assert.assertEquals(coverMove, defenderMoves);
         }
@@ -227,8 +228,7 @@ public class GameArbiterTest{
                 continue;
             }
             ChessPiece pawn = concreteBoard.getPieceAt(6, i);
-            Set<Point> pawnMoves = rigidArbiter.legalMovesFilter(pawn, 6, i,
-              concreteBoard);
+            Set<Point> pawnMoves = rigidArbiter.legalMovesFilter(pawn, 6, i);
 
             Assert.assertEquals(emptySet, pawnMoves);
         }
@@ -239,8 +239,7 @@ public class GameArbiterTest{
                 continue;
             }
             ChessPiece p = concreteBoard.getPieceAt(7, i);
-            Set<Point> pawnMoves = rigidArbiter.legalMovesFilter(p, 7, i,
-              concreteBoard);
+            Set<Point> pawnMoves = rigidArbiter.legalMovesFilter(p, 7, i);
             Set<Point> pieceMoves = p.getMoves(7, i, concreteBoard);
 
             Assert.assertEquals(emptySet, pieceMoves);
@@ -259,6 +258,16 @@ public class GameArbiterTest{
         Assert.assertTrue(concreteBoard.getPieceAt(6, 4) == null);
         Assert.assertTrue(concreteBoard.getPieceAt(5, 4).equals(forMoving));
     }
+    
+    /**
+    Test that you can't just request pieces to be moved plain anywhere. The move
+    should be in the pieces legal moves.
+    */
+    @Test
+    public void testInvalidMoveRequest(){
+        Assert.assertFalse(rigidArbiter.requestMove(7, 1, 5, 1));
+        Assert.assertTrue(Arrays.equals(new Point[2], rigidArbiter.getLastMove()));
+    }
 
     @Test
     public void testNoConsecutiveWhite(){
@@ -275,11 +284,14 @@ public class GameArbiterTest{
     }
     
     /**
-    Moves requested from a blank square should return false.
+    Moves requested from a blank square should return false. Also tests that
+    request to move from a blank square shoudl not be taken as the game's
+    most recent move.
     */
     @Test
     public void testBlankSquareMove(){
         Assert.assertFalse(rigidArbiter.requestMove(4, 4, 5, 4));
+        Assert.assertTrue(Arrays.equals(new Point[2], rigidArbiter.getLastMove()));
         Assert.assertTrue(rigidArbiter.requestMove(6, 4, 5, 4));
     }
 

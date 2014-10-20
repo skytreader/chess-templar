@@ -2,6 +2,8 @@ package net.skytreader.kode.chesstemplar;
 
 import java.awt.Point;
 
+import java.util.Set;
+
 import net.skytreader.kode.chesstemplar.pieces.ChessPiece;
 
 /**
@@ -30,6 +32,11 @@ public interface Board{
         null if it is not.
     */
     public ChessPiece getPieceAt(int r, int c);
+    
+    /**
+    Get a list of positions where there are pieces on the board.
+    */
+    public Set<Point> getPiecePositions();
 
     /**
     Move the piece at the location (r1, c1) to location (r2, c2).
