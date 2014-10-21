@@ -17,7 +17,8 @@ The GameArbiter imposes the rules of Chess. An arbiter is tied to a particular
 game. You can't make an Arbiter judge on multiple boards at a time!
 
 By design, the GameArbiter is the only class that should directly interact with
-a Board instance.
+a Board instance. If other threads/classes will modify the board state, it might
+cause the arbiter to make wrong calls on the game.
 
 @author Chad Estioco
 */
@@ -153,6 +154,10 @@ public class GameArbiter{
     described is possible and legal and has been enacted succesfully on the given
     Board.
 
+    Note that if other classes modify the Board held by this arbiter, discrepancies
+    might occur causing the arbiter to make wrong decisions on the state of the
+    game.
+
     The legality of the move takes into consideration whose turn is it to move.
     That is, you can't call requestMove two consecutive times on an r1, c1 tile
     holding a piece with the same color.
@@ -231,9 +236,20 @@ public class GameArbiter{
                 for(Point pos : piecePositions){
                     ChessPiece posPiece = board.getPieceAt(pos.x, pos.y);
                     Set<Point> pieceMoves = legalMovesFilter(posPiece, pos.x, pos.y);
-                    System.out.println(posPiece.toString() + " " + pieceMoves.toString());
-                    whiteKingChecked = pieceMoves.contains(whiteKingPosition);
-                    blackKingChecked = pieceMoves.contains(blackKingPosition);
+                    System.out.println(posPiece.toString() + " at " + pos + " " + pieceMoves + "   look for " + whiteKingPosition + " or " + blackKingPosition);
+
+                    if(cp1.isWhite()){
+                        // Only black King can be checked
+                        blackKingChecked = pieceMoves.contains(blackKingPosition);
+                        if(blackKingChecked){
+                            break;
+                        }
+                    } else{
+                        whiteKingChecked = pieceMoves.contains(whiteKingPosition);
+                        if(whiteKingChecked){
+                            break;
+                        }
+                    }
                 }
 
                 return true;
