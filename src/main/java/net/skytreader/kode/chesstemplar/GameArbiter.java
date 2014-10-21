@@ -116,8 +116,26 @@ public class GameArbiter{
     @return The answer to the question above.
     */
     public boolean canBlackKingCastle(){
-        return (!blackKingMoved && !blackKingsideRookMoved) ||
-          (!blackKingMoved && !blackQueensideRookMoved);
+        boolean kingSideClear = true;
+        boolean queenSideClear = true;
+
+        // Check if the king side is clear
+        for(int i = 5; i < 7; i++){
+            if(board.getPieceAt(0, i) != null){
+                kingSideClear = false;
+                break;
+            }
+        }
+
+        // Check if the queen side is clear
+        for(int i = 1; i < 5; i++){
+            if(board.getPieceAt(0, i) != null){
+                queenSideClear = false;
+                break;
+            }
+        }
+        return (!blackKingMoved && !blackKingsideRookMoved && kingSideClear) ||
+          (!blackKingMoved && !blackQueensideRookMoved && queenSideClear);
     }
 
     public boolean isWhiteKingChecked(){
