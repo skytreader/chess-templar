@@ -177,13 +177,19 @@ public class GameArbiterTest{
         Assert.assertTrue(rigidArbiter.isWhiteKingChecked());
     }
 
+    /**
+    Ruy-Lopez!
+    1 e4 e5
+    2 Nf3 d6
+    3 Bb5+
+    */
     @Test
     public void testBlackKingChecked(){
-        // Expose both Kings.
-        concreteBoard.removePiece(6, 4);
-        concreteBoard.removePiece(1, 4);
-        // Move white Queen to (6, 4) checking the black King
-        concreteBoard.move(7, 3, 6, 4);
+        Assert.assertTrue(rigidArbiter.requestMove(6, 4, 4, 4));
+        Assert.assertTrue(rigidArbiter.requestMove(1, 4, 3, 4));
+        Assert.assertTrue(rigidArbiter.requestMove(7, 6, 5, 5));
+        Assert.assertTrue(rigidArbiter.requestMove(1, 3, 2, 3));
+        Assert.assertTrue(rigidArbiter.requestMove(7, 5, 3, 1));
         Assert.assertTrue(rigidArbiter.isBlackKingChecked());
     }
 
