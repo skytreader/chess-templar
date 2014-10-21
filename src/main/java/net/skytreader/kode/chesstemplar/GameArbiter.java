@@ -236,7 +236,6 @@ public class GameArbiter{
                 for(Point pos : piecePositions){
                     ChessPiece posPiece = board.getPieceAt(pos.x, pos.y);
                     Set<Point> pieceMoves = legalMovesFilter(posPiece, pos.x, pos.y);
-                    System.out.println(posPiece.toString() + " at " + pos + " " + pieceMoves + "   look for " + whiteKingPosition + " or " + blackKingPosition);
 
                     if(cp1.isWhite()){
                         // Only black King can be checked
