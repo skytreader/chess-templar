@@ -158,14 +158,63 @@ public class GameArbiter{
     a check and, in the case of the King, add the possibility of castles.
 
     TODO I think this should be made protected?
+    TODO Refactor with can*Castle methods
     */
     public Set<Point> legalMovesFilter(ChessPiece cp, int r, int c) throws NotMeException{
         Set<Point> pieceMoves = cp.getMoves(r, c, board);
 
         if(WHITE_KING.equals(cp) && canWhiteKingCastle()){
-            // add possible castle moves
+            // Check if the king side is clear
+            boolean kingSideClear = true;
+            for(int i = 5; i < 7; i++){
+                if(board.getPieceAt(7, i) != null){
+                    kingSideClear = false;
+                    break;
+                }
+            }
+
+            if(kingSideClear){
+                pieceMoves.add(new Point(7, 6));
+            }
+
+            boolean queenSideClear = true;
+            // Check if the queen side is clear
+            for(int i = 1; i < 5; i++){
+                if(board.getPieceAt(7, i) != null){
+                    queenSideClear = false;
+                    break;
+                }
+            }
+
+            if(queenSideClear){
+                pieceMoves.add(new Point(7, 2));
+            }
         } else if(BLACK_KING.equals(cp) && canBlackKingCastle()){
-            // add possible castle moves
+            // Check if the king side is clear
+            boolean kingSideClear = true;
+            for(int i = 5; i < 7; i++){
+                if(board.getPieceAt(0, i) != null){
+                    kingSideClear = false;
+                    break;
+                }
+            }
+
+            if(kingSideClear){
+                pieceMoves.add(new Point(0, 6));
+            }
+
+            boolean queenSideClear = true;
+            // Check if the queen side is clear
+            for(int i = 1; i < 5; i++){
+                if(board.getPieceAt(0, i) != null){
+                    queenSideClear = false;
+                    break;
+                }
+            }
+
+            if(queenSideClear){
+                pieceMoves.add(new Point(0, 2));
+            }
         }
 
         return pieceMoves;
