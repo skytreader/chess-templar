@@ -162,6 +162,12 @@ public class GameArbiter{
     public Set<Point> legalMovesFilter(ChessPiece cp, int r, int c) throws NotMeException{
         Set<Point> pieceMoves = cp.getMoves(r, c, board);
 
+        if(WHITE_KING.equals(cp) && canWhiteKingCastle()){
+            // add possible castle moves
+        } else if(BLACK_KING.equals(cp) && canBlackKingCastle()){
+            // add possible castle moves
+        }
+
         return pieceMoves;
     }
     
