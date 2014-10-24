@@ -102,11 +102,27 @@ public class GameArbiterTest{
         Assert.assertEquals(withCastleMoves, kingLegalMoves);
     }
 
+    /**
+    1 d4 d5
+    2 Be3 c6
+    3 Qd2 c5
+    4 Nc3
+    */
     @Test
     public void testQueensideCastleFilter() throws NotMeException{
-        concreteBoard.removePiece(7, 1);
-        concreteBoard.removePiece(7, 2);
-        concreteBoard.removePiece(7, 3);
+        Point[] moveSeqSource = {new Point(6, 3), new Point(1, 3), new Point(7, 2),
+          new Point(1, 2), new Point(7, 3), new Point(2, 2), new Point(7, 1)};
+        Point[] moveSeqDest = {new Point(4, 3), new Point(3, 3), new Point(5, 4),
+          new Point(2, 2), new Point(6, 3), new Point(3, 2), new Point(5, 2)};
+
+        Assert.assertEquals(moveSeqSource.length, moveSeqDest.length);
+
+        for(int i = 0; i < moveSeqSource.length; i++){
+            Point source = moveSeqSource[i];
+            Point dest = moveSeqDest[i];
+            Assert.assertTrue(rigidArbiter.requestMove(source.x, source.y,
+              dest.x, dest.y));
+        }
 
         King whiteKing = new King(true);
         Set<Point> withCastleMoves = whiteKing.getMoves(7, 4, concreteBoard);
