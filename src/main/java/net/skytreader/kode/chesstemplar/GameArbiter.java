@@ -180,7 +180,6 @@ public class GameArbiter{
             boolean queenSideClear = true;
             // Check if the queen side is clear
             for(int i = 1; i < 4; i++){
-                System.out.println("Piece at (7, " + i + "): " + board.getPieceAt(7, i));
                 if(board.getPieceAt(7, i) != null){
                     queenSideClear = false;
                     break;
