@@ -110,18 +110,23 @@ public class GameArbiterTest{
     */
     @Test
     public void testQueensideCastleFilter() throws NotMeException{
+        System.out.println("testQueensideCastleFilter");
         Point[] moveSeqSource = {new Point(6, 3), new Point(1, 3), new Point(7, 2),
           new Point(1, 2), new Point(7, 3), new Point(2, 2), new Point(7, 1)};
         Point[] moveSeqDest = {new Point(4, 3), new Point(3, 3), new Point(5, 4),
           new Point(2, 2), new Point(6, 3), new Point(3, 2), new Point(5, 2)};
 
         Assert.assertEquals(moveSeqSource.length, moveSeqDest.length);
+        boolean moved = false;
+        System.out.println("Board is not yet touched.");
 
         for(int i = 0; i < moveSeqSource.length; i++){
             Point source = moveSeqSource[i];
             Point dest = moveSeqDest[i];
+            System.out.println("Move from " + source + " to " + dest);
             Assert.assertTrue(rigidArbiter.requestMove(source.x, source.y,
               dest.x, dest.y));
+            moved = true;
         }
 
         King whiteKing = new King(true);
@@ -129,9 +134,12 @@ public class GameArbiterTest{
         // extra move for castle
         withCastleMoves.add(new Point(7, 2));
 
+        System.out.println("Calling legalMovesFilter...");
         Set<Point> kingLegalMoves = rigidArbiter.legalMovesFilter(whiteKing,
           7, 4);
+        System.out.println("Done!");
 
+        Assert.assertTrue(moved);
         Assert.assertEquals(withCastleMoves, kingLegalMoves);
     }
     
