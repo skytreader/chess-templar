@@ -25,6 +25,15 @@ public class GameArbiterTest{
     private GameArbiter rigidArbiter;
     private GameArbiter freeFormArbiter;
 
+    private void executeMoveSequence(Point[] moveSeqSrc, Point[] moveSeqDst){
+        Assert.assertEquals(moveSeqSrc.length, moveSeqDst.length);
+        
+        for(int i = 0; i < moveSeqSrc.length; i++){
+            Assert.assertTrue(rigidArbiter.requestMove(moveSeqSrc[i].x,
+              moveSeqSrc[i].y, moveSeqDst[i].x, moveSeqDst[i].y));
+        }
+    }
+
     @Before
     public void setUp(){
         concreteBoard = new GridBoard();
@@ -116,16 +125,7 @@ public class GameArbiterTest{
         Point[] moveSeqDest = {new Point(4, 3), new Point(3, 3), new Point(5, 4),
           new Point(2, 2), new Point(6, 3), new Point(3, 2), new Point(5, 2)};
 
-        Assert.assertEquals(moveSeqSource.length, moveSeqDest.length);
-        boolean moved = false;
-
-        for(int i = 0; i < moveSeqSource.length; i++){
-            Point source = moveSeqSource[i];
-            Point dest = moveSeqDest[i];
-            Assert.assertTrue(rigidArbiter.requestMove(source.x, source.y,
-              dest.x, dest.y));
-            moved = true;
-        }
+        executeMoveSequence(moveSeqSource, moveSeqDest);
 
         King whiteKing = new King(true);
         Set<Point> withCastleMoves = whiteKing.getMoves(7, 4, concreteBoard);
@@ -135,7 +135,6 @@ public class GameArbiterTest{
         Set<Point> kingLegalMoves = rigidArbiter.legalMovesFilter(whiteKing,
           7, 4);
 
-        Assert.assertTrue(moved);
         Assert.assertEquals(withCastleMoves, kingLegalMoves);
     }
     
