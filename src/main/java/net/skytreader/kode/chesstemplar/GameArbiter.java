@@ -78,66 +78,6 @@ public class GameArbiter{
         return lastMove;
     }
 
-    /**
-    In the current state of the board right now, can white king perform a castle
-    move assuming it is white's turn?
-
-    @return The answer to the question above.
-    */
-    public boolean canWhiteKingCastle(){
-        boolean kingSideClear = true;
-        boolean queenSideClear = true;
-
-        // Check if the king side is clear
-        for(int i = 5; i < 7; i++){
-            if(board.getPieceAt(7, i) != null){
-                kingSideClear = false;
-                break;
-            }
-        }
-
-        // Check if the queen side is clear
-        for(int i = 1; i < 4; i++){
-            if(board.getPieceAt(7, i) != null){
-                queenSideClear = false;
-                break;
-            }
-        }
-
-        // FIXME Of course this is not yet all!
-        return (!whiteKingMoved && !whiteKingsideRookMoved && kingSideClear) ||
-          (!whiteKingMoved && !whiteQueensideRookMoved && queenSideClear);
-    }
-
-    /**
-    In the current state of the board right now, can black king perform a castle
-    move assuming it is black's turn?
-
-    @return The answer to the question above.
-    */
-    public boolean canBlackKingCastle(){
-        boolean kingSideClear = true;
-        boolean queenSideClear = true;
-
-        // Check if the king side is clear
-        for(int i = 5; i < 7; i++){
-            if(board.getPieceAt(0, i) != null){
-                kingSideClear = false;
-                break;
-            }
-        }
-
-        // Check if the queen side is clear
-        for(int i = 1; i < 5; i++){
-            if(board.getPieceAt(0, i) != null){
-                queenSideClear = false;
-                break;
-            }
-        }
-        return (!blackKingMoved && !blackKingsideRookMoved && kingSideClear) ||
-          (!blackKingMoved && !blackQueensideRookMoved && queenSideClear);
-    }
-
     public boolean isWhiteKingChecked(){
         return whiteKingChecked;
     }
@@ -158,7 +98,6 @@ public class GameArbiter{
     a check and, in the case of the King, add the possibility of castles.
 
     TODO I think this should be made protected?
-    TODO Refactor with can*Castle methods
     */
     public Set<Point> legalMovesFilter(ChessPiece cp, int r, int c) throws NotMeException{
         Set<Point> pieceMoves = cp.getMoves(r, c, board);
