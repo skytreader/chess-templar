@@ -164,6 +164,7 @@ public class GameArbiter{
         Set<Point> pieceMoves = cp.getMoves(r, c, board);
 
         if(WHITE_KING.equals(cp) && canWhiteKingCastle()){
+            System.out.println("White king can castle.");
             // Check if the king side is clear
             boolean kingSideClear = true;
             for(int i = 5; i < 7; i++){
@@ -274,6 +275,7 @@ public class GameArbiter{
 
         // Piece checks
         if(cp1 == null){
+            System.out.println(r1 + " " + c1 + " " + r2 + " " + c2 + " is illegal because piece is null.");
             return false;
         } else if(cp1.equals(WHITE_KING)){
             whiteKingMoved = true;
@@ -294,6 +296,7 @@ public class GameArbiter{
         // Check that consecutive moves from a given side does not happen.
         if((cp1.isWhite() && lastMoveWhite) || (!cp1.isWhite() &&
           !lastMoveWhite)){
+            System.out.println(r1 + " " + c1 + " " + r2 + " " + c2 + " is illegal because of consecutive moves.");
             return false;
         }
 
@@ -301,6 +304,7 @@ public class GameArbiter{
             // Check that the destination is a legal move
             Set<Point> legalMoves = legalMovesFilter(cp1, r1, c1);
             if(legalMoves.contains(new Point(r2, c2))){
+                System.out.println(r1 + " " + c1 + " " + r2 + " " + c2 + " Move is legal");
                 board.move(r1, c1, r2, c2);
     
                 lastMoveWhite = cp1.isWhite();
@@ -360,6 +364,8 @@ public class GameArbiter{
 
                 return true;
             } else{
+                System.out.println(r1 + " " + c1 + " " + r2 + " " + c2 + " is illegal outright.");
+                System.out.println(legalMovesFilter(cp1, r1, c1));
                 return false;
             }
         } catch(NotMeException nme){
