@@ -163,7 +163,8 @@ public class GameArbiter{
     public Set<Point> legalMovesFilter(ChessPiece cp, int r, int c) throws NotMeException{
         Set<Point> pieceMoves = cp.getMoves(r, c, board);
 
-        if(WHITE_KING.equals(cp) && canWhiteKingCastle()){
+        if(WHITE_KING.equals(cp) && ((!whiteKingMoved && !whiteKingsideRookMoved) ||
+          (!whiteKingMoved && !whiteQueensideRookMoved))){
             // Check if the king side is clear
             boolean kingSideClear = true;
             for(int i = 5; i < 7; i++){
@@ -189,7 +190,8 @@ public class GameArbiter{
             if(queenSideClear){
                 pieceMoves.add(new Point(7, 2));
             }
-        } else if(BLACK_KING.equals(cp) && canBlackKingCastle()){
+        } else if(BLACK_KING.equals(cp) && ((!blackKingMoved && !blackKingsideRookMoved) ||
+          (!blackKingMoved && !blackKingsideRookMoved))){
             // Check if the king side is clear
             boolean kingSideClear = true;
             for(int i = 5; i < 7; i++){
