@@ -91,6 +91,7 @@ public class GameArbiter{
         // Check if the king side is clear
         for(int i = 5; i < 7; i++){
             if(board.getPieceAt(7, i) != null){
+                System.out.println("Kingside is not clear.");
                 kingSideClear = false;
                 break;
             }
@@ -105,6 +106,9 @@ public class GameArbiter{
         }
 
         // FIXME Of course this is not yet all!
+        System.out.println("canWhiteKingCastle debug");
+        System.out.println(!whiteKingMoved + " " + !whiteKingsideRookMoved + " " + kingSideClear);
+        System.out.println(queenSideClear);
         return (!whiteKingMoved && !whiteKingsideRookMoved && kingSideClear) ||
           (!whiteKingMoved && !whiteQueensideRookMoved && queenSideClear);
     }
@@ -277,20 +281,6 @@ public class GameArbiter{
         if(cp1 == null){
             System.out.println(r1 + " " + c1 + " " + r2 + " " + c2 + " is illegal because piece is null.");
             return false;
-        } else if(cp1.equals(WHITE_KING)){
-            whiteKingMoved = true;
-            isWhiteKing = true;
-        } else if(cp1.equals(BLACK_KING)){
-            blackKingMoved = true;
-            isBlackKing = true;
-        } else if(cp1.equals(WHITE_ROOK) && r1 == 7 && c1 == 7){
-            whiteKingsideRookMoved = true;
-        } else if(cp1.equals(WHITE_ROOK) && r1 == 7 && c1 == 0){
-            whiteQueensideRookMoved = true;
-        } else if(cp1.equals(BLACK_ROOK) && r1 == 0 && c1 == 7){
-            blackKingsideRookMoved = true;
-        } else if(cp1.equals(BLACK_ROOK) && r1 == 0 && c1 == 0){
-            blackQueensideRookMoved = true;
         }
 
         // Check that consecutive moves from a given side does not happen.
@@ -362,6 +352,21 @@ public class GameArbiter{
                     }
                 }
 
+            if(cp1.equals(WHITE_KING)){
+                whiteKingMoved = true;
+                isWhiteKing = true;
+            } else if(cp1.equals(BLACK_KING)){
+                blackKingMoved = true;
+                isBlackKing = true;
+            } else if(cp1.equals(WHITE_ROOK) && r1 == 7 && c1 == 7){
+                whiteKingsideRookMoved = true;
+            } else if(cp1.equals(WHITE_ROOK) && r1 == 7 && c1 == 0){
+                whiteQueensideRookMoved = true;
+            } else if(cp1.equals(BLACK_ROOK) && r1 == 0 && c1 == 7){
+                blackKingsideRookMoved = true;
+            } else if(cp1.equals(BLACK_ROOK) && r1 == 0 && c1 == 0){
+                blackQueensideRookMoved = true;
+            }
                 return true;
             } else{
                 System.out.println(r1 + " " + c1 + " " + r2 + " " + c2 + " is illegal outright.");
