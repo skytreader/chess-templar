@@ -279,10 +279,6 @@ public class GameArbiter{
             isWhiteKing = true;
         } else if(cp1.equals(BLACK_KING)){
             isBlackKing = true;
-        } else if(cp1.equals(WHITE_ROOK) && r1 == 7 && c1 == 7){
-        } else if(cp1.equals(WHITE_ROOK) && r1 == 7 && c1 == 0){
-        } else if(cp1.equals(BLACK_ROOK) && r1 == 0 && c1 == 7){
-        } else if(cp1.equals(BLACK_ROOK) && r1 == 0 && c1 == 0){
         }
 
         // Check that consecutive moves from a given side does not happen.
