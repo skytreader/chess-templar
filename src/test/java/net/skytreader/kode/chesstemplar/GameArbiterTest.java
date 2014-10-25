@@ -29,7 +29,6 @@ public class GameArbiterTest{
         Assert.assertEquals(moveSeqSrc.length, moveSeqDst.length);
         
         for(int i = 0; i < moveSeqSrc.length; i++){
-            System.out.println("Requesting move " + moveSeqSrc[i] + " to " + moveSeqDst[i]);
             Assert.assertTrue(rigidArbiter.requestMove(moveSeqSrc[i].x,
               moveSeqSrc[i].y, moveSeqDst[i].x, moveSeqDst[i].y));
         }
@@ -338,13 +337,11 @@ public class GameArbiterTest{
     */
     @Test
     public void testWhiteKingsideCastleRequest(){
-        System.out.println("testWhiteKingsideCastleRequest");
         Point[] moveSeqSrc = {new Point(6, 4), new Point(1, 4), new Point(7, 6),
           new Point(1, 3), new Point(7, 5), new Point(1, 2)};
         Point[] moveSeqDst = {new Point(4, 4), new Point(3, 4), new Point(5, 5),
           new Point(2, 3), new Point(3, 1), new Point(2, 2)};
         executeMoveSequence(moveSeqSrc, moveSeqDst);
-        System.out.println("First actual test...");
         Assert.assertTrue(rigidArbiter.requestMove(7, 4, 7, 6));
 
         King whiteKing = new King(true);

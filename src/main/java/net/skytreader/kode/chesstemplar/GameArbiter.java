@@ -105,9 +105,6 @@ public class GameArbiter{
         }
 
         // FIXME Of course this is not yet all!
-        System.out.println("canWhiteKingCastle debug");
-        System.out.println(!whiteKingMoved + " " + !whiteKingsideRookMoved + " " + kingSideClear);
-        System.out.println(queenSideClear);
         return (!whiteKingMoved && !whiteKingsideRookMoved && kingSideClear) ||
           (!whiteKingMoved && !whiteQueensideRookMoved && queenSideClear);
     }
@@ -227,7 +224,6 @@ public class GameArbiter{
     Function to check that the move is white king castling.
     */
     private boolean isWhiteCastle(int r1, int c1, int r2, int c2){
-        System.out.println("isWhiteCastle: " + r1 + " " + c1 + " " + r2 + " " + c2);
         // TODO Simplify!
         return (r1 == 7 && c1 == 4) && ((r2 == 7 && c2 == 6) || (r2 == 7 &&
           c2 == 2));
@@ -278,7 +274,6 @@ public class GameArbiter{
 
         // Piece checks
         if(cp1 == null){
-            System.out.println(r1 + " " + c1 + " " + r2 + " " + c2 + " is illegal because piece is null.");
             return false;
         } else if(cp1.equals(WHITE_KING)){
             isWhiteKing = true;
@@ -293,7 +288,6 @@ public class GameArbiter{
         // Check that consecutive moves from a given side does not happen.
         if((cp1.isWhite() && lastMoveWhite) || (!cp1.isWhite() &&
           !lastMoveWhite)){
-            System.out.println(r1 + " " + c1 + " " + r2 + " " + c2 + " is illegal because of consecutive moves.");
             return false;
         }
 
@@ -301,7 +295,6 @@ public class GameArbiter{
             // Check that the destination is a legal move
             Set<Point> legalMoves = legalMovesFilter(cp1, r1, c1);
             if(legalMoves.contains(new Point(r2, c2))){
-                System.out.println(r1 + " " + c1 + " " + r2 + " " + c2 + " Move is legal");
                 board.move(r1, c1, r2, c2);
     
                 lastMoveWhite = cp1.isWhite();
@@ -344,15 +337,11 @@ public class GameArbiter{
 
                 // Check if the move is castling because there are actually two
                 // moves to make there.
-                System.out.println("check: " + r1 + " " + c1 + " " + r2 + " " + c2);
                 if(isWhiteKing && isWhiteCastle(r1, c1, r2, c2)){
-                    System.out.println("White is attempting a castle move.");
                     if(c2 == 6){
-                        System.out.println("Kingside");
                         // Move the kingside rook
                         board.move(7, 7, 7, 5);
                     } else{
-                        System.out.println("Queenside");
                         board.move(7, 0, 7, 3);
                     }
                 } else if(isBlackKing && isBlackCastle(r1, c1, r2, c2)){
@@ -380,8 +369,6 @@ public class GameArbiter{
                 }
                 return true;
             } else{
-                System.out.println(r1 + " " + c1 + " " + r2 + " " + c2 + " is illegal outright.");
-                System.out.println(legalMovesFilter(cp1, r1, c1));
                 return false;
             }
         } catch(NotMeException nme){
