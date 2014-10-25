@@ -186,13 +186,11 @@ public class GameArbiterTest{
     */
     @Test
     public void testWhiteKingChecked(){
-        // Expose white King.
-        Assert.assertTrue(rigidArbiter.requestMove(6, 3, 4, 3));
-        Assert.assertTrue(rigidArbiter.requestMove(1, 4, 3, 4));
-        // An extra move so that black can check
-        Assert.assertTrue(rigidArbiter.requestMove(6, 4, 5, 4));
-        // Aaannndd Bishop check
-        Assert.assertTrue(rigidArbiter.requestMove(0, 5, 4, 1));
+        Point[] moveSeqSrc = {new Point(6, 3), new Point(1, 4), new Point(6, 4),
+          new Point(0, 5)};
+        Point[] moveSeqDst = {new Point(4, 3), new Point(3, 4), new Point(5, 4),
+          new Point(4, 1)};
+        executeMoveSequence(moveSeqSrc, moveSeqDst);
         Assert.assertTrue(rigidArbiter.isWhiteKingChecked());
     }
 
@@ -204,11 +202,11 @@ public class GameArbiterTest{
     */
     @Test
     public void testBlackKingChecked(){
-        Assert.assertTrue(rigidArbiter.requestMove(6, 4, 4, 4));
-        Assert.assertTrue(rigidArbiter.requestMove(1, 4, 3, 4));
-        Assert.assertTrue(rigidArbiter.requestMove(7, 6, 5, 5));
-        Assert.assertTrue(rigidArbiter.requestMove(1, 3, 2, 3));
-        Assert.assertTrue(rigidArbiter.requestMove(7, 5, 3, 1));
+        Point[] moveSeqSrc = {new Point(6, 4), new Point(1, 4), new Point(7, 6),
+          new Point(1, 3), new Point(7, 5)};
+        Point[] moveSeqDst = {new Point(4, 4), new Point(3, 4), new Point(5, 5),
+          new Point(2, 3), new Point(3, 1)};
+        executeMoveSequence(moveSeqSrc, moveSeqDst);
         Assert.assertTrue(rigidArbiter.isBlackKingChecked());
     }
 
