@@ -219,6 +219,23 @@ public class GameArbiter{
 
         return pieceMoves;
     }
+
+    /*
+    Function to check that the move is white king castling.
+    */
+    private boolean isWhiteCastle(int r1, int c1, int r2, int c2){
+        // TODO Simplify!
+        return (r1 == 7 && c1 == 4) && ((r2 == 7 && c2 == 6) || (r2 == 7 &&
+          c2 == 2));
+    }
+
+    /*
+    Function to check the the move is black king castling.
+    */
+    private boolean isBlackCastle(int r1, int c1, int r2, int c2){
+        return (r1 == 0 && c1 == 4) && ((r2 == 0 && c2 == 6) || (r2 == 0 &&
+          c2 == 2));
+    }
     
     /**
     Checks if the described move is possible and legal and enacts it on the Board
@@ -321,6 +338,23 @@ public class GameArbiter{
                         if(whiteKingChecked){
                             break;
                         }
+                    }
+                }
+
+                // Check if the move is castling because there are actually two
+                // moves to make there.
+                if(isWhiteKing && isWhiteCastle(r1, c1, r2, c2)){
+                    if(c2 == 6){
+                        // Move the kingside rook
+                        board.move(7, 7, 7, 5);
+                    } else{
+                        board.move(7, 0, 7, 3);
+                    }
+                } else if(isBlackKing && isBlackCastle(r1, c1, r2, c2)){
+                    if(c2 == 6){
+                        board.move(0, 7, 0, 5);
+                    } else{
+                        board.move(0, 0, 0, 3);
                     }
                 }
 
