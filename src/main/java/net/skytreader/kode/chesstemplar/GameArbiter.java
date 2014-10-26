@@ -105,7 +105,6 @@ public class GameArbiter{
 
         if(WHITE_KING.equals(cp) && ((!whiteKingMoved && !whiteKingsideRookMoved) ||
           (!whiteKingMoved && !whiteQueensideRookMoved))){
-            System.out.println("White King can castle.");
             /*
             Check if the king side is clear. We only check if conditions for
             castling is still valid at king side.
@@ -245,10 +244,6 @@ public class GameArbiter{
         try{
             // Check that the destination is a legal move
             Set<Point> legalMoves = legalMovesFilter(cp1, r1, c1);
-            if(isWhiteKing){
-                System.out.println("Requested for white king " + r1 + " " + c1 + " " + r2 + " " + c2);
-                System.out.println("Legal moves for white king: " + legalMoves);
-            }
             if(legalMoves.contains(new Point(r2, c2))){
                 board.move(r1, c1, r2, c2);
     
