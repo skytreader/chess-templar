@@ -98,6 +98,7 @@ public class GameArbiter{
     a check and, in the case of the King, add the possibility of castles.
 
     TODO I think this should be made protected?
+    FIXME Cannot castle _through_ a check.
     */
     public Set<Point> legalMovesFilter(ChessPiece cp, int r, int c) throws NotMeException{
         Set<Point> pieceMoves = cp.getMoves(r, c, board);
@@ -105,57 +106,69 @@ public class GameArbiter{
         if(WHITE_KING.equals(cp) && ((!whiteKingMoved && !whiteKingsideRookMoved) ||
           (!whiteKingMoved && !whiteQueensideRookMoved))){
             System.out.println("White King can castle.");
-            // Check if the king side is clear
-            boolean kingSideClear = true;
-            for(int i = 5; i < 7; i++){
-                if(board.getPieceAt(7, i) != null){
-                    kingSideClear = false;
-                    break;
+            /*
+            Check if the king side is clear. We only check if conditions for
+            castling is still valid at king side.
+            */
+            if(!whiteKingMoved && !whiteKingsideRookMoved){
+                boolean kingSideClear = true;
+                for(int i = 5; i < 7; i++){
+                    if(board.getPieceAt(7, i) != null){
+                        kingSideClear = false;
+                        break;
+                    }
+                }
+
+                if(kingSideClear){
+                    pieceMoves.add(new Point(7, 6));
                 }
             }
 
-            if(kingSideClear){
-                pieceMoves.add(new Point(7, 6));
-            }
-
-            boolean queenSideClear = true;
-            // Check if the queen side is clear
-            for(int i = 1; i < 4; i++){
-                if(board.getPieceAt(7, i) != null){
-                    queenSideClear = false;
-                    break;
+            if(!whiteKingMoved && !whiteQueensideRookMoved){
+                boolean queenSideClear = true;
+                // Check if the queen side is clear
+                for(int i = 1; i < 4; i++){
+                    if(board.getPieceAt(7, i) != null){
+                        queenSideClear = false;
+                        break;
+                    }
                 }
-            }
-
-            if(queenSideClear){
-                pieceMoves.add(new Point(7, 2));
+    
+                if(queenSideClear){
+                    pieceMoves.add(new Point(7, 2));
+                }
             }
         } else if(BLACK_KING.equals(cp) && ((!blackKingMoved && !blackKingsideRookMoved) ||
-          (!blackKingMoved && !blackKingsideRookMoved))){
-            // Check if the king side is clear
-            boolean kingSideClear = true;
-            for(int i = 5; i < 7; i++){
-                if(board.getPieceAt(0, i) != null){
-                    kingSideClear = false;
-                    break;
+          (!blackKingMoved && !blackQueensideRookMoved))){
+            
+            if(!blackKingMoved && !blackKingsideRookMoved){
+                // Check if the king side is clear
+                boolean kingSideClear = true;
+                for(int i = 5; i < 7; i++){
+                    if(board.getPieceAt(0, i) != null){
+                        kingSideClear = false;
+                        break;
+                    }
+                }
+
+                if(kingSideClear){
+                    pieceMoves.add(new Point(0, 6));
                 }
             }
 
-            if(kingSideClear){
-                pieceMoves.add(new Point(0, 6));
-            }
-
-            boolean queenSideClear = true;
-            // Check if the queen side is clear
-            for(int i = 1; i < 5; i++){
-                if(board.getPieceAt(0, i) != null){
-                    queenSideClear = false;
-                    break;
+            if(!blackKingMoved && !blackQueensideRookMoved){
+                boolean queenSideClear = true;
+                // Check if the queen side is clear
+                for(int i = 1; i < 5; i++){
+                    if(board.getPieceAt(0, i) != null){
+                        queenSideClear = false;
+                        break;
+                    }
                 }
-            }
 
-            if(queenSideClear){
-                pieceMoves.add(new Point(0, 2));
+                if(queenSideClear){
+                    pieceMoves.add(new Point(0, 2));
+                }
             }
         }
 
@@ -296,10 +309,8 @@ public class GameArbiter{
 
                 if(cp1.equals(WHITE_KING)){
                     whiteKingMoved = true;
-                    isWhiteKing = true;
                 } else if(cp1.equals(BLACK_KING)){
                     blackKingMoved = true;
-                    isBlackKing = true;
                 } else if(cp1.equals(WHITE_ROOK)){
                     whiteKingsideRookMoved = true;
                 } else if(cp1.equals(WHITE_ROOK)){
