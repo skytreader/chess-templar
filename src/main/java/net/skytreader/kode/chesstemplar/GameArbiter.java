@@ -104,6 +104,7 @@ public class GameArbiter{
 
         if(WHITE_KING.equals(cp) && ((!whiteKingMoved && !whiteKingsideRookMoved) ||
           (!whiteKingMoved && !whiteQueensideRookMoved))){
+            System.out.println("White King can castle.");
             // Check if the king side is clear
             boolean kingSideClear = true;
             for(int i = 5; i < 7; i++){
@@ -193,7 +194,7 @@ public class GameArbiter{
     That is, you can't call requestMove two consecutive times on an r1, c1 tile
     holding a piece with the same color.
 
-    To describe a castle move, move the King to it's terminal position once the
+    To describe a castle move, move the King to its terminal position once the
     move is castle is done.
 
     @param r1
@@ -231,6 +232,10 @@ public class GameArbiter{
         try{
             // Check that the destination is a legal move
             Set<Point> legalMoves = legalMovesFilter(cp1, r1, c1);
+            if(isWhiteKing){
+                System.out.println("Requested for white king " + r1 + " " + c1 + " " + r2 + " " + c2);
+                System.out.println("Legal moves for white king: " + legalMoves);
+            }
             if(legalMoves.contains(new Point(r2, c2))){
                 board.move(r1, c1, r2, c2);
     
@@ -295,13 +300,13 @@ public class GameArbiter{
                 } else if(cp1.equals(BLACK_KING)){
                     blackKingMoved = true;
                     isBlackKing = true;
-                } else if(cp1.equals(WHITE_ROOK) && r1 == 7 && c1 == 7){
+                } else if(cp1.equals(WHITE_ROOK)){
                     whiteKingsideRookMoved = true;
-                } else if(cp1.equals(WHITE_ROOK) && r1 == 7 && c1 == 0){
+                } else if(cp1.equals(WHITE_ROOK)){
                     whiteQueensideRookMoved = true;
-                } else if(cp1.equals(BLACK_ROOK) && r1 == 0 && c1 == 7){
+                } else if(cp1.equals(BLACK_ROOK)){
                     blackKingsideRookMoved = true;
-                } else if(cp1.equals(BLACK_ROOK) && r1 == 0 && c1 == 0){
+                } else if(cp1.equals(BLACK_ROOK)){
                     blackQueensideRookMoved = true;
                 }
                 return true;

@@ -150,6 +150,7 @@ public class GameArbiterTest{
     */
     @Test
     public void testWhiteKingsideRookNoCastle(){
+        System.out.println("testWhiteKingsideRookNoCastle");
         Point[] moveSeqSrc = {new Point(6, 7), new Point(1, 0), new Point(7, 7),
           new Point(1, 1), new Point(5, 7), new Point(1, 2), new Point(6, 6),
           new Point(1, 3), new Point(7, 5), new Point(1, 4), new Point(7, 6),
