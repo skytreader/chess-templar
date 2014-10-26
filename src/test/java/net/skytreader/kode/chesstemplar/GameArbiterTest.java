@@ -150,7 +150,6 @@ public class GameArbiterTest{
     */
     @Test
     public void testWhiteKingsideRookNoCastle(){
-        System.out.println("testWhiteKingsideRookNoCastle");
         Point[] moveSeqSrc = {new Point(6, 7), new Point(1, 0), new Point(7, 7),
           new Point(1, 1), new Point(5, 7), new Point(1, 2), new Point(6, 6),
           new Point(1, 3), new Point(7, 5), new Point(1, 4), new Point(7, 6),
@@ -167,19 +166,24 @@ public class GameArbiterTest{
 
     /**
     Test that the right of castling is invalidated when the King moves.
+
+    1 e4 e5
+    2 Nf3 d6
+    3 Bb5+ c6
+    4 Kf1 f6
+    5 Ke1 g6
     */
     @Test
     public void testWhiteKingNoCastle(){
-        concreteBoard.removePiece(7, 5);
-        concreteBoard.removePiece(7, 6);
+        Point[] moveSeqSrc = {new Point(6, 4), new Point(1, 4), new Point(7, 6),
+          new Point(1, 3), new Point(7, 5), new Point(1, 2), new Point(7, 4),
+          new Point(1, 5), new Point(7, 5), new Point(1, 6)};
+        Point[] moveSeqDst = {new Point(4, 4), new Point(3, 4), new Point(5, 5),
+          new Point(2, 3), new Point(3, 1), new Point(2, 2), new Point(7, 5),
+          new Point(2, 5), new Point(7, 4), new Point(2, 6)};
+        executeMoveSequence(moveSeqSrc, moveSeqDst);
 
-        // Move the white King NOT CASTLE MOVE!
-        Assert.assertTrue(rigidArbiter.requestMove(7, 4, 7, 5));
-        Assert.assertTrue(rigidArbiter.requestMove(1, 0, 2, 0));
-        Assert.assertTrue(rigidArbiter.requestMove(7, 5, 7, 4)); 
-        
-        // TODO Check this via the available legal moves for the King.
-        //Assert.assertFalse(rigidArbiter.canWhiteKingCastle());
+        Assert.assertFalse(rigidArbiter.requestMove(7, 4, 7, 6));
     }
 
     @Test
