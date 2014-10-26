@@ -103,8 +103,7 @@ public class GameArbiter{
     public Set<Point> legalMovesFilter(ChessPiece cp, int r, int c) throws NotMeException{
         Set<Point> pieceMoves = cp.getMoves(r, c, board);
 
-        if(WHITE_KING.equals(cp) && ((!whiteKingMoved && !whiteKingsideRookMoved) ||
-          (!whiteKingMoved && !whiteQueensideRookMoved))){
+        if(WHITE_KING.equals(cp)){
             /*
             Check if the king side is clear. We only check if conditions for
             castling is still valid at king side.
@@ -137,8 +136,7 @@ public class GameArbiter{
                     pieceMoves.add(new Point(7, 2));
                 }
             }
-        } else if(BLACK_KING.equals(cp) && ((!blackKingMoved && !blackKingsideRookMoved) ||
-          (!blackKingMoved && !blackQueensideRookMoved))){
+        } else if(BLACK_KING.equals(cp)){
             
             if(!blackKingMoved && !blackKingsideRookMoved){
                 // Check if the king side is clear
