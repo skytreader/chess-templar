@@ -76,8 +76,6 @@ public class GameArbiterTest{
     @Test
     public void testConcreteInitialState(){
         Assert.assertFalse(rigidArbiter.isEndgame());
-        //Assert.assertFalse(rigidArbiter.canWhiteKingCastle());
-        //Assert.assertFalse(rigidArbiter.canBlackKingCastle());
 
         // Test that, on its initial state, only the white side has legal moves
         // Moving a black pawn should not be allowed
@@ -89,13 +87,6 @@ public class GameArbiterTest{
         Assert.assertFalse(rigidArbiter.isBlackKingChecked());
     }
 
-    // FIXME (or remove?)
-    @Test
-    public void testContrivedKingsideCastleScenarioWhite(){
-        concreteBoard.removePiece(7, 5);
-        concreteBoard.removePiece(7, 6);
-    }
-    
     @Test
     public void testKingsideCastleFilter() throws NotMeException{
         concreteBoard.removePiece(7, 5);
