@@ -203,6 +203,11 @@ public class GameArbiterTest{
         executeMoveSequence(moveSeqSrc, moveSeqDst);
 
         Assert.assertTrue(rigidArbiter.requestMove(7, 4, 7, 2));
+        ChessPiece king = concreteBoard.getPieceAt(7, 2);
+        ChessPiece rook = concreteBoard.getPieceAt(7, 3);
+
+        Assert.assertEquals(new King(true), king);
+        Assert.assertEquals(new Rook(true), rook);
     }
 
     /**
@@ -343,7 +348,7 @@ public class GameArbiterTest{
     
     /**
     Moves requested from a blank square should return false. Also tests that
-    request to move from a blank square shoudl not be taken as the game's
+    request to move from a blank square should not be taken as the game's
     most recent move.
     */
     @Test
@@ -372,11 +377,6 @@ public class GameArbiterTest{
 
         Assert.assertEquals(concreteBoard.getPieceAt(7, 6), whiteKing);
         Assert.assertEquals(concreteBoard.getPieceAt(7, 5), whiteRook);
-    }
-
-    @Test
-    public void testWhiteQueensideCastleRequest(){
-        // TODO
     }
 
     @Test
