@@ -185,14 +185,24 @@ public class GameArbiterTest{
 
         Assert.assertFalse(rigidArbiter.requestMove(7, 4, 7, 6));
     }
-
+    
+    /**
+    1 d4 a6
+    2 Qd3 b6
+    3 Bd2 c6
+    4 Nc3 d6
+    */
     @Test
     public void testContrivedQueensideCastleScenarioWhite(){
-        concreteBoard.removePiece(7, 3);
-        concreteBoard.removePiece(7, 2);
-        concreteBoard.removePiece(7, 1);
-        // TODO Check this via the available legal moves for the King.
-        //Assert.assertTrue(rigidArbiter.canWhiteKingCastle());
+        Point[] moveSeqSrc = {new Point(6, 3), new Point(1, 0), new Point(7, 3),
+          new Point(1, 1), new Point(7, 2), new Point(1, 2), new Point(7, 1),
+          new Point(1, 3)};
+        Point[] moveSeqDst = {new Point(4, 3), new Point(2, 0), new Point(5, 3),
+          new Point(2, 1), new Point(6, 3), new Point(2, 2), new Point(5, 2),
+          new Point(2, 3)};
+        executeMoveSequence(moveSeqSrc, moveSeqDst);
+
+        Assert.assertTrue(rigidArbiter.requestMove(7, 4, 7, 2));
     }
 
     /**
