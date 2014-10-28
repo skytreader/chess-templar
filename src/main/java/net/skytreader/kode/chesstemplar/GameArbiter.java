@@ -243,10 +243,6 @@ public class GameArbiter{
             // Check that the destination is a legal move
             Set<Point> legalMoves = legalMovesFilter(cp1, r1, c1);
             if(legalMoves.contains(new Point(r2, c2))){
-                if(isBlackKing){
-                    System.out.println(r1 + " " + c1 + " " + r2 + " " + c2);
-                    System.out.println("At least the move is legal.");
-                }
                 board.move(r1, c1, r2, c2);
     
                 lastMoveWhite = cp1.isWhite();
