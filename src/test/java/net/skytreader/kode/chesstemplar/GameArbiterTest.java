@@ -102,32 +102,6 @@ public class GameArbiterTest{
 
         Assert.assertEquals(withCastleMoves, kingLegalMoves);
     }
-
-    /**
-    1 d4 d5
-    2 Be3 c6
-    3 Qd2 c5
-    4 Nc3
-    */
-    @Test
-    public void testQueensideCastleFilter() throws NotMeException{
-        Point[] moveSeqSource = {new Point(6, 3), new Point(1, 3), new Point(7, 2),
-          new Point(1, 2), new Point(7, 3), new Point(2, 2), new Point(7, 1)};
-        Point[] moveSeqDest = {new Point(4, 3), new Point(3, 3), new Point(5, 4),
-          new Point(2, 2), new Point(6, 3), new Point(3, 2), new Point(5, 2)};
-
-        executeMoveSequence(moveSeqSource, moveSeqDest);
-
-        King whiteKing = new King(true);
-        Set<Point> withCastleMoves = whiteKing.getMoves(7, 4, concreteBoard);
-        // extra move for castle
-        withCastleMoves.add(new Point(7, 2));
-
-        Set<Point> kingLegalMoves = rigidArbiter.legalMovesFilter(whiteKing,
-          7, 4);
-
-        Assert.assertEquals(withCastleMoves, kingLegalMoves);
-    }
     
     /**
     Test that the right of castling is invalidated when the Kingside Rook moves.
@@ -175,30 +149,6 @@ public class GameArbiterTest{
         executeMoveSequence(moveSeqSrc, moveSeqDst);
 
         Assert.assertFalse(rigidArbiter.requestMove(7, 4, 7, 6));
-    }
-    
-    /**
-    1 d4 a6
-    2 Qd3 b6
-    3 Bd2 c6
-    4 Nc3 d6
-    */
-    @Test
-    public void testContrivedQueensideCastleScenarioWhite(){
-        Point[] moveSeqSrc = {new Point(6, 3), new Point(1, 0), new Point(7, 3),
-          new Point(1, 1), new Point(7, 2), new Point(1, 2), new Point(7, 1),
-          new Point(1, 3)};
-        Point[] moveSeqDst = {new Point(4, 3), new Point(2, 0), new Point(5, 3),
-          new Point(2, 1), new Point(6, 3), new Point(2, 2), new Point(5, 2),
-          new Point(2, 3)};
-        executeMoveSequence(moveSeqSrc, moveSeqDst);
-
-        Assert.assertTrue(rigidArbiter.requestMove(7, 4, 7, 2));
-        ChessPiece king = concreteBoard.getPieceAt(7, 2);
-        ChessPiece rook = concreteBoard.getPieceAt(7, 3);
-
-        Assert.assertEquals(new King(true), king);
-        Assert.assertEquals(new Rook(true), rook);
     }
 
     /**
@@ -369,10 +319,51 @@ public class GameArbiterTest{
         Assert.assertEquals(concreteBoard.getPieceAt(7, 6), whiteKing);
         Assert.assertEquals(concreteBoard.getPieceAt(7, 5), whiteRook);
     }
+    
+    /**
+    1 d4 a6
+    2 Qd3 b6
+    3 Bd2 c6
+    4 Nc3 d6
+    */
+    @Test
+    public void testWhiteQueensideCastleRequest(){
+        Point[] moveSeqSrc = {new Point(6, 3), new Point(1, 0), new Point(7, 3),
+          new Point(1, 1), new Point(7, 2), new Point(1, 2), new Point(7, 1),
+          new Point(1, 3)};
+        Point[] moveSeqDst = {new Point(4, 3), new Point(2, 0), new Point(5, 3),
+          new Point(2, 1), new Point(6, 3), new Point(2, 2), new Point(5, 2),
+          new Point(2, 3)};
+        executeMoveSequence(moveSeqSrc, moveSeqDst);
 
+        Assert.assertTrue(rigidArbiter.requestMove(7, 4, 7, 2));
+        ChessPiece king = concreteBoard.getPieceAt(7, 2);
+        ChessPiece rook = concreteBoard.getPieceAt(7, 3);
+
+        Assert.assertEquals(new King(true), king);
+        Assert.assertEquals(new Rook(true), rook);
+    }
+    
+    /**
+    1 a3 e5
+    2 b3 Be7
+    3 c3 Nf6
+    4 d3
+    */
     @Test
     public void testBlackKingsideCastleRequest(){
-        // TODO
+        Point[] moveSeqSrc = {new Point(6, 0), new Point(1, 4), new Point(6, 1),
+          new Point(0, 5), new Point(6, 2), new Point(0, 6), new Point(6, 3)};
+        Point[] moveSeqDst = {new Point(5, 0), new Point(3, 4), new Point(5, 1),
+          new Point(1, 4), new Point(5, 2), new Point(2, 5), new Point(5, 3)};
+        executeMoveSequence(moveSeqSrc, moveSeqDst);
+        Assert.assertTrue(rigidArbiter.requestMove(0, 4, 0, 6));
+
+        King blackKing = new King(false);
+        Rook blackRook = new Rook(false);
+
+        Assert.assertEquals(concreteBoard.getPieceAt(0, 6), blackKing);
+        Assert.assertEquals(concreteBoard.getPieceAt(0, 5), blackRook);
     }
 
     @Test
