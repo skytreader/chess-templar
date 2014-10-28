@@ -366,8 +366,28 @@ public class GameArbiterTest{
         Assert.assertEquals(concreteBoard.getPieceAt(0, 5), blackRook);
     }
 
+    /**
+    1 a3 d5
+    2 b3 Qd6
+    3 c3 Bd7
+    4 d3 Nc6
+    5 e3
+    */
     @Test
     public void testBlackQueensideCastleRequest(){
-        // TODO
+        Point[] moveSeqSrc = {new Point(6, 0), new Point(1, 3), new Point(6, 1),
+          new Point(0, 3), new Point(6, 2), new Point(0, 2), new Point(6, 3),
+          new Point(0, 1), new Point(6, 4)};
+        Point[] moveSeqDst = {new Point(5, 0), new Point(3, 3), new Point(5, 1),
+          new Point(2, 3), new Point(5, 2), new Point(1, 3), new Point(5, 3),
+          new Point(2, 2), new Point(5, 4)};
+        executeMoveSequence(moveSeqSrc, moveSeqDst);
+        Assert.assertTrue(rigidArbiter.requestMove(0, 4, 0, 2));
+
+        King blackKing = new King(false);
+        Rook blackRook = new Rook(false);
+
+        Assert.assertEquals(concreteBoard.getPieceAt(0, 2), blackKing);
+        Assert.assertEquals(concreteBoard.getPieceAt(0, 3), blackRook);
     }
 }
