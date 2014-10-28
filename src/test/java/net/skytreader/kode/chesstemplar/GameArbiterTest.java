@@ -375,6 +375,7 @@ public class GameArbiterTest{
     */
     @Test
     public void testBlackQueensideCastleRequest(){
+        System.out.println("testBlackQueensideCastleRequest");
         Point[] moveSeqSrc = {new Point(6, 0), new Point(1, 3), new Point(6, 1),
           new Point(0, 3), new Point(6, 2), new Point(0, 2), new Point(6, 3),
           new Point(0, 1), new Point(6, 4)};

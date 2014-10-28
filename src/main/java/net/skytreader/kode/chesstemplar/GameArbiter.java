@@ -156,7 +156,7 @@ public class GameArbiter{
             if(!blackKingMoved && !blackQueensideRookMoved){
                 boolean queenSideClear = true;
                 // Check if the queen side is clear
-                for(int i = 1; i < 5; i++){
+                for(int i = 1; i < 4; i++){
                     if(board.getPieceAt(0, i) != null){
                         queenSideClear = false;
                         break;
@@ -243,6 +243,10 @@ public class GameArbiter{
             // Check that the destination is a legal move
             Set<Point> legalMoves = legalMovesFilter(cp1, r1, c1);
             if(legalMoves.contains(new Point(r2, c2))){
+                if(isBlackKing){
+                    System.out.println(r1 + " " + c1 + " " + r2 + " " + c2);
+                    System.out.println("At least the move is legal.");
+                }
                 board.move(r1, c1, r2, c2);
     
                 lastMoveWhite = cp1.isWhite();
