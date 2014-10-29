@@ -137,24 +137,39 @@ public class QueenTest{
         }
     }
 
+    /**
+    FIXME Fix coding context. Make readable, y'know.
+    */
+    private Set<Point> getExpectedMoves(int r, int c){
+        try{
+            BlankBoard dummyBoard = new BlankBoard();
+            Rook whiteRook = new Rook(false);
+            dummyBoard.addPiece(whiteRook, r, c);
+            Set<Point> rookMoves = whiteRook.getMoves(r, c, dummyBoard);
+            dummyBoard.removePiece(r, c);
+            Bishop whiteBishop = new Bishop(false);
+            dummyBoard.addPiece(whiteBishop, r, c);
+            Set<Point> bishopMoves = whiteBishop.getMoves(4, 4, dummyBoard);
+
+            HashSet<Point> queenExpectedMoves = new HashSet<Point>();
+            queenExpectedMoves.addAll(rookMoves);
+            queenExpectedMoves.addAll(bishopMoves);
+
+            return queenExpectedMoves;
+        } catch(NotMeException nme){
+            Assert.fail("NotMeException thrown while testing common legal moves.");
+            nme.printStackTrace();
+            return null;
+        }
+    }
+
     @Test
     public void testCommonMovesWhite(){
         try{
             BlankBoard testBoard = new BlankBoard();
             testBoard.addPiece(whiteQueen, 4, 4);
 
-            BlankBoard dummyBoard = new BlankBoard();
-            Rook whiteRook = new Rook(false);
-            dummyBoard.addPiece(whiteRook, 4, 4);
-            Set<Point> rookMoves = whiteRook.getMoves(4, 4, dummyBoard);
-            dummyBoard.removePiece(4, 4);
-            Bishop whiteBishop = new Bishop(false);
-            dummyBoard.addPiece(whiteBishop, 4, 4);
-            Set<Point> bishopMoves = whiteBishop.getMoves(4, 4, dummyBoard);
-
-            HashSet<Point> queenExpectedMoves = new HashSet<Point>();
-            queenExpectedMoves.addAll(rookMoves);
-            queenExpectedMoves.addAll(bishopMoves);
+            Set<Point> queenExpectedMoves = getExpectedMoves(4, 4);
 
             Set<Point> queenMoves = whiteQueen.getMoves(4, 4, testBoard);
             Assert.assertEquals(queenExpectedMoves, queenMoves);
@@ -162,6 +177,13 @@ public class QueenTest{
             Assert.fail("NotMeException thrown while testing common legal moves.");
             nme.printStackTrace();
         }
+    }
+
+    @Test
+    public void testCaptureScenario() throws NotMeException{
+        BlankBoard testBoard = new BlankBoard();
+        testBoard.addPiece(whiteQueen, 4, 4);
+        testBoard.addPiece(new Pawn(false), 1, 4);
     }
 
     @Test
