@@ -138,18 +138,20 @@ public class QueenTest{
     }
 
     /**
-    FIXME Fix coding context. Make readable, y'know.
+    @param r
+    @param c
+    @param color
     */
-    private Set<Point> getExpectedMoves(int r, int c){
+    private Set<Point> getExpectedMoves(int r, int c, boolean color){
         try{
             BlankBoard dummyBoard = new BlankBoard();
-            Rook whiteRook = new Rook(false);
-            dummyBoard.addPiece(whiteRook, r, c);
-            Set<Point> rookMoves = whiteRook.getMoves(r, c, dummyBoard);
+            Rook rook = new Rook(color);
+            dummyBoard.addPiece(rook, r, c);
+            Set<Point> rookMoves = rook.getMoves(r, c, dummyBoard);
             dummyBoard.removePiece(r, c);
-            Bishop whiteBishop = new Bishop(false);
-            dummyBoard.addPiece(whiteBishop, r, c);
-            Set<Point> bishopMoves = whiteBishop.getMoves(4, 4, dummyBoard);
+            Bishop bishop = new Bishop(color);
+            dummyBoard.addPiece(bishop, r, c);
+            Set<Point> bishopMoves = bishop.getMoves(4, 4, dummyBoard);
 
             HashSet<Point> queenExpectedMoves = new HashSet<Point>();
             queenExpectedMoves.addAll(rookMoves);
@@ -169,7 +171,7 @@ public class QueenTest{
             BlankBoard testBoard = new BlankBoard();
             testBoard.addPiece(whiteQueen, 4, 4);
 
-            Set<Point> queenExpectedMoves = getExpectedMoves(4, 4);
+            Set<Point> queenExpectedMoves = getExpectedMoves(4, 4, true);
 
             Set<Point> queenMoves = whiteQueen.getMoves(4, 4, testBoard);
             Assert.assertEquals(queenExpectedMoves, queenMoves);
