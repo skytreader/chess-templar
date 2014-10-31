@@ -3,7 +3,9 @@ package net.skytreader.kode.chesstemplar.pieces;
 import java.awt.Point;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import net.skytreader.kode.chesstemplar.BlankBoard;
@@ -141,8 +143,10 @@ public class QueenTest{
     @param r
     @param c
     @param color
+    @param piecePos
     */
-    private Set<Point> getExpectedMoves(int r, int c, boolean color){
+    private Set<Point> getExpectedMoves(int r, int c, boolean color,
+      Map<Point, ChessPiece> piecePos){
         try{
             BlankBoard dummyBoard = new BlankBoard();
             Rook rook = new Rook(color);
@@ -171,7 +175,7 @@ public class QueenTest{
             BlankBoard testBoard = new BlankBoard();
             testBoard.addPiece(whiteQueen, 4, 4);
 
-            Set<Point> queenExpectedMoves = getExpectedMoves(4, 4, true);
+            Set<Point> queenExpectedMoves = getExpectedMoves(4, 4, true, null);
 
             Set<Point> queenMoves = whiteQueen.getMoves(4, 4, testBoard);
             Assert.assertEquals(queenExpectedMoves, queenMoves);
