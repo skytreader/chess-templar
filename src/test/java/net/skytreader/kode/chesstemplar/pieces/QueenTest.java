@@ -149,6 +149,11 @@ public class QueenTest{
       Map<Point, ChessPiece> piecePos){
         try{
             BlankBoard dummyBoard = new BlankBoard();
+
+            for(Point p : piecePos.keySet()){
+                dummyBoard.addPiece(piecePos.get(p), p.x, p.y);
+            }
+
             Rook rook = new Rook(color);
             dummyBoard.addPiece(rook, r, c);
             Set<Point> rookMoves = rook.getMoves(r, c, dummyBoard);
@@ -175,7 +180,7 @@ public class QueenTest{
             BlankBoard testBoard = new BlankBoard();
             testBoard.addPiece(whiteQueen, 4, 4);
 
-            Set<Point> queenExpectedMoves = getExpectedMoves(4, 4, true, null);
+            Set<Point> queenExpectedMoves = getExpectedMoves(4, 4, true, new HashMap<Point, ChessPiece>());
 
             Set<Point> queenMoves = whiteQueen.getMoves(4, 4, testBoard);
             Assert.assertEquals(queenExpectedMoves, queenMoves);
@@ -189,7 +194,13 @@ public class QueenTest{
     public void testCaptureScenario() throws NotMeException{
         BlankBoard testBoard = new BlankBoard();
         testBoard.addPiece(whiteQueen, 4, 4);
+        Map<Point, ChessPiece> piecePos = new HashMap<Point, ChessPiece>();
+        piecePos.put(new Point(1, 4), new Pawn(false));
         testBoard.addPiece(new Pawn(false), 1, 4);
+        Set<Point> queenExpectedMoves = getExpectedMoves(4, 4, true, piecePos);
+        Set<Point> queenMoves = whiteQueen.getMoves(4, 4, testBoard);
+
+        Assert.assertEquals(queenExpectedMoves, queenMoves);
     }
 
     @Test
