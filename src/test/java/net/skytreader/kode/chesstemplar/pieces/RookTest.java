@@ -273,6 +273,27 @@ public class RookTest{
     }
 
     @Test
+    public void testCaptureScenarioWhite() throws NotMeException{
+        BlankBoard testBoard = new BlankBoard();
+        testBoard.addPiece(whiteRook, 4, 4);
+        testBoard.addPiece(new Pawn(false), 1, 4);
+        HashSet<Point> expectedSet = new HashSet<Point>();
+
+        for(int i = 0; i < 8; i++){
+            if(i != 4){
+                expectedSet.add(new Point(i, 4));
+                expectedSet.add(new Point(4, i));
+            }
+        }
+
+        // Remove (0, 4) because the black pawn at (1, 4) should be blocking that
+        expectedSet.remove(new Point(0, 4));
+
+        Set<Point> actualMoves = whiteRook.getMoves(4, 4, testBoard);
+        Assert.assertEquals(expectedSet, actualMoves);
+    }
+
+    @Test
     public void testCommonMovesBlack(){
         try{
             BlankBoard testBoard = new BlankBoard();
@@ -292,6 +313,27 @@ public class RookTest{
         } catch(NotMeException nme){
             Assert.fail("NotMeException thrown while testing common legal moves for black.");
         }
+    }
+
+    @Test
+    public void testCaptureScenarioBlack() throws NotMeException{
+        BlankBoard testBoard = new BlankBoard();
+        testBoard.addPiece(blackRook, 4, 4);
+        testBoard.addPiece(new Pawn(true), 1, 4);
+        HashSet<Point> expectedSet = new HashSet<Point>();
+
+        for(int i = 0; i < 8; i++){
+            if(i != 4){
+                expectedSet.add(new Point(i, 4));
+                expectedSet.add(new Point(4, i));
+            }
+        }
+
+        // Remove (0, 4) because it is blocked by the Pawn at (1, 4)
+        expectedSet.remove(new Point(0, 4));
+
+        Set<Point> actualMoves = blackRook.getMoves(4, 4, testBoard);
+        Assert.assertEquals(expectedSet, actualMoves);
     }
 
     @Test
