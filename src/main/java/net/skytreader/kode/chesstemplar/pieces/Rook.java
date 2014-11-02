@@ -33,6 +33,7 @@ public class Rook extends ChessPiece{
                 legalMoves.add(new Point(i, c));
             }else if(p != null && (p.isWhite() ^ indicatedPiece.isWhite())){
                 legalMoves.add(new Point(i, c));
+                break;
             } else if(p != null && p.isWhite() == indicatedPiece.isWhite()){
                 break;
             }
@@ -46,6 +47,7 @@ public class Rook extends ChessPiece{
                 legalMoves.add(new Point(r, i));
             } else if(p != null && (p.isWhite() ^ indicatedPiece.isWhite())){
                 legalMoves.add(new Point(r, i));
+                break;
             } else if(p != null && p.isWhite() == indicatedPiece.isWhite()){
                 break;
             }
@@ -59,6 +61,7 @@ public class Rook extends ChessPiece{
                 legalMoves.add(new Point(i, c));
             } else if(p != null && (p.isWhite() ^ indicatedPiece.isWhite())){
                 legalMoves.add(new Point(i, c));
+                break;
             } else if(p != null && p.isWhite() == indicatedPiece.isWhite()){
                 break;
             }
@@ -72,6 +75,7 @@ public class Rook extends ChessPiece{
                 legalMoves.add(new Point(r, i));
             } else if(p != null && (p.isWhite() ^ indicatedPiece.isWhite())){
                 legalMoves.add(new Point(r, i));
+                break;
             } else if(p != null && p.isWhite() == indicatedPiece.isWhite()){
                 break;
             }
