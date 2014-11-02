@@ -191,7 +191,7 @@ public class QueenTest{
     }
 
     @Test
-    public void testCaptureScenario() throws NotMeException{
+    public void testCaptureScenarioWhite() throws NotMeException{
         BlankBoard testBoard = new BlankBoard();
         testBoard.addPiece(whiteQueen, 4, 4);
         Map<Point, ChessPiece> piecePos = new HashMap<Point, ChessPiece>();
@@ -199,6 +199,19 @@ public class QueenTest{
         testBoard.addPiece(new Pawn(false), 1, 4);
         Set<Point> queenExpectedMoves = getExpectedMoves(4, 4, true, piecePos);
         Set<Point> queenMoves = whiteQueen.getMoves(4, 4, testBoard);
+
+        Assert.assertEquals(queenExpectedMoves, queenMoves);
+    }
+
+    @Test
+    public void testCaptureScenarioBlack() throws NotMeException{
+        BlankBoard testBoard = new BlankBoard();
+        testBoard.addPiece(blackQueen, 4, 4);
+        Map<Point, ChessPiece> piecePos = new HashMap<Point, ChessPiece>();
+        piecePos.put(new Point(1, 4), new Pawn(true));
+        testBoard.addPiece(new Pawn(false), 1, 4);
+        Set<Point> queenExpectedMoves = getExpectedMoves(4, 4, true, piecePos);
+        Set<Point> queenMoves = blackQueen.getMoves(4, 4, testBoard);
 
         Assert.assertEquals(queenExpectedMoves, queenMoves);
     }
