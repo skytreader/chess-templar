@@ -47,14 +47,6 @@ public abstract class ChessPiece{
     */
     public abstract Set<Point> getMoves(int r, int c, Board b) throws NotMeException;
 
-    /**
-    Check if the piece at the given coordinates in the board is equal to this
-    piece.
-    */
-    protected boolean isPieceAt(int r, int c, Board b){
-        return b.getPieceAt(r, c).equals(this);
-    }
-
     public boolean isWhite(){
         return this.color;
     }
