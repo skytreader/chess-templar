@@ -25,6 +25,8 @@ public class QueenTest{
     
     private Queen whiteQueen;
     private Queen blackQueen;
+    private BlankBoard testBoard;
+    private GridBoard gridBoard;
 
     @Rule
     public ExpectedException exception = ExpectedException.none();
@@ -33,6 +35,8 @@ public class QueenTest{
     public void setUp(){
         whiteQueen = new Queen(ChessPiece.WHITE);
         blackQueen = new Queen(!ChessPiece.WHITE);
+        testBoard = new BlankBoard();
+        gridBoard = new GridBoard();
     }
 
     @Test
@@ -95,10 +99,10 @@ public class QueenTest{
     @Test
     public void testInitialConfiguration(){
         try{
-            Board testBoard = new GridBoard();
+            Board gridBoard = new GridBoard();
             HashSet<Point> emptySet = new HashSet<Point>();
-            Set<Point> black03 = blackQueen.getMoves(0, 3, testBoard);
-            Set<Point> white73 = whiteQueen.getMoves(7, 3, testBoard);
+            Set<Point> black03 = blackQueen.getMoves(0, 3, gridBoard);
+            Set<Point> white73 = whiteQueen.getMoves(7, 3, gridBoard);
 
             Assert.assertEquals(black03, emptySet);
             Assert.assertEquals(white73, emptySet);
@@ -115,22 +119,9 @@ public class QueenTest{
     @Test
     public void testCommonMovesBlack(){
         try{
-            BlankBoard testBoard = new BlankBoard();
             testBoard.addPiece(blackQueen, 4, 4);
-
-            BlankBoard dummyBoard = new BlankBoard();
-            Rook blackRook = new Rook(false);
-            dummyBoard.addPiece(blackRook, 4, 4);
-            Set<Point> rookMoves = blackRook.getMoves(4, 4, dummyBoard);
-            dummyBoard.removePiece(4, 4);
-            Bishop blackBishop = new Bishop(false);
-            dummyBoard.addPiece(blackBishop, 4, 4);
-            Set<Point> bishopMoves = blackBishop.getMoves(4, 4, dummyBoard);
-
-            HashSet<Point> queenExpectedMoves = new HashSet<Point>();
-            queenExpectedMoves.addAll(rookMoves);
-            queenExpectedMoves.addAll(bishopMoves);
-
+            Set<Point> queenExpectedMoves = getExpectedMoves(4, 4, false,
+              new HashMap<Point, ChessPiece>());
             Set<Point> queenMoves = blackQueen.getMoves(4, 4, testBoard);
             Assert.assertEquals(queenExpectedMoves, queenMoves);
         } catch(NotMeException nme){
@@ -177,7 +168,6 @@ public class QueenTest{
     @Test
     public void testCommonMovesWhite(){
         try{
-            BlankBoard testBoard = new BlankBoard();
             testBoard.addPiece(whiteQueen, 4, 4);
 
             Set<Point> queenExpectedMoves = getExpectedMoves(4, 4, true, new HashMap<Point, ChessPiece>());
@@ -192,7 +182,6 @@ public class QueenTest{
 
     @Test
     public void testCaptureScenarioWhite() throws NotMeException{
-        BlankBoard testBoard = new BlankBoard();
         testBoard.addPiece(whiteQueen, 4, 4);
         Map<Point, ChessPiece> piecePos = new HashMap<Point, ChessPiece>();
         piecePos.put(new Point(1, 4), new Pawn(false));
@@ -205,7 +194,6 @@ public class QueenTest{
 
     @Test
     public void testCaptureScenarioBlack() throws NotMeException{
-        BlankBoard testBoard = new BlankBoard();
         testBoard.addPiece(blackQueen, 4, 4);
         Map<Point, ChessPiece> piecePos = new HashMap<Point, ChessPiece>();
         piecePos.put(new Point(1, 4), new Pawn(true));
@@ -219,9 +207,8 @@ public class QueenTest{
     @Test
     public void testNotMe() throws NotMeException{
         exception.expect(NotMeException.class);
-        Board testBoard = new GridBoard();
     
         // Try to use a white queen to move the black rook at (0, 0).
-        whiteQueen.getMoves(0, 0, testBoard);
+        whiteQueen.getMoves(0, 0, gridBoard);
     }
 }
