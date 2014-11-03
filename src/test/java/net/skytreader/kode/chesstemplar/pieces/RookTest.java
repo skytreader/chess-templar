@@ -277,6 +277,9 @@ public class RookTest{
         BlankBoard testBoard = new BlankBoard();
         testBoard.addPiece(whiteRook, 4, 4);
         testBoard.addPiece(new Pawn(false), 1, 4);
+        testBoard.addPiece(new Pawn(false), 6, 4);
+        testBoard.addPiece(new Pawn(false), 4, 1);
+        testBoard.addPiece(new Pawn(false), 4, 6);
         HashSet<Point> expectedSet = new HashSet<Point>();
 
         for(int i = 0; i < 8; i++){
@@ -286,8 +289,11 @@ public class RookTest{
             }
         }
 
-        // Remove (0, 4) because the black pawn at (1, 4) should be blocking that
+        // Remove squares blocked by pawns
         expectedSet.remove(new Point(0, 4));
+        expectedSet.remove(new Point(7, 4));
+        expectedSet.remove(new Point(4, 0));
+        expectedSet.remove(new Point(4, 7));
 
         Set<Point> actualMoves = whiteRook.getMoves(4, 4, testBoard);
         Assert.assertEquals(expectedSet, actualMoves);
@@ -320,6 +326,9 @@ public class RookTest{
         BlankBoard testBoard = new BlankBoard();
         testBoard.addPiece(blackRook, 4, 4);
         testBoard.addPiece(new Pawn(true), 1, 4);
+        testBoard.addPiece(new Pawn(true), 6, 4);
+        testBoard.addPiece(new Pawn(true), 4, 1);
+        testBoard.addPiece(new Pawn(true), 4, 6);
         HashSet<Point> expectedSet = new HashSet<Point>();
 
         for(int i = 0; i < 8; i++){
@@ -329,8 +338,11 @@ public class RookTest{
             }
         }
 
-        // Remove (0, 4) because it is blocked by the Pawn at (1, 4)
+        // Remove squares blocked by Pawns
         expectedSet.remove(new Point(0, 4));
+        expectedSet.remove(new Point(7, 4));
+        expectedSet.remove(new Point(4, 0));
+        expectedSet.remove(new Point(4, 7));
 
         Set<Point> actualMoves = blackRook.getMoves(4, 4, testBoard);
         Assert.assertEquals(expectedSet, actualMoves);
