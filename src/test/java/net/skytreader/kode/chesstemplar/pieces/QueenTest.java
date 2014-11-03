@@ -169,9 +169,8 @@ public class QueenTest{
     public void testCommonMovesWhite(){
         try{
             testBoard.addPiece(whiteQueen, 4, 4);
-
-            Set<Point> queenExpectedMoves = getExpectedMoves(4, 4, true, new HashMap<Point, ChessPiece>());
-
+            Set<Point> queenExpectedMoves = getExpectedMoves(4, 4, true,
+              new HashMap<Point, ChessPiece>());
             Set<Point> queenMoves = whiteQueen.getMoves(4, 4, testBoard);
             Assert.assertEquals(queenExpectedMoves, queenMoves);
         } catch(NotMeException nme){
