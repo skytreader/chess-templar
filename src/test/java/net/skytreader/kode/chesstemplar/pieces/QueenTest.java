@@ -131,9 +131,12 @@ public class QueenTest{
     }
 
     /**
+    Generates the moves of a Queen by combining the moves of a Bishop and a Rook.
+
     @param r
     @param c
     @param color
+        Color of the queen who will have these moves.
     @param piecePos
     */
     private Set<Point> getExpectedMoves(int r, int c, boolean color,
@@ -182,9 +185,26 @@ public class QueenTest{
     @Test
     public void testCaptureScenarioWhite() throws NotMeException{
         testBoard.addPiece(whiteQueen, 4, 4);
+
         Map<Point, ChessPiece> piecePos = new HashMap<Point, ChessPiece>();
         piecePos.put(new Point(1, 4), new Pawn(false));
+        piecePos.put(new Point(6, 4), new Pawn(false));
+        piecePos.put(new Point(4, 1), new Pawn(false));
+        piecePos.put(new Point(4, 6), new Pawn(false));
+        piecePos.put(new Point(1, 1), new Pawn(false));
+        piecePos.put(new Point(2, 6), new Pawn(false));
+        piecePos.put(new Point(6, 2), new Pawn(false));
+        piecePos.put(new Point(6, 6), new Pawn(false));
+        
         testBoard.addPiece(new Pawn(false), 1, 4);
+        testBoard.addPiece(new Pawn(false), 6, 4);
+        testBoard.addPiece(new Pawn(false), 4, 1);
+        testBoard.addPiece(new Pawn(false), 4, 6);
+        testBoard.addPiece(new Pawn(false), 1, 1);
+        testBoard.addPiece(new Pawn(false), 2, 6);
+        testBoard.addPiece(new Pawn(false), 6, 2);
+        testBoard.addPiece(new Pawn(false), 6, 6);
+
         Set<Point> queenExpectedMoves = getExpectedMoves(4, 4, true, piecePos);
         Set<Point> queenMoves = whiteQueen.getMoves(4, 4, testBoard);
 
@@ -196,8 +216,23 @@ public class QueenTest{
         testBoard.addPiece(blackQueen, 4, 4);
         Map<Point, ChessPiece> piecePos = new HashMap<Point, ChessPiece>();
         piecePos.put(new Point(1, 4), new Pawn(true));
-        testBoard.addPiece(new Pawn(false), 1, 4);
-        Set<Point> queenExpectedMoves = getExpectedMoves(4, 4, true, piecePos);
+        piecePos.put(new Point(6, 4), new Pawn(true));
+        piecePos.put(new Point(4, 1), new Pawn(true));
+        piecePos.put(new Point(4, 6), new Pawn(true));
+        piecePos.put(new Point(1, 1), new Pawn(true));
+        piecePos.put(new Point(2, 6), new Pawn(true));
+        piecePos.put(new Point(6, 2), new Pawn(true));
+        piecePos.put(new Point(6, 6), new Pawn(true));
+        
+        testBoard.addPiece(new Pawn(true), 1, 4);
+        testBoard.addPiece(new Pawn(true), 6, 4);
+        testBoard.addPiece(new Pawn(true), 4, 1);
+        testBoard.addPiece(new Pawn(true), 4, 6);
+        testBoard.addPiece(new Pawn(true), 1, 1);
+        testBoard.addPiece(new Pawn(true), 2, 6);
+        testBoard.addPiece(new Pawn(true), 6, 2);
+        testBoard.addPiece(new Pawn(true), 6, 6);
+        Set<Point> queenExpectedMoves = getExpectedMoves(4, 4, false, piecePos);
         Set<Point> queenMoves = blackQueen.getMoves(4, 4, testBoard);
 
         Assert.assertEquals(queenExpectedMoves, queenMoves);
