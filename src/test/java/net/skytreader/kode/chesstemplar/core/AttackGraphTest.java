@@ -7,6 +7,6 @@ import org.junit.Test;
 public class AttackGraphTest{
     
     @Before 
-    public class setUp(){
+    public void setUp(){
     }
 }

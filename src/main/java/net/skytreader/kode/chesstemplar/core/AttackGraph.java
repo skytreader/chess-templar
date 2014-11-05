@@ -21,7 +21,7 @@ public class AttackGraph{
 
     @param b
     */
-    public class AttackGraph(Board b){
+    public AttackGraph(Board b){
         board = b;
     }
 
