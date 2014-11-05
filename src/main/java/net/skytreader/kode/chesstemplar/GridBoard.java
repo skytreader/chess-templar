@@ -18,7 +18,7 @@ Memory wasteful implementation of Board as a grid.
 
 @author Chad Estioco
 */
-public class GridBoard implements Board{
+public class GridBoard extends Board{
     protected ChessPiece[] whitePieces = new ChessPiece[16];
     protected ChessPiece[] blackPieces = new ChessPiece[16];
     /**
