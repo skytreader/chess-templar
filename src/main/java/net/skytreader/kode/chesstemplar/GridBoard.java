@@ -201,8 +201,9 @@ public class GridBoard extends Board{
         board[r1][c1] = -1;
 
         // Observable-related methods
+        Point[] moveMade = {new Point(r1, c1), new Point(r2, c2)};
         setChanged();
-        notifyObservers();
+        notifyObservers(moveMade);
         clearChanged();
     }
 

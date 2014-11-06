@@ -14,7 +14,10 @@ Chess boards are containers of ChessPieces, keeping track of their position in
 the board and just that. Chess rules are not enforced by Chess boards. They
 are just containers for ChessPieces.
 
-Board Observers will be notified whenever a move is done on the Board.
+Board Observers will be notified whenever a move is done on the Board. The
+Observers will be given the move made as a two-element Point array. The first
+element will be the initial square (r1, c1) while the second element will be
+the terminal square (r2, c2).
 
 @author Chad Estioco
 */

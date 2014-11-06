@@ -34,7 +34,7 @@ public class AttackGraph implements Observer{
 
     @Override
     public void update(Observable o, Object arg){
-        if(observedBoard.equals(o)){
+        if(observedBoard.equals(o) && observedBoard.hasChanged()){
             // Only do something if the update comes from the board we are
             // observing.
         }
