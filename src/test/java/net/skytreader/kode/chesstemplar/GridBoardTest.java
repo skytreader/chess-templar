@@ -4,6 +4,8 @@ import java.awt.Point;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.Set;
 
 import net.skytreader.kode.chesstemplar.pieces.Bishop;
@@ -18,7 +20,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-public class GridBoardTest{
+public class GridBoardTest implements Observer{
     
     private GridBoard board;
 
@@ -29,6 +31,22 @@ public class GridBoardTest{
     private final ChessPiece[] WHITE_ARRANGEMENT = {new Rook(true), new Knight(true),
       new Bishop(true), new Queen(true), new King(true), new Bishop(true),
       new Knight(true), new Rook(true)};
+    
+    /**
+    When this is called, the Observable parameter should be the board and the
+    arg parameter should be typecastable to an array of Points, containing two
+    items.
+    */
+    @Override
+    public void update(Observable o, Object arg){
+        Assert.assertTrue(board.equals(o));
+        try{
+            Point[] moveMade = (Point[]) arg;
+            Assert.assertEquals(moveMade.length, 2);
+        } catch(ClassCastException cce){
+            Assert.fail("arg parameter cannot be typecasted to Point[].");
+        }
+    }
 
     @Before
     public void setUp(){
@@ -79,11 +97,13 @@ public class GridBoardTest{
     }
     
     /**
-    Test everything related to setting and getting pieces around the board.
+    Test everything related to setting and getting pieces around the board. This
+    also adds this instance as an Observer of board.
     */
     @Test
     public void testMovements(){
         // Move a black pawn
+        board.addObserver(this);
         ChessPiece blackPawn = board.getPieceAt(1, 0);
         board.move(1, 0, 2, 0);
         Assert.assertEquals(board.getPieceAt(2, 0), blackPawn);
