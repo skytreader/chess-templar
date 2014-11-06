@@ -1,12 +1,14 @@
 package net.skytreader.kode.chesstemplar.core;
 
+import java.util.Observer;
+
 import net.skytreader.kode.chesstemplar.Board;
 
 import net.skytreader.kode.chesstemplar.pieces.ChessPiece;
 
 /**
 An attack graph represents the attacking relationship between pieces in a
-Chess board. The graph is acyclic and the nodes represent the pieces in the
+Chess board. The graph is directed and the nodes represent the pieces in the
 game. An edge coming from node A to node B means that piece B is under attack
 by piece A.
 
