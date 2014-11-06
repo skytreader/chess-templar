@@ -42,7 +42,8 @@ public abstract class Board extends Observable{
     public abstract Set<Point> getPiecePositions();
 
     /**
-    Move the piece at the location (r1, c1) to location (r2, c2).
+    Move the piece at the location (r1, c1) to location (r2, c2). Note that Board
+    observers should be notified whenever a move is made.
     */
     public abstract void move(int r1, int c1, int r2, int c2);
 

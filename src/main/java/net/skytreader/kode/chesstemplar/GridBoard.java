@@ -199,6 +199,11 @@ public class GridBoard extends Board{
         lastDest = new Point(r2, c2);
         board[r2][c2] = board[r1][c1];
         board[r1][c1] = -1;
+
+        // Observable-related methods
+        setChanged();
+        notifyObservers();
+        clearChanged();
     }
 
     @Override

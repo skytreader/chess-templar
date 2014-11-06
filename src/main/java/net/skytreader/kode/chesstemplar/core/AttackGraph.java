@@ -1,5 +1,6 @@
 package net.skytreader.kode.chesstemplar.core;
 
+import java.util.Observable;
 import java.util.Observer;
 
 import net.skytreader.kode.chesstemplar.Board;
@@ -14,9 +15,9 @@ by piece A.
 
 @author Chad Estioco
 */
-public class AttackGraph{
+public class AttackGraph implements Observer{
     
-    private Board board;
+    private Board observedBoard;
 
     /**
     Construct an attack graph from the current configuration of the Board b.
@@ -24,9 +25,18 @@ public class AttackGraph{
     @param b
     */
     public AttackGraph(Board b){
-        board = b;
+        observedBoard = b;
+        observedBoard.addObserver(this);
     }
 
     public void move(int r1, int c1, int r2, int c2){
+    }
+
+    @Override
+    public void update(Observable o, Object arg){
+        if(observedBoard.equals(o)){
+            // Only do something if the update comes from the board we are
+            // observing.
+        }
     }
 }
