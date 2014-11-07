@@ -29,9 +29,6 @@ public class AttackGraph implements Observer{
         observedBoard.addObserver(this);
     }
 
-    public void move(int r1, int c1, int r2, int c2){
-    }
-
     @Override
     public void update(Observable o, Object arg){
         if(observedBoard.equals(o) && observedBoard.hasChanged()){
