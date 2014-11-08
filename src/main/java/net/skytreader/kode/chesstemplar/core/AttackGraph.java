@@ -11,6 +11,8 @@ import java.util.Set;
 
 import net.skytreader.kode.chesstemplar.Board;
 
+import net.skytreader.kode.chesstemplar.exceptions.NotMeException;
+
 import net.skytreader.kode.chesstemplar.pieces.ChessPiece;
 
 /**
@@ -52,51 +54,56 @@ public class AttackGraph implements Observer{
     Create the actual attack graph from the observed board.
     */
     private void initializeAttackGraph(){
-        Set<Point> piecePos = observedBoard.getPiecePositions();
+        try{
+            Set<Point> piecePos = observedBoard.getPiecePositions();
 
-        // (1) Get all the positions of all pieces
-        Set<Point> whitePieces = new HashSet<Point>();
-        Set<Point> blackPieces = new HashSet<Point>();
+            // (1) Get all the positions of all pieces
+            Set<Point> whitePieces = new HashSet<Point>();
+            Set<Point> blackPieces = new HashSet<Point>();
 
-        for(Point pos : piecePos){
-            ChessPiece cp = observedBoard.getPieceAt(pos.x, pos.y);
+            for(Point pos : piecePos){
+                ChessPiece cp = observedBoard.getPieceAt(pos.x, pos.y);
 
-            if(cp.isWhite()){
-                whitePieces.add(pos);
-            } else{
-                blackPieces.add(pos);
-            }
-        }
-
-        /*
-        (2) Construct the attack graph from the following definition:
-
-        Let piece A and piece B be pieces of different colors. piece A is
-        attacking piece B if the position of piece B is in the moveset of piece
-        A.
-        */
-        for(Point pos : piecePos){
-            ChessPiece cp = observedBoard.getPieceAt(pos.x, pos.y);
-            Set<Point> possibleMoves = cp.getMoves(pos.x, pos.y, observedBoard);
-            List<Point> cpNode = new LinkedList<Point>();
-            cpNode.add(pos);
-
-            if(cp.isWhite()){
-                // Search the black pieces
-                for(Point blackPiece : blackPieces){
-                    if(possibleMoves.contains(blackPiece)){
-                        cpNode.add(blackPiece);
-                    }
-                }
-            } else{
-                // Search the white pieces
-                for(Point whitePiece : whitePieces){
-                    if(possibleMoves.contains(whitePiece)){
-                        cpNode.add(whitePiece);
-                    }
+                if(cp.isWhite()){
+                    whitePieces.add(pos);
+                } else{
+                    blackPieces.add(pos);
                 }
             }
-            attackGraph.add(cpNode);
+
+            /*
+            (2) Construct the attack graph from the following definition:
+
+            Let piece A and piece B be pieces of different colors. piece A is
+            attacking piece B if the position of piece B is in the moveset of piece
+            A.
+            */
+            for(Point pos : piecePos){
+                ChessPiece cp = observedBoard.getPieceAt(pos.x, pos.y);
+                Set<Point> possibleMoves = cp.getMoves(pos.x, pos.y, observedBoard);
+                List<Point> cpNode = new LinkedList<Point>();
+                cpNode.add(pos);
+
+                if(cp.isWhite()){
+                    // Search the black pieces
+                    for(Point blackPiece : blackPieces){
+                        if(possibleMoves.contains(blackPiece)){
+                            cpNode.add(blackPiece);
+                        }
+                    }
+                } else{
+                    // Search the white pieces
+                    for(Point whitePiece : whitePieces){
+                        if(possibleMoves.contains(whitePiece)){
+                            cpNode.add(whitePiece);
+                        }
+                    }
+                }
+                attackGraph.add(cpNode);
+            }
+        } catch(NotMeException nme){
+            // There should be no reason for the code above to go here.
+            nme.printStackTrace();
         }
     }
 
