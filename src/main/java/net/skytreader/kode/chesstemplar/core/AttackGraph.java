@@ -112,6 +112,22 @@ public class AttackGraph implements Observer{
         if(observedBoard.equals(o) && observedBoard.hasChanged()){
             // Only do something if the update comes from the board we are
             // observing.
+
+            /*
+            Get the source square of the move and remove it from the "attacked"
+            list of everyone.
+            */
+            Point[] moveDesc = (Point[]) arg;
+
+            for(List<Point> attackList : attackGraph){
+                if(!attackList.get(0).equals(moveDesc[0]) &&
+                  attackList.contains(moveDesc[0])){
+                    // FIXME Might have trouble with pointers around here...
+                    // Possible fix: remove from attackGraph first then add again later
+                    // And, y'know, use a set.
+                    attackList.remove(moveDesc[0]);
+                }
+            }
         }
     }
 }
