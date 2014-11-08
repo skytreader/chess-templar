@@ -8,7 +8,7 @@ import java.util.Set;
 import net.skytreader.kode.chesstemplar.pieces.ChessPiece;
 
 /**
-This interface abstracts Chess boards.
+This class abstracts Chess boards.
 
 Chess boards are containers of ChessPieces, keeping track of their position in
 the board and just that. Chess rules are not enforced by Chess boards. They
