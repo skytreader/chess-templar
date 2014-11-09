@@ -154,7 +154,7 @@ public class AttackGraph implements Observer{
                 Set<Point> piecePos = observedBoard.getPiecePositions();
 
                 for(Point pos : piecePos){
-                    ChessPiece cp = attackGraph.getPieceAt(pos.x, pos.y);
+                    ChessPiece cp = observedBoard.getPieceAt(pos.x, pos.y);
                     Set<Point> moves = cp.getMoves(pos.x, pos.y, observedBoard);
                     
                     if(moves.contains(moveDesc[1])){
