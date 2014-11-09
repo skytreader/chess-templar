@@ -32,11 +32,11 @@ public class AttackGraph implements Observer{
     
     private Board observedBoard;
     /**
-    The first element (index 0) of every list in this list-of-lists is the chess
+    The first element (index 0) of every list in this set-of-lists is the chess
     piece represented by that list. The rest of the elements in the list
     (elements 1 to n) are the nodes attacked by current element.
     */
-    private List<List<Point>> attackGraph;
+    private Set<List<Point>> attackGraph;
 
     /**
     Construct an attack graph from the current configuration of the Board b.
@@ -46,7 +46,7 @@ public class AttackGraph implements Observer{
     public AttackGraph(Board b){
         observedBoard = b;
         observedBoard.addObserver(this);
-        attackGraph = new LinkedList<List<Point>>();
+        attackGraph = new HashSet<List<Point>>();
         initializeAttackGraph();
     }
     
@@ -106,6 +106,22 @@ public class AttackGraph implements Observer{
             nme.printStackTrace();
         }
     }
+    
+    /**
+    Update the attack graph and add target to those who are attacked by attacker.
+
+    Assumptions:
+      - attacker and target are not equal
+    */
+    private void updateAttackGraph(Point attacker, Point target){
+        for(List<Point> attackList : attackGraph){
+            if(attackList.get(0).equals(attacker) && !attackList.contains(target)){
+                attackGraph.remove(attackList);
+                attackList.add(target);
+                attackGraph.add(attackList);
+            }
+        }
+    }
 
     @Override
     public void update(Observable o, Object arg){
@@ -120,14 +136,39 @@ public class AttackGraph implements Observer{
             Point[] moveDesc = (Point[]) arg;
 
             for(List<Point> attackList : attackGraph){
+                // Remove the element from the Set first because we _might_ need
+                // to modify it.
+                attackGraph.remove(attackList);
                 if(!attackList.get(0).equals(moveDesc[0]) &&
                   attackList.contains(moveDesc[0])){
-                    // FIXME Might have trouble with pointers around here...
-                    // Possible fix: remove from attackGraph first then add again later
-                    // And, y'know, use a set.
                     attackList.remove(moveDesc[0]);
                 }
+                // Add back, now that possible modifications are done
+                attackGraph.add(attackList);
             }
+
+            /*
+            Get the terminal square of the move and add it to its new attackers
+            */
+            try{
+                Set<Point> piecePos = observedBoard.getPiecePositions();
+
+                for(Point pos : piecePos){
+                    ChessPiece cp = attackGraph.getPieceAt(pos.x, pos.y);
+                    Set<Point> moves = cp.getMoves(pos.x, pos.y, observedBoard);
+                    
+                    if(moves.contains(moveDesc[1])){
+                        updateAttackGraph(pos, moveDesc[1]);
+                    }
+                }
+            } catch(NotMeException nme){
+                // Again, code should never go here
+                nme.printStackTrace();
+            }
+
+            /*
+            Finally, note the pieces the moved piece attacks in its new position
+            */
         }
     }
 }
