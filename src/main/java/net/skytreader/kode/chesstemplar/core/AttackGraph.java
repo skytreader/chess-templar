@@ -35,6 +35,9 @@ public class AttackGraph implements Observer{
     The first element (index 0) of every list in this set-of-lists is the chess
     piece represented by that list. The rest of the elements in the list
     (elements 1 to n) are the nodes attacked by current element.
+
+    TODO We'll get better performance if we change this to
+    </code>Map<Point, List<Point>></code>
     */
     private Set<List<Point>> attackGraph;
 
@@ -48,6 +51,14 @@ public class AttackGraph implements Observer{
         observedBoard.addObserver(this);
         attackGraph = new HashSet<List<Point>>();
         initializeAttackGraph();
+    }
+    
+    /**
+    Return true if the piece at square p1 is attacking the piece at square p2.
+    If either p1 or p2 is empty, return false.
+    */
+    public boolean isAttacking(Point p1, Point p2){
+        return false;
     }
     
     /**
