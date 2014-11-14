@@ -39,5 +39,12 @@ public class AttackGraphTest{
         // Same color does not attack
         Assert.assertFalse(testGraph.isAttacking(new Point(2, 1), new Point(3, 0)));
         Assert.assertFalse(testGraph.isAttacking(new Point(5, 7), new Point(4, 6)));
+
+        // Different color attacks
+        Assert.assertTrue(testGraph.isAttacking(new Point(3, 1), new Point(2, 1)));
+        Assert.assertTrue(testGraph.isAttacking(new Point(6, 1), new Point(0, 7)));
+
+        // Reverse might not be true
+        Assert.assertFalse(testGraph.isAttacking(new Point(0, 7), new Point(6, 1)));
     }
 }

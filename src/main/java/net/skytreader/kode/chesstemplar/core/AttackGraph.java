@@ -58,7 +58,15 @@ public class AttackGraph implements Observer{
     If either p1 or p2 is empty, return false.
     */
     public boolean isAttacking(Point p1, Point p2){
-        return false;
+        try{
+            ChessPiece cp1 = observedBoard.getPieceAt(p1.x, p1.y);
+            Set<Point> cp1Moves = cp1.getMoves(p1.x, p1.y, observedBoard);
+            return cp1Moves.contains(p2);
+        } catch(NotMeException nme){
+            // Shouldn't get here
+            nme.printStackTrace();
+            return false;
+        }
     }
     
     /**
