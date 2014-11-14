@@ -30,7 +30,7 @@ public class AttackGraphTest{
         testBoard.addPiece(new King(false), 4, 6);
         testBoard.addPiece(new Pawn(false), 5, 7);
         // This is an additional
-        testBoard.addPiece(new Bishop(false), 5, 1);
+        testBoard.addPiece(new Bishop(false), 6, 1);
         testGraph = new AttackGraph(testBoard);
     }
 

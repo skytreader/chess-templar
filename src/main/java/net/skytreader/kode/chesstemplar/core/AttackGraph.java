@@ -60,7 +60,8 @@ public class AttackGraph implements Observer{
     public boolean isAttacking(Point p1, Point p2){
         try{
             ChessPiece cp1 = observedBoard.getPieceAt(p1.x, p1.y);
-            if(cp1 == null){
+            ChessPiece cp2 = observedBoard.getPieceAt(p2.x, p2.y);
+            if(cp1 == null || cp2 == null){
                 return false;
             }
             Set<Point> cp1Moves = cp1.getMoves(p1.x, p1.y, observedBoard);
