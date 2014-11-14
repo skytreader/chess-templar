@@ -46,5 +46,13 @@ public class AttackGraphTest{
 
         // Reverse might not be true
         Assert.assertFalse(testGraph.isAttacking(new Point(0, 7), new Point(6, 1)));
+
+        // Both empty
+        Assert.assertFalse(testGraph.isAttacking(new Point(0, 0), new Point(0, 1)));
+        // Left empty
+        Assert.assertFalse(testGraph.isAttacking(new Point(1, 1), new Point(2, 1)));
+        // Right empty
+        Assert.assertFalse(testGraph.isAttacking(new Point(2, 1), new Point(1, 1)));
+
     }
 }
