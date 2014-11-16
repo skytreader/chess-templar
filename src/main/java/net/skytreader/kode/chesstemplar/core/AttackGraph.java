@@ -175,6 +175,10 @@ public class AttackGraph implements Observer{
             */
             Set<Point> piecePos = observedBoard.getPiecePositions();
             try{
+                ChessPiece movedPiece = observedBoard.getPieceAt(moveDesc[1].x,
+                  moveDesc[1].y);
+                Set<Point> movedPieceMoves = movedPiece.getMoves(moveDesc[1].x,
+                  moveDesc[1].y, observedBoard);
                 for(Point pos : piecePos){
                     ChessPiece cp = observedBoard.getPieceAt(pos.x, pos.y);
                     Set<Point> moves = cp.getMoves(pos.x, pos.y, observedBoard);
@@ -182,29 +186,13 @@ public class AttackGraph implements Observer{
                     if(moves.contains(moveDesc[1])){
                         updateAttackGraph(pos, moveDesc[1]);
                     }
-                }
-            } catch(NotMeException nme){
-                // Again, code should never go here
-                nme.printStackTrace();
-            }
 
-            /*
-            Finally, note the pieces the moved piece attacks in its new position
-            */
-            try{
-                ChessPiece movedPiece = observedBoard.getPieceAt(moveDesc[1].x,
-                  moveDesc[1].y);
-                Set<Point> movedPieceMoves = movedPiece.getMoves(moveDesc[1].x,
-                  moveDesc[1].y, observedBoard);
-                for(Point pos : piecePos){
                     if(movedPieceMoves.contains(pos)){
                         updateAttackGraph(moveDesc[1], pos);
                     }
                 }
             } catch(NotMeException nme){
-                // TODO Maybe, merge this with the try-catch block above since
-                // I'd have the same comments on this one. Maybe even just do
-                // everything in one loop.
+                // Again, code should never go here
                 nme.printStackTrace();
             }
         }
