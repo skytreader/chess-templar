@@ -55,4 +55,17 @@ public class AttackGraphTest{
         Assert.assertFalse(testGraph.isAttacking(new Point(2, 1), new Point(1, 1)));
 
     }
+
+    @Test
+    public void testUpdate(){
+        // Make a move on the board and the graph should update accordingly.
+        testBoard.move(3, 1, 3, 7);
+        // Pawn at b6 is no longer attacked by anything at b5 (b5 is empty)
+        Assert.assertFalse(testGraph.isAttacking(new Point(3, 1), new Point(2, 1)));
+        // Rook at h8 is no longer attacking pawn at h3
+        Assert.assertFalse(testGraph.isAttacking(new Point(0, 7), new Point(5, 7)));
+        // Rooks are in mutual attack
+        Assert.assertTrue(testGraph.isAttacking(new Point(0, 7), new Point(3, 7)));
+        Assert.assertTrue(testGraph.isAttacking(new Point(3, 7), new Point(0, 7)));
+    }
 }
