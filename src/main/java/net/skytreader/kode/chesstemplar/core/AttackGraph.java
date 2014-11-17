@@ -2,9 +2,11 @@ package net.skytreader.kode.chesstemplar.core;
 
 import java.awt.Point;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Set;
@@ -39,7 +41,7 @@ public class AttackGraph implements Observer{
     TODO We'll get better performance if we change this to
     </code>Map<Point, List<Point>></code>
     */
-    private Set<List<Point>> attackGraph;
+    private Map<Point, Set<Point>> attackGraph;
 
     /**
     Construct an attack graph from the current configuration of the Board b.
@@ -49,7 +51,7 @@ public class AttackGraph implements Observer{
     public AttackGraph(Board b){
         observedBoard = b;
         observedBoard.addObserver(this);
-        attackGraph = new HashSet<List<Point>>();
+        attackGraph = new HashMap<Point, Set<Point>>();
         initializeAttackGraph();
     }
     
@@ -104,7 +106,7 @@ public class AttackGraph implements Observer{
             for(Point pos : piecePos){
                 ChessPiece cp = observedBoard.getPieceAt(pos.x, pos.y);
                 Set<Point> possibleMoves = cp.getMoves(pos.x, pos.y, observedBoard);
-                List<Point> cpNode = new LinkedList<Point>();
+                Set<Point> cpNode = new HashSet<Point>();
                 cpNode.add(pos);
 
                 if(cp.isWhite()){
@@ -122,7 +124,7 @@ public class AttackGraph implements Observer{
                         }
                     }
                 }
-                attackGraph.add(cpNode);
+                attackGraph.put(pos, cpNode);
             }
         } catch(NotMeException nme){
             // There should be no reason for the code above to go here.
@@ -137,13 +139,9 @@ public class AttackGraph implements Observer{
       - attacker and target are not equal
     */
     private void updateAttackGraph(Point attacker, Point target){
-        for(List<Point> attackList : attackGraph){
-            if(attackList.get(0).equals(attacker) && !attackList.contains(target)){
-                attackGraph.remove(attackList);
-                attackList.add(target);
-                attackGraph.add(attackList);
-            }
-        }
+        Set<Point> theAttacked = attackGraph.get(attacker);
+        theAttacked.add(target);
+        attackGraph.put(attacker, theAttacked);
     }
 
     @Override
@@ -158,16 +156,13 @@ public class AttackGraph implements Observer{
             */
             Point[] moveDesc = (Point[]) arg;
 
-            for(List<Point> attackList : attackGraph){
+            for(Point square : attackGraph.keySet()){
                 // Remove the element from the Set first because we _might_ need
                 // to modify it.
-                attackGraph.remove(attackList);
-                if(!attackList.get(0).equals(moveDesc[0]) &&
-                  attackList.contains(moveDesc[0])){
-                    attackList.remove(moveDesc[0]);
-                }
+                Set<Point> attackedSet = attackGraph.get(square);
+                attackedSet.remove(moveDesc[0]);
                 // Add back, now that possible modifications are done
-                attackGraph.add(attackList);
+                attackGraph.put(square, attackedSet);
             }
 
             /*
