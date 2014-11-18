@@ -5,6 +5,8 @@ import java.awt.Point;
 import java.util.HashSet;
 import java.util.Set;
 
+import net.skytreader.kode.chesstemplar.core.AttackGraph;
+
 import net.skytreader.kode.chesstemplar.exceptions.NotMeException;
 
 import net.skytreader.kode.chesstemplar.pieces.King;
@@ -25,6 +27,7 @@ cause the arbiter to make wrong calls on the game.
 public class GameArbiter{
     
     private Board board;
+    private AttackGraph attackGraph;
     private boolean whiteKingChecked;
     private boolean whiteKingMoved;
     private boolean whiteKingsideRookMoved;
@@ -48,6 +51,7 @@ public class GameArbiter{
 
     public GameArbiter(Board b){
         board = b;
+        attackGraph = new AttackGraph(board);
         whiteKingMoved = false;
         whiteKingsideRookMoved = false;
         whiteQueensideRookMoved = false;
@@ -102,6 +106,8 @@ public class GameArbiter{
     */
     public Set<Point> legalMovesFilter(ChessPiece cp, int r, int c) throws NotMeException{
         Set<Point> pieceMoves = cp.getMoves(r, c, board);
+
+        // Conditionals for your filters here
 
         if(WHITE_KING.equals(cp)){
             /*

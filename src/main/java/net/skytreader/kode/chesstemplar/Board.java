@@ -22,6 +22,10 @@ the terminal square (r2, c2).
 @author Chad Estioco
 */
 public abstract class Board extends Observable{
+    
+    public static final int BOARD_WIDTH = 8;
+    public static final int BOARD_HEIGHT = 8;
+
     /**
     Get the piece at the specified row and column. Indexing is zero-based.
     Index 0,0 is the initial position of the black queen-side rook ("a8"). The
