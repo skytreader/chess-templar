@@ -76,6 +76,22 @@ public class AttackGraph implements Observer{
     }
     
     /**
+    Get the location of the pieces exerting pressure on square p1.
+    */
+    public Set<Point> getAttackers(Point p1){
+        Set<Point> attackers = new HashSet<Point>();
+        for(int i = 0; i < Board.BOARD_WIDTH; i++){
+            for(int j = 0; i < Board.BOARD_HEIGHT; j++){
+                Point possibleAttacker = new Point(i, j);
+                if(isAttacking(possibleAttacker, p1)){
+                    attackers.add(possibleAttacker);
+                }
+            }
+        }
+        return attackers;
+    }
+    
+    /**
     Create the actual attack graph from the observed board.
     */
     private void initializeAttackGraph(){
