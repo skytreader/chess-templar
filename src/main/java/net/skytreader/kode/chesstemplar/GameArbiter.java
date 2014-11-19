@@ -43,11 +43,22 @@ public class GameArbiter{
     private Point blackKingPosition;
     private Point[] lastMove;
 
+    private List<MoveFilter> moveFilters;
+
     // Use these for comparisons
     private final King WHITE_KING = new King(true);
     private final King BLACK_KING = new King(false);
     private final Rook WHITE_ROOK = new Rook(true);
     private final Rook BLACK_ROOK = new Rook(false);
+    
+    /**
+    A move filter checks for specific conditions and removes Point objects from
+    the given Set. The filter may assume that the given Set<Point> is a subset
+    of the possible moves of the ChessPiece at (r, c).
+    */
+    private interface MoveFilter{
+        public Set<Point> filter(ChessPiece cp, int r, int c, Set<Point> moves);
+    }
 
     public GameArbiter(Board b){
         board = b;
