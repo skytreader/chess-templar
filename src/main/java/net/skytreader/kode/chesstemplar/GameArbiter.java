@@ -3,6 +3,7 @@ package net.skytreader.kode.chesstemplar;
 import java.awt.Point;
 
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -61,6 +62,79 @@ public class GameArbiter{
         public Set<Point> filter(ChessPiece cp, int r, int c, Set<Point> moves);
     }
 
+    private class CastleFilter implements MoveFilter{
+        @Override
+        public Set<Point> filter(ChessPiece cp, int r, int c, Set<Point> moves){
+            Set<Point> pieceMoves = moves;
+            if(WHITE_KING.equals(cp)){
+                /*
+                Check if the king side is clear. We only check if conditions for
+                castling is still valid at king side.
+                */
+                if(!whiteKingMoved && !whiteKingsideRookMoved){
+                    boolean kingSideClear = true;
+                    for(int i = 5; i < 7; i++){
+                        if(board.getPieceAt(7, i) != null){
+                            kingSideClear = false;
+                            break;
+                        }
+                    }
+
+                    if(kingSideClear){
+                        pieceMoves.add(new Point(7, 6));
+                    }
+                }
+
+                if(!whiteKingMoved && !whiteQueensideRookMoved){
+                    boolean queenSideClear = true;
+                    // Check if the queen side is clear
+                    for(int i = 1; i < 4; i++){
+                        if(board.getPieceAt(7, i) != null){
+                            queenSideClear = false;
+                            break;
+                        }
+                    }
+    
+                    if(queenSideClear){
+                        pieceMoves.add(new Point(7, 2));
+                    }
+                }
+            } else if(BLACK_KING.equals(cp)){
+                
+                if(!blackKingMoved && !blackKingsideRookMoved){
+                    // Check if the king side is clear
+                    boolean kingSideClear = true;
+                    for(int i = 5; i < 7; i++){
+                        if(board.getPieceAt(0, i) != null){
+                            kingSideClear = false;
+                            break;
+                        }
+                    }
+
+                    if(kingSideClear){
+                        pieceMoves.add(new Point(0, 6));
+                    }
+                }
+
+                if(!blackKingMoved && !blackQueensideRookMoved){
+                    boolean queenSideClear = true;
+                    // Check if the queen side is clear
+                    for(int i = 1; i < 4; i++){
+                        if(board.getPieceAt(0, i) != null){
+                            queenSideClear = false;
+                            break;
+                        }
+                    }
+
+                    if(queenSideClear){
+                        pieceMoves.add(new Point(0, 2));
+                    }
+                }
+            }
+            return pieceMoves;
+        }
+    }
+
     public GameArbiter(Board b){
         board = b;
         attackGraph = new AttackGraph(board);
@@ -80,6 +154,9 @@ public class GameArbiter{
 
         whiteKingChecked = false;
         blackKingChecked = false;
+
+        moveFilters = new LinkedList<MoveFilter>();
+        moveFilters.add(new CastleFilter());
     }
 
     /**
@@ -119,72 +196,8 @@ public class GameArbiter{
     public Set<Point> legalMovesFilter(ChessPiece cp, int r, int c) throws NotMeException{
         Set<Point> pieceMoves = cp.getMoves(r, c, board);
 
-        // Conditionals for your filters here
-
-        if(WHITE_KING.equals(cp)){
-            /*
-            Check if the king side is clear. We only check if conditions for
-            castling is still valid at king side.
-            */
-            if(!whiteKingMoved && !whiteKingsideRookMoved){
-                boolean kingSideClear = true;
-                for(int i = 5; i < 7; i++){
-                    if(board.getPieceAt(7, i) != null){
-                        kingSideClear = false;
-                        break;
-                    }
-                }
-
-                if(kingSideClear){
-                    pieceMoves.add(new Point(7, 6));
-                }
-            }
-
-            if(!whiteKingMoved && !whiteQueensideRookMoved){
-                boolean queenSideClear = true;
-                // Check if the queen side is clear
-                for(int i = 1; i < 4; i++){
-                    if(board.getPieceAt(7, i) != null){
-                        queenSideClear = false;
-                        break;
-                    }
-                }
-    
-                if(queenSideClear){
-                    pieceMoves.add(new Point(7, 2));
-                }
-            }
-        } else if(BLACK_KING.equals(cp)){
-            
-            if(!blackKingMoved && !blackKingsideRookMoved){
-                // Check if the king side is clear
-                boolean kingSideClear = true;
-                for(int i = 5; i < 7; i++){
-                    if(board.getPieceAt(0, i) != null){
-                        kingSideClear = false;
-                        break;
-                    }
-                }
-
-                if(kingSideClear){
-                    pieceMoves.add(new Point(0, 6));
-                }
-            }
-
-            if(!blackKingMoved && !blackQueensideRookMoved){
-                boolean queenSideClear = true;
-                // Check if the queen side is clear
-                for(int i = 1; i < 4; i++){
-                    if(board.getPieceAt(0, i) != null){
-                        queenSideClear = false;
-                        break;
-                    }
-                }
-
-                if(queenSideClear){
-                    pieceMoves.add(new Point(0, 2));
-                }
-            }
+        for(MoveFilter mf : moveFilters){
+            pieceMoves = mf.filter(cp, r, c, pieceMoves);
         }
 
         return pieceMoves;
