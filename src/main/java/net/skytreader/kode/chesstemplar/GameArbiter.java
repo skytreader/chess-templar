@@ -48,10 +48,10 @@ public class GameArbiter{
     private List<MoveFilter> moveFilters;
 
     // Use these for comparisons
-    private final King WHITE_KING = new King(true);
-    private final King BLACK_KING = new King(false);
-    private final Rook WHITE_ROOK = new Rook(true);
-    private final Rook BLACK_ROOK = new Rook(false);
+    private static final King WHITE_KING = new King(true);
+    private static final King BLACK_KING = new King(false);
+    private static final Rook WHITE_ROOK = new Rook(true);
+    private static final Rook BLACK_ROOK = new Rook(false);
     
     /**
     A move filter checks for specific conditions and removes Point objects from
@@ -330,18 +330,20 @@ public class GameArbiter{
                         board.move(0, 0, 0, 3);
                     }
                 }
-
-                if(cp1.equals(WHITE_KING)){
+                
+                // FIXME Huh what's this? Looks like a big pile of bug to me...
+                // No checking whether piece is king side or queen side?
+                if(cp1.equals(GameArbiter.WHITE_KING)){
                     whiteKingMoved = true;
-                } else if(cp1.equals(BLACK_KING)){
+                } else if(cp1.equals(GameArbiter.BLACK_KING)){
                     blackKingMoved = true;
-                } else if(cp1.equals(WHITE_ROOK)){
+                } else if(cp1.equals(GameArbiter.WHITE_ROOK)){
                     whiteKingsideRookMoved = true;
-                } else if(cp1.equals(WHITE_ROOK)){
+                } else if(cp1.equals(GameArbiter.WHITE_ROOK)){
                     whiteQueensideRookMoved = true;
-                } else if(cp1.equals(BLACK_ROOK)){
+                } else if(cp1.equals(GameArbiter.BLACK_ROOK)){
                     blackKingsideRookMoved = true;
-                } else if(cp1.equals(BLACK_ROOK)){
+                } else if(cp1.equals(GameArbiter.BLACK_ROOK)){
                     blackQueensideRookMoved = true;
                 }
                 return true;
