@@ -135,6 +135,27 @@ public class GameArbiter{
         }
     }
 
+    private class KingCheckFilter implements MoveFilter{
+        @Override
+        public Set<Point> filter(ChessPiece cp, int r, int c, Set<Point> moves){
+            /*
+            Make every move and see if it puts the King in check.
+            */
+            Set<Point> updatedMoves = new HashSet<Point>();
+            boolean pieceColor = cp.isWhite();
+            Point kingForChecking = pieceColor ? whiteKingPosition : blackKingPosition;
+
+            for(Point p : moves){
+                board.move(r, c, p.x, p.y);
+                if(attackGraph.getAttackers(kingForChecking).isEmpty()){
+                    updatedMoves.add(p);
+                }
+            }
+
+            return updatedMoves;
+        }
+    }
+
     public GameArbiter(Board b){
         board = b;
         attackGraph = new AttackGraph(board);

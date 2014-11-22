@@ -74,7 +74,7 @@ public class AttackGraph implements Observer{
             return false;
         }
     }
-    
+
     /**
     Get the location of the pieces exerting pressure on square p1.
     */
