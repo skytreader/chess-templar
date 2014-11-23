@@ -144,12 +144,14 @@ public class GameArbiter{
             Set<Point> updatedMoves = new HashSet<Point>();
             boolean pieceColor = cp.isWhite();
             Point kingForChecking = pieceColor ? whiteKingPosition : blackKingPosition;
-
+            
             for(Point p : moves){
                 board.move(r, c, p.x, p.y);
                 if(attackGraph.getAttackers(kingForChecking).isEmpty()){
                     updatedMoves.add(p);
                 }
+                // Get the board back to its previous state
+                board.move(p.x, p.y, r, c);
             }
 
             return updatedMoves;
@@ -178,6 +180,7 @@ public class GameArbiter{
 
         moveFilters = new LinkedList<MoveFilter>();
         moveFilters.add(new CastleFilter());
+        moveFilters.add(new KingCheckFilter());
     }
 
     /**

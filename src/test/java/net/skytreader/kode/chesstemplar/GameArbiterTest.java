@@ -189,7 +189,6 @@ public class GameArbiterTest{
     attack graph.
     */
     @Test
-    @Ignore
     public void testWhiteKingProtectionPriority() throws NotMeException{
         // Expose both Kings.
         concreteBoard.removePiece(6, 4);

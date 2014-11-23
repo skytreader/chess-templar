@@ -81,7 +81,7 @@ public class AttackGraph implements Observer{
     public Set<Point> getAttackers(Point p1){
         Set<Point> attackers = new HashSet<Point>();
         for(int i = 0; i < Board.BOARD_WIDTH; i++){
-            for(int j = 0; i < Board.BOARD_HEIGHT; j++){
+            for(int j = 0; j < Board.BOARD_HEIGHT; j++){
                 Point possibleAttacker = new Point(i, j);
                 if(isAttacking(possibleAttacker, p1)){
                     attackers.add(possibleAttacker);
