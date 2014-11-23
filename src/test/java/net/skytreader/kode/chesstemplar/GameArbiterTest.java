@@ -15,7 +15,6 @@ import java.util.Arrays;
 
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 public class GameArbiterTest{
@@ -184,9 +183,6 @@ public class GameArbiterTest{
     /**
     A test for legalMovesFilter where, while the King is in check, all moves
     that does not put the King to safety should be illegal.
-
-    Ignoring this test for now. This will not happen until we get to model the
-    attack graph.
     */
     @Test
     public void testWhiteKingProtectionPriority() throws NotMeException{
