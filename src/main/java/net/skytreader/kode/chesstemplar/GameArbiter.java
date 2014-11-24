@@ -144,10 +144,12 @@ public class GameArbiter{
             Set<Point> updatedMoves = new HashSet<Point>();
             boolean pieceColor = cp.isWhite();
             Point kingForChecking = pieceColor ? whiteKingPosition : blackKingPosition;
+            System.out.println("DEBUG King for checking is " + kingForChecking);
             
             for(Point p : moves){
                 board.move(r, c, p.x, p.y);
                 if(attackGraph.getAttackers(kingForChecking).isEmpty()){
+                    System.out.println("DEBUG This move " + p + " for piece " + cp + " is okay.");
                     updatedMoves.add(p);
                 }
                 // Get the board back to its previous state

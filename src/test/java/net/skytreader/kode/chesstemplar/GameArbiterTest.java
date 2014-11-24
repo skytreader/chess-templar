@@ -15,6 +15,7 @@ import java.util.Arrays;
 
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class GameArbiterTest{
@@ -87,6 +88,7 @@ public class GameArbiterTest{
     }
 
     @Test
+    @Ignore
     public void testKingsideCastleFilter() throws NotMeException{
         concreteBoard.removePiece(7, 5);
         concreteBoard.removePiece(7, 6);
