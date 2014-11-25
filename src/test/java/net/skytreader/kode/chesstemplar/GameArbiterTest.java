@@ -185,40 +185,56 @@ public class GameArbiterTest{
     /**
     A test for legalMovesFilter where, while the King is in check, all moves
     that does not put the King to safety should be illegal.
+
+    King's Pawn
+    1 e4 e5
+    2 Nf3 d5
+    3 exd5 c6
+    4 Nxe5 f6
+    5 Nxc6 Qd7+
     */
     @Test
     public void testWhiteKingProtectionPriority() throws NotMeException{
-        // Expose both Kings.
-        concreteBoard.removePiece(6, 4);
-        concreteBoard.removePiece(1, 4);
-        // Move black Queen to (1, 4) checking white King.
-        concreteBoard.move(0, 3, 1, 4);
+        Point[] moveSeqSrc = {new Point(6, 4), new Point(1, 4), new Point(7, 6),
+          new Point(1, 3), new Point(4, 4), new Point(1, 2), new Point(5, 5),
+          new Point(1, 5), new Point(3, 4), new Point(0, 3)};
+        Point[] moveSeqDst = {new Point(4, 4), new Point(3, 4), new Point(5, 5),
+          new Point(3, 3), new Point(3, 3), new Point(2, 2), new Point(3, 4),
+          new Point(2, 5), new Point(2, 2), new Point(1, 4)};
+        executeMoveSequence(moveSeqSrc, moveSeqDst);
         
         /*
-        White has only three legal moves now, all covering the King via the
+        White has only three legal moves now, two covering the King via the
         (6, 4) square:
             - Qe2
             - Be2
-            - Ne2
-
-        Fortunately that's just one unique set of move(s).
+        
+        and one covering via the (3, 4) square:
+            - Ne5
         */
-        Set<Point> coverMove = new HashSet<Point>();
-        coverMove.add(new Point(6, 4));
+        Set<Point> coverMove64 = new HashSet<Point>();
+        coverMove64.add(new Point(6, 4));
         // where all the valid defenders are located.
-        Set<Point> validDefenders = new HashSet<Point>();
-        validDefenders.add(new Point(7, 3)); // Queen @ d1
-        validDefenders.add(new Point(7, 5)); // Bishop @ f1
-        validDefenders.add(new Point(7, 6)); // Knight @ g1
+        Set<Point> valid64Defenders = new HashSet<Point>();
+        valid64Defenders.add(new Point(7, 3)); // Queen @ d1
+        valid64Defenders.add(new Point(7, 5)); // Bishop @ f1
  
-        for(Point defenderLocation : validDefenders){
+        for(Point defenderLocation : valid64Defenders){
             ChessPiece defender = concreteBoard.getPieceAt(defenderLocation.x,
               defenderLocation.y);
             Set<Point> defenderMoves = rigidArbiter.legalMovesFilter(defender,
               defenderLocation.x, defenderLocation.y);
 
-            Assert.assertEquals(coverMove, defenderMoves);
+            Assert.assertEquals(coverMove64, defenderMoves);
         }
+
+        // The knight defense
+        Set<Point> coverMove34 = new HashSet<Point>();
+        coverMove34.add(new Point(3, 4));
+        ChessPiece defender = concreteBoard.getPieceAt(2, 2);
+        Set<Point> defenderMoves = rigidArbiter.legalMovesFilter(defender, 2, 2);
+
+        Assert.assertEquals(coverMove34, defenderMoves);
 
         Set<Point> emptySet = new HashSet<Point>();
         
@@ -236,7 +252,7 @@ public class GameArbiterTest{
 
         // Check the other pieces
         for(int i = 0; i < 8; i++){
-            if(validDefenders.contains(new Point(7, i))){
+            if(valid64Defenders.contains(new Point(7, i))){
                 continue;
             }
             ChessPiece p = concreteBoard.getPieceAt(7, i);
