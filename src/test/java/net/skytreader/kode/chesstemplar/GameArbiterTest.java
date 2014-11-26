@@ -204,13 +204,14 @@ public class GameArbiterTest{
         executeMoveSequence(moveSeqSrc, moveSeqDst);
         
         /*
-        White has only three legal moves now, two covering the King via the
-        (6, 4) square:
+        White has only four legal moves now, two covering the King via the
+        (6, 4) e2 square:
             - Qe2
             - Be2
         
-        and one covering via the (3, 4) square:
+        and two using the Knight at (2, 2) c6:
             - Ne5
+            - Nxe7
         */
         Set<Point> coverMove64 = new HashSet<Point>();
         coverMove64.add(new Point(6, 4));
@@ -231,6 +232,7 @@ public class GameArbiterTest{
         // The knight defense
         Set<Point> coverMove34 = new HashSet<Point>();
         coverMove34.add(new Point(3, 4));
+        coverMove34.add(new Point(1, 4));
         ChessPiece defender = concreteBoard.getPieceAt(2, 2);
         Set<Point> defenderMoves = rigidArbiter.legalMovesFilter(defender, 2, 2);
 
