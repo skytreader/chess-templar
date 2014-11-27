@@ -136,7 +136,7 @@ public class GameArbiter{
 
         @Override
         public String toString(){
-            return this.getClass.getCanonicalName();
+            return this.getClass().getCanonicalName();
         }
     }
 
@@ -158,7 +158,9 @@ public class GameArbiter{
                     updatedMoves.add(p);
                 }
                 // Get the board back to its previous state
+                System.out.print("DEBUG undoing test move...");
                 board.move(p.x, p.y, r, c);
+                System.out.println("done!");
             }
 
             return updatedMoves;
@@ -166,7 +168,7 @@ public class GameArbiter{
 
         @Override
         public String toString(){
-            return this.getClass.getCanonicalName();
+            return this.getClass().getCanonicalName();
         }
     }
 
