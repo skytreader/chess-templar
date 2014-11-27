@@ -133,6 +133,11 @@ public class GameArbiter{
             }
             return pieceMoves;
         }
+
+        @Override
+        public String toString(){
+            return this.getClass.getCanonicalName();
+        }
     }
 
     private class KingCheckFilter implements MoveFilter{
@@ -157,6 +162,11 @@ public class GameArbiter{
             }
 
             return updatedMoves;
+        }
+
+        @Override
+        public String toString(){
+            return this.getClass.getCanonicalName();
         }
     }
 
@@ -220,9 +230,11 @@ public class GameArbiter{
     FIXME Cannot castle _through_ a check.
     */
     public Set<Point> legalMovesFilter(ChessPiece cp, int r, int c) throws NotMeException{
+        System.out.println("DEBUG legalMovesFilter piece is " + cp);
         Set<Point> pieceMoves = cp.getMoves(r, c, board);
 
         for(MoveFilter mf : moveFilters){
+            System.out.println("DEBUG Checking with filter " + mf);
             pieceMoves = mf.filter(cp, r, c, pieceMoves);
         }
 
@@ -324,6 +336,7 @@ public class GameArbiter{
                 blackKingChecked = false;
                 for(Point pos : piecePositions){
                     ChessPiece posPiece = board.getPieceAt(pos.x, pos.y);
+                    System.out.println("DEBUG The piece at position " + pos + " is " + posPiece);
                     Set<Point> pieceMoves = legalMovesFilter(posPiece, pos.x, pos.y);
 
                     if(cp1.isWhite()){
