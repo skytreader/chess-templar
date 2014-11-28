@@ -52,7 +52,7 @@ public class GameArbiterTest{
         Point[] expected1 = {from1, to1};
         Assert.assertTrue(rigidArbiter.requestMove(6, 0, 4, 0));
         Assert.assertTrue(Arrays.equals(expected1, rigidArbiter.getLastMove()));
-
+        System.out.println("=================HALFWAY POINT===========");
         Point from2 = new Point(1, 0);
         Point to2 = new Point(3, 0);
         Point[] expected2 = {from2, to2};

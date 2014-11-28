@@ -194,7 +194,7 @@ public class GameArbiter{
 
         moveFilters = new LinkedList<MoveFilter>();
         moveFilters.add(new CastleFilter());
-        moveFilters.add(new KingCheckFilter());
+        //moveFilters.add(new KingCheckFilter());
     }
 
     /**
