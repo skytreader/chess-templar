@@ -149,16 +149,16 @@ public class GameArbiter{
             Set<Point> updatedMoves = new HashSet<Point>();
             boolean pieceColor = cp.isWhite();
             Point kingForChecking = pieceColor ? whiteKingPosition : blackKingPosition;
-            System.out.println("DEBUG King for checking is " + kingForChecking);
+            System.out.println("KingCheckFilter.filter King for checking is " + kingForChecking);
             
             for(Point p : moves){
                 board.move(r, c, p.x, p.y);
                 if(attackGraph.getAttackers(kingForChecking).isEmpty()){
-                    System.out.println("DEBUG This move " + p + " for piece " + cp + " is okay.");
+                    System.out.println("KingCheckFilter.filter This move " + p + " for piece " + cp + " is okay.");
                     updatedMoves.add(p);
                 }
                 // Get the board back to its previous state
-                System.out.print("DEBUG undoing test move...");
+                System.out.print("KingCheckFilter.filter undoing test move...");
                 board.move(p.x, p.y, r, c);
                 System.out.println("done!");
             }
@@ -193,8 +193,8 @@ public class GameArbiter{
         blackKingChecked = false;
 
         moveFilters = new LinkedList<MoveFilter>();
-        moveFilters.add(new CastleFilter());
-        //moveFilters.add(new KingCheckFilter());
+        //moveFilters.add(new CastleFilter());
+        moveFilters.add(new KingCheckFilter());
     }
 
     /**
@@ -232,11 +232,11 @@ public class GameArbiter{
     FIXME Cannot castle _through_ a check.
     */
     public Set<Point> legalMovesFilter(ChessPiece cp, int r, int c) throws NotMeException{
-        System.out.println("DEBUG legalMovesFilter piece is " + cp);
+        System.out.println("legalMovesFilter piece is " + cp + " at " + r + " " + c);
         Set<Point> pieceMoves = cp.getMoves(r, c, board);
 
         for(MoveFilter mf : moveFilters){
-            System.out.println("DEBUG Checking with filter " + mf);
+            System.out.println("legalMovesFilter Checking with filter " + mf);
             pieceMoves = mf.filter(cp, r, c, pieceMoves);
         }
 
@@ -291,6 +291,7 @@ public class GameArbiter{
         // The move has been done if, after this call, (r2, c2) contains the piece
         // previously at (r1, c1).
         ChessPiece cp1 = board.getPieceAt(r1, c1);
+        System.out.println("REQUESTMOVE cp1 is " + cp1 + " at " + r1 + " " + c1);
         // Cache some booleans
         boolean isWhiteKing = false;
         boolean isBlackKing = false;
@@ -338,7 +339,7 @@ public class GameArbiter{
                 blackKingChecked = false;
                 for(Point pos : piecePositions){
                     ChessPiece posPiece = board.getPieceAt(pos.x, pos.y);
-                    System.out.println("DEBUG The piece at position " + pos + " is " + posPiece);
+                    System.out.println("REQUESTMOVE The piece at position " + pos + " is " + posPiece);
                     Set<Point> pieceMoves = legalMovesFilter(posPiece, pos.x, pos.y);
 
                     if(cp1.isWhite()){
