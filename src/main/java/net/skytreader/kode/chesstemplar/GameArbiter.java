@@ -292,6 +292,7 @@ public class GameArbiter{
         // previously at (r1, c1).
         ChessPiece cp1 = board.getPieceAt(r1, c1);
         System.out.println("REQUESTMOVE cp1 is " + cp1 + " at " + r1 + " " + c1);
+        System.out.println("REQUESTMOVE pre-emptive intro check at 4, 0 " + board.getPieceAt(4, 0));
         // Cache some booleans
         boolean isWhiteKing = false;
         boolean isBlackKing = false;
@@ -313,7 +314,9 @@ public class GameArbiter{
 
         try{
             // Check that the destination is a legal move
+            System.out.println("REQUESTMOVE calling legalMovesFilter");
             Set<Point> legalMoves = legalMovesFilter(cp1, r1, c1);
+            System.out.println("REQUESTMOVE done with legalMovesFilter");
             if(legalMoves.contains(new Point(r2, c2))){
                 board.move(r1, c1, r2, c2);
     
@@ -337,8 +340,11 @@ public class GameArbiter{
                 // been avoided
                 whiteKingChecked = false;
                 blackKingChecked = false;
+                System.out.println("REQUESTMOVE checking for checks.");
+                System.out.println("REQUESTOVE pre-emptive check check for 4, 0 " + board.getPieceAt(4, 0));
                 for(Point pos : piecePositions){
                     ChessPiece posPiece = board.getPieceAt(pos.x, pos.y);
+                    System.out.println("REQUESTOVE pre-emptive loop check for 4, 0 " + board.getPieceAt(4, 0));
                     System.out.println("REQUESTMOVE The piece at position " + pos + " is " + posPiece);
                     Set<Point> pieceMoves = legalMovesFilter(posPiece, pos.x, pos.y);
 
@@ -355,9 +361,11 @@ public class GameArbiter{
                         }
                     }
                 }
+                System.out.println("REQUESTMOVE done checking for checks.");
 
                 // Check if the move is castling because there are actually two
                 // moves to make there.
+                System.out.println("REQUESTMOVE castling checks.");
                 if(isWhiteKing && isWhiteCastle(r1, c1, r2, c2)){
                     if(c2 == 6){
                         // Move the kingside rook
@@ -372,6 +380,7 @@ public class GameArbiter{
                         board.move(0, 0, 0, 3);
                     }
                 }
+                System.out.println("REQUESTMOVE done with castling checks.");
                 
                 // FIXME Huh what's this? Looks like a big pile of bug to me...
                 // No checking whether piece is king side or queen side?
