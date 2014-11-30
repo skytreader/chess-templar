@@ -112,7 +112,6 @@ public class PawnTest{
 
     @Test
     public void testBlackUnmoved(){
-        System.out.println("========testBlackUnmoved========");
         try{
             Board testBoard = new GridBoard();
 
@@ -120,12 +119,10 @@ public class PawnTest{
             Point[] blackUnmoves = {new Point(2, 1), new Point(3, 1)};
             HashSet<Point> blackUnmovesSet = new HashSet<Point>(Arrays.asList(blackUnmoves));
             Set<Point> fromUnmovedBlack = blackPawn.getMoves(1, 1, testBoard);
-            System.out.println("testBlackUnmoved actualMoves " + fromUnmovedBlack);
             Assert.assertEquals(blackUnmovesSet, fromUnmovedBlack);
         } catch(NotMeException nme){
             Assert.fail("NotMeException encountered!");
         }
-        System.out.println("===========end testBlackUnmoved========");
     }
     
     /**

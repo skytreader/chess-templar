@@ -44,7 +44,6 @@ public class GameArbiterTest{
 
     @Test
     public void testGetLastMove(){
-        System.out.println("==============getLastMove==============");
         Point[] expected0 = new Point[2];
         Assert.assertTrue(Arrays.equals(expected0, rigidArbiter.getLastMove()));
         Point from1 = new Point(6, 0);
@@ -52,25 +51,19 @@ public class GameArbiterTest{
         Point[] expected1 = {from1, to1};
         Assert.assertTrue(rigidArbiter.requestMove(6, 0, 4, 0));
         Assert.assertTrue(Arrays.equals(expected1, rigidArbiter.getLastMove()));
-        System.out.println("testGetLastMove is move done? (6, 0) " + concreteBoard.getPieceAt(6, 0));
-        System.out.println("testGetLastMove is move done? (4, 0) " + concreteBoard.getPieceAt(4, 0));
-        System.out.println("=================HALFWAY POINT===========");
         Point from2 = new Point(1, 0);
         Point to2 = new Point(3, 0);
         Point[] expected2 = {from2, to2};
-        System.out.println("GETLASTMOVE " + concreteBoard.getPieceAt(1, 0));
         rigidArbiter.requestMove(1, 0, 3, 0);
         Assert.assertTrue(Arrays.equals(expected2, rigidArbiter.getLastMove()));
-        System.out.println("==============end getLastMove===========");
     }
     
     /**
     Test that invalid requests should not be counted as "last move". This tests
     the invalid scenario where black moves first.
     */
-    //@Test
+    @Test
     public void testInvalidLastMovesBlackFirst(){
-        // Move black first
         Assert.assertFalse(rigidArbiter.requestMove(1, 0, 3, 0));
         Assert.assertTrue(Arrays.equals(new Point[2], rigidArbiter.getLastMove()));
     }
@@ -78,7 +71,7 @@ public class GameArbiterTest{
     /**
     Test conditions of the initial state of the game.
     */
-    //@Test
+    @Test
     public void testConcreteInitialState(){
         Assert.assertFalse(rigidArbiter.isEndgame());
 
@@ -92,8 +85,7 @@ public class GameArbiterTest{
         Assert.assertFalse(rigidArbiter.isBlackKingChecked());
     }
 
-    //@Test
-    //@Ignore
+    @Test
     public void testKingsideCastleFilter() throws NotMeException{
         concreteBoard.removePiece(7, 5);
         concreteBoard.removePiece(7, 6);
@@ -119,8 +111,7 @@ public class GameArbiterTest{
     5 Bg2 e6
     6 Nf3 f6
     */
-    //@Test
-    //@Ignore
+    @Test
     public void testWhiteKingsideRookNoCastle(){
         Point[] moveSeqSrc = {new Point(6, 7), new Point(1, 0), new Point(7, 7),
           new Point(1, 1), new Point(5, 7), new Point(1, 2), new Point(6, 6),
@@ -145,8 +136,7 @@ public class GameArbiterTest{
     4 Kf1 f6
     5 Ke1 g6
     */
-    //@Test
-    //@Ignore
+    @Test
     public void testWhiteKingNoCastle(){
         Point[] moveSeqSrc = {new Point(6, 4), new Point(1, 4), new Point(7, 6),
           new Point(1, 3), new Point(7, 5), new Point(1, 2), new Point(7, 4),
@@ -163,8 +153,7 @@ public class GameArbiterTest{
     1 d4 e5
     2 e3 Bb4+
     */
-    //@Test
-    //@Ignore
+    @Test
     public void testWhiteKingChecked(){
         Point[] moveSeqSrc = {new Point(6, 3), new Point(1, 4), new Point(6, 4),
           new Point(0, 5)};
@@ -180,8 +169,7 @@ public class GameArbiterTest{
     2 Nf3 d6
     3 Bb5+
     */
-    //@Test
-    //@Ignore
+    @Test
     public void testBlackKingChecked(){
         Point[] moveSeqSrc = {new Point(6, 4), new Point(1, 4), new Point(7, 6),
           new Point(1, 3), new Point(7, 5)};
@@ -202,8 +190,7 @@ public class GameArbiterTest{
     4 Nxe5 f6
     5 Nxc6 Qd7+
     */
-    //@Test
-    //@Ignore
+    @Test
     public void testWhiteKingProtectionPriority() throws NotMeException{
         Point[] moveSeqSrc = {new Point(6, 4), new Point(1, 4), new Point(7, 6),
           new Point(1, 3), new Point(4, 4), new Point(1, 2), new Point(5, 5),
@@ -279,7 +266,7 @@ public class GameArbiterTest{
     Test that on request of move, the square (r1, c1) is indeed vacated and that
     the piece is now in the square (r2, c2).
     */
-    //@Test
+    @Test
     public void testActualMove(){
         Assert.assertTrue(concreteBoard.getPieceAt(5, 4) == null);
         ChessPiece forMoving = concreteBoard.getPieceAt(6, 4);
@@ -292,13 +279,13 @@ public class GameArbiterTest{
     Test that you can't just request pieces to be moved plain anywhere. The move
     should be in the pieces legal moves.
     */
-    //@Test
+    @Test
     public void testInvalidMoveRequest(){
         Assert.assertFalse(rigidArbiter.requestMove(7, 1, 5, 1));
         Assert.assertTrue(Arrays.equals(new Point[2], rigidArbiter.getLastMove()));
     }
 
-    //@Test
+    @Test
     public void testNoConsecutiveWhite(){
         Assert.assertTrue(rigidArbiter.requestMove(6, 4, 5, 4));
         Assert.assertFalse(rigidArbiter.requestMove(5, 4, 4, 4));
@@ -317,7 +304,7 @@ public class GameArbiterTest{
     request to move from a blank square should not be taken as the game's
     most recent move.
     */
-    //@Test
+    @Test
     public void testBlankSquareMove(){
         Assert.assertFalse(rigidArbiter.requestMove(4, 4, 5, 4));
         Assert.assertTrue(Arrays.equals(new Point[2], rigidArbiter.getLastMove()));
@@ -329,8 +316,7 @@ public class GameArbiterTest{
     2 Nf3 d6
     3 Bb5+ c6
     */
-    //@Test
-    //@Ignore
+    @Test
     public void testWhiteKingsideCastleRequest(){
         Point[] moveSeqSrc = {new Point(6, 4), new Point(1, 4), new Point(7, 6),
           new Point(1, 3), new Point(7, 5), new Point(1, 2)};
@@ -352,8 +338,7 @@ public class GameArbiterTest{
     3 Bd2 c6
     4 Nc3 d6
     */
-    //@Test
-    //@Ignore
+    @Test
     public void testWhiteQueensideCastleRequest(){
         Point[] moveSeqSrc = {new Point(6, 3), new Point(1, 0), new Point(7, 3),
           new Point(1, 1), new Point(7, 2), new Point(1, 2), new Point(7, 1),
@@ -377,8 +362,7 @@ public class GameArbiterTest{
     3 c3 Nf6
     4 d3
     */
-    //@Test
-    //@Ignore
+    @Test
     public void testBlackKingsideCastleRequest(){
         Point[] moveSeqSrc = {new Point(6, 0), new Point(1, 4), new Point(6, 1),
           new Point(0, 5), new Point(6, 2), new Point(0, 6), new Point(6, 3)};
@@ -401,8 +385,7 @@ public class GameArbiterTest{
     4 d3 Nc6
     5 e3
     */
-    //@Test
-    //@Ignore
+    @Test
     public void testBlackQueensideCastleRequest(){
         Point[] moveSeqSrc = {new Point(6, 0), new Point(1, 3), new Point(6, 1),
           new Point(0, 3), new Point(6, 2), new Point(0, 2), new Point(6, 3),
