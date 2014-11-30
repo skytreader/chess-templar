@@ -294,7 +294,6 @@ public class GameArbiter{
         // previously at (r1, c1).
         ChessPiece cp1 = board.getPieceAt(r1, c1);
         System.out.println("REQUESTMOVE cp1 is " + cp1 + " at " + r1 + " " + c1);
-        System.out.println("REQUESTMOVE pre-emptive intro check at 4, 0 " + board.getPieceAt(4, 0));
         // Cache some booleans
         boolean isWhiteKing = false;
         boolean isBlackKing = false;
@@ -343,10 +342,8 @@ public class GameArbiter{
                 whiteKingChecked = false;
                 blackKingChecked = false;
                 System.out.println("REQUESTMOVE checking for checks.");
-                System.out.println("REQUESTOVE pre-emptive check check for 4, 0 " + board.getPieceAt(4, 0));
                 for(Point pos : piecePositions){
                     ChessPiece posPiece = board.getPieceAt(pos.x, pos.y);
-                    System.out.println("REQUESTOVE pre-emptive loop check for 4, 0 " + board.getPieceAt(4, 0));
                     System.out.println("REQUESTMOVE The piece at position " + pos + " is " + posPiece);
                     Set<Point> pieceMoves = legalMovesFilter(posPiece, pos.x, pos.y);
 
