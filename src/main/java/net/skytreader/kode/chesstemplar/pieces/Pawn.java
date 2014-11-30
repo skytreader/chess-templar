@@ -25,11 +25,23 @@ public class Pawn extends ChessPiece{
         }
 
         HashSet<Point> moveSet = new HashSet<Point>();
+        boolean isMoveAdded = false;
         // Always add the move forward scenario
-        if(this.color){
+        if(this.color && b.getPieceAt(r - 1, c) == null){
             moveSet.add(new Point(r - 1, c));
-        } else{
+            isMoveAdded = true;
+            System.out.println("Pawn.getMoves a move is added.");
+        } else if(!this.color && b.getPieceAt(r + 1, c) == null){
             moveSet.add(new Point(r + 1, c));
+            isMoveAdded = true;
+            System.out.println("Pawn.getMoves a move is added.");
+        }
+
+        // If the first move forward is not added, then there is no way we can
+        // proceed
+        if(!isMoveAdded){
+            System.out.println("Pawn.getMoves returning an empty set.");
+            return moveSet;
         }
 
         // If you are white and unmoved, you are at the second-to-the-last row
