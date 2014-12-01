@@ -23,6 +23,7 @@ public class RookTest{
     
     private Rook whiteRook;
     private Rook blackRook;
+    private BlankBoard testBoard;
 
     @Rule
     public ExpectedException exception = ExpectedException.none();
@@ -31,6 +32,7 @@ public class RookTest{
     public void setUp(){
         whiteRook = new Rook(ChessPiece.WHITE);
         blackRook = new Rook(!ChessPiece.WHITE);
+        testBoard = new BlankBoard();
     }
 
     @Test
@@ -113,8 +115,6 @@ public class RookTest{
     @Test
     public void testCornerCasesBlack(){
         try{
-            BlankBoard testBoard = new BlankBoard();
-            
             // Put it at all corners!
             testBoard.addPiece(blackRook, 0, 0);
             HashSet<Point> legalMoves00 = new HashSet<Point>();
@@ -183,8 +183,6 @@ public class RookTest{
     @Test
     public void testCornerCasesWhite(){
         try{
-            BlankBoard testBoard = new BlankBoard();
-            
             // Put it at all corners!
             testBoard.addPiece(whiteRook, 0, 0);
             HashSet<Point> legalMoves00 = new HashSet<Point>();
@@ -253,7 +251,6 @@ public class RookTest{
     @Test
     public void testCommonMovesWhite(){
         try{
-            BlankBoard testBoard = new BlankBoard();
             testBoard.addPiece(whiteRook, 4, 4);
             HashSet<Point> expectedSet = new HashSet<Point>();
 
@@ -274,7 +271,6 @@ public class RookTest{
 
     @Test
     public void testCaptureScenarioWhite() throws NotMeException{
-        BlankBoard testBoard = new BlankBoard();
         testBoard.addPiece(whiteRook, 4, 4);
         testBoard.addPiece(new Pawn(false), 1, 4);
         testBoard.addPiece(new Pawn(false), 6, 4);
@@ -302,7 +298,6 @@ public class RookTest{
     @Test
     public void testCommonMovesBlack(){
         try{
-            BlankBoard testBoard = new BlankBoard();
             testBoard.addPiece(blackRook, 4, 4);
             HashSet<Point> expectedSet = new HashSet<Point>();
 
@@ -323,7 +318,6 @@ public class RookTest{
 
     @Test
     public void testCaptureScenarioBlack() throws NotMeException{
-        BlankBoard testBoard = new BlankBoard();
         testBoard.addPiece(blackRook, 4, 4);
         testBoard.addPiece(new Pawn(true), 1, 4);
         testBoard.addPiece(new Pawn(true), 6, 4);
