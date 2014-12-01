@@ -295,6 +295,35 @@ public class RookTest{
         Assert.assertEquals(expectedSet, actualMoves);
     }
 
+    /**
+    Test that Rooks shouldn't capture their those with the same color.
+    */
+    @Test
+    public void testNoCaptureScenarioWhite() throws NotMeException{
+        testBoard.addPiece(whiteRook, 4, 4);
+        testBoard.addPiece(new Pawn(true), 1, 4);
+        testBoard.addPiece(new Pawn(true), 6, 4);
+        testBoard.addPiece(new Pawn(true), 4, 1);
+        testBoard.addPiece(new Pawn(true), 4, 6);
+        HashSet<Point> expectedSet = new HashSet<Point>();
+
+        for(int i = 0; i < 8; i++){
+            if(i != 4){
+                expectedSet.add(new Point(i, 4));
+                expectedSet.add(new Point(4, i));
+            }
+        }
+
+        // Remove squares blocked by pawns
+        expectedSet.remove(new Point(0, 4));
+        expectedSet.remove(new Point(7, 4));
+        expectedSet.remove(new Point(4, 0));
+        expectedSet.remove(new Point(4, 7));
+
+        Set<Point> actualMoves = whiteRook.getMoves(4, 4, testBoard);
+        Assert.assertEquals(expectedSet, actualMoves);
+    }
+
     @Test
     public void testCommonMovesBlack(){
         try{
@@ -323,6 +352,32 @@ public class RookTest{
         testBoard.addPiece(new Pawn(true), 6, 4);
         testBoard.addPiece(new Pawn(true), 4, 1);
         testBoard.addPiece(new Pawn(true), 4, 6);
+        HashSet<Point> expectedSet = new HashSet<Point>();
+
+        for(int i = 0; i < 8; i++){
+            if(i != 4){
+                expectedSet.add(new Point(i, 4));
+                expectedSet.add(new Point(4, i));
+            }
+        }
+
+        // Remove squares blocked by Pawns
+        expectedSet.remove(new Point(0, 4));
+        expectedSet.remove(new Point(7, 4));
+        expectedSet.remove(new Point(4, 0));
+        expectedSet.remove(new Point(4, 7));
+
+        Set<Point> actualMoves = blackRook.getMoves(4, 4, testBoard);
+        Assert.assertEquals(expectedSet, actualMoves);
+    }
+
+    @Test
+    public void testNoCaptureScenarioBlack() throws NotMeException{
+        testBoard.addPiece(blackRook, 4, 4);
+        testBoard.addPiece(new Pawn(false), 1, 4);
+        testBoard.addPiece(new Pawn(false), 6, 4);
+        testBoard.addPiece(new Pawn(false), 4, 1);
+        testBoard.addPiece(new Pawn(false), 4, 6);
         HashSet<Point> expectedSet = new HashSet<Point>();
 
         for(int i = 0; i < 8; i++){
