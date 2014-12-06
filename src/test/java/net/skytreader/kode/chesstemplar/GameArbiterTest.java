@@ -122,7 +122,10 @@ public class GameArbiterTest{
           new Point(2, 1), new Point(7, 7), new Point(2, 2), new Point(5, 6),
           new Point(2, 3), new Point(6, 6), new Point(2, 4), new Point(5, 5),
           new Point(2, 5)};
+        System.out.println("testWhiteKingsideRookNoCastle Executing move sequence...");
         executeMoveSequence(moveSeqSrc, moveSeqDst);
+        System.out.println("testWhiteKingsideRookNoCastle Move execution done!");
+        System.out.println("testWhiteKingsideRookNoCastle The piece at 4 7 is " + concreteBoard.getPieceAt(4, 7));
         
         // Request for a king side castle
         Assert.assertFalse(rigidArbiter.requestMove(7, 4, 7, 6));

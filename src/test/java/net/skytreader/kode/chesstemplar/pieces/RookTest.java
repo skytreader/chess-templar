@@ -316,8 +316,12 @@ public class RookTest{
 
         // Remove squares blocked by pawns
         expectedSet.remove(new Point(0, 4));
+        expectedSet.remove(new Point(1, 4));
+        expectedSet.remove(new Point(6, 4));
         expectedSet.remove(new Point(7, 4));
         expectedSet.remove(new Point(4, 0));
+        expectedSet.remove(new Point(4, 1));
+        expectedSet.remove(new Point(4, 6));
         expectedSet.remove(new Point(4, 7));
 
         Set<Point> actualMoves = whiteRook.getMoves(4, 4, testBoard);
@@ -388,9 +392,15 @@ public class RookTest{
         }
 
         // Remove squares blocked by Pawns
+        // as well as the Pawn squares themselves since you don't move in the
+        // square of your team mate.
         expectedSet.remove(new Point(0, 4));
+        expectedSet.remove(new Point(1, 4));
+        expectedSet.remove(new Point(6, 4));
         expectedSet.remove(new Point(7, 4));
         expectedSet.remove(new Point(4, 0));
+        expectedSet.remove(new Point(4, 1));
+        expectedSet.remove(new Point(4, 6));
         expectedSet.remove(new Point(4, 7));
 
         Set<Point> actualMoves = blackRook.getMoves(4, 4, testBoard);
