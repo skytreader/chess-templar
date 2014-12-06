@@ -17,9 +17,6 @@ tests; we might optimize GridBoard, but we sure as hell won't optimize BlankBoar
 */
 public class BlankBoard extends GridBoard{
     
-    private final List<ChessPiece> WHITE_LIST;
-    private final List<ChessPiece> BLACK_LIST;
-
     public BlankBoard(){
         // Call since it is OO-best practice to do so.
         super();
@@ -30,9 +27,6 @@ public class BlankBoard extends GridBoard{
                 removePiece(row, col);
             }
         }
-
-        WHITE_LIST = Arrays.asList(whitePieces);
-        BLACK_LIST = Arrays.asList(blackPieces);
     }
 
 }
