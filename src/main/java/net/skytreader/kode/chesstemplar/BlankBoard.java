@@ -35,13 +35,4 @@ public class BlankBoard extends GridBoard{
         BLACK_LIST = Arrays.asList(blackPieces);
     }
 
-    public void addPiece(ChessPiece cp, int r, int c){
-        if(cp.isWhite()){
-            int posIndex = WHITE_LIST.indexOf(cp);
-            board[r][c] = getWhiteRep(posIndex);
-        } else{
-            int posIndex = BLACK_LIST.indexOf(cp);
-            board[r][c] = getBlackRep(posIndex);
-        }
-    }
 }

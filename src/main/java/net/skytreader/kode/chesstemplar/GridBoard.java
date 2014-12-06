@@ -2,7 +2,9 @@ package net.skytreader.kode.chesstemplar;
 
 import java.awt.Point;
 
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import net.skytreader.kode.chesstemplar.pieces.Bishop;
@@ -33,6 +35,10 @@ public class GridBoard extends Board{
         f(b) = 2b + 1
     */
     protected int[][] board = new int[8][8];
+
+    // FIXME Review why do we need this again?
+    private final List<ChessPiece> WHITE_LIST;
+    private final List<ChessPiece> BLACK_LIST;
 
     private final ChessPiece[] BLACK_ARRANGEMENT = {new Rook(false), new Knight(false),
       new Bishop(false), new Queen(false), new King(false), new Bishop(false),
@@ -77,6 +83,9 @@ public class GridBoard extends Board{
                 board[row][col] = -1;
             }
         }
+
+        WHITE_LIST = Arrays.asList(whitePieces);
+        BLACK_LIST = Arrays.asList(blackPieces);
     }
     
     /**
@@ -191,6 +200,16 @@ public class GridBoard extends Board{
             }
         }
         return piecePositions;
+    }
+
+    public void addPiece(ChessPiece cp, int r, int c){
+        if(cp.isWhite()){
+            int posIndex = WHITE_LIST.indexOf(cp);
+            board[r][c] = getWhiteRep(posIndex);
+        } else{
+            int posIndex = BLACK_LIST.indexOf(cp);
+            board[r][c] = getBlackRep(posIndex);
+        }
     }
 
     @Override
