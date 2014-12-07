@@ -256,8 +256,8 @@ public class GameArbiterTest{
                 continue;
             }
             ChessPiece p = concreteBoard.getPieceAt(7, i);
-            Set<Point> pawnMoves = rigidArbiter.legalMovesFilter(p, 7, i);
-            Set<Point> pieceMoves = p.getMoves(7, i, concreteBoard);
+            Set<Point> pieceMoves = rigidArbiter.legalMovesFilter(p, 7, i);
+            System.out.println("testWhiteKingProtectionPriority checking " + p + " at " + 7 + " " + i);
 
             Assert.assertEquals(emptySet, pieceMoves);
         }
