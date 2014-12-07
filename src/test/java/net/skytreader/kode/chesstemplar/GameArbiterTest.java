@@ -28,13 +28,10 @@ public class GameArbiterTest{
     private void executeMoveSequence(Point[] moveSeqSrc, Point[] moveSeqDst){
         Assert.assertEquals(moveSeqSrc.length, moveSeqDst.length);
         
-        System.out.println("executeMoveSequence starting execution...");
         for(int i = 0; i < moveSeqSrc.length; i++){
-            System.out.println("executeMoveSequence from " + moveSeqSrc[i] + " to " + moveSeqDst[i]);
             Assert.assertTrue(rigidArbiter.requestMove(moveSeqSrc[i].x,
               moveSeqSrc[i].y, moveSeqDst[i].x, moveSeqDst[i].y));
         }
-        System.out.println("executeMoveSequence done with execution...");
     }
 
     @Before
@@ -202,9 +199,7 @@ public class GameArbiterTest{
         Point[] moveSeqDst = {new Point(4, 4), new Point(3, 4), new Point(5, 5),
           new Point(3, 3), new Point(3, 3), new Point(2, 2), new Point(3, 4),
           new Point(2, 5), new Point(2, 2), new Point(1, 4)};
-        System.out.println("testWhiteKingProtectionPriority starting to execute move sequence.");
         executeMoveSequence(moveSeqSrc, moveSeqDst);
-        System.out.println("testWhiteKingProtectionPriority done executing move sequence.");
         
         /*
         White has only four legal moves now, two covering the King via the
