@@ -294,6 +294,7 @@ public class GameArbiter{
 
         // Piece checks
         if(cp1 == null){
+            System.out.println("requestMove invalid because cp1 is null.");
             return false;
         } else if(cp1.equals(WHITE_KING)){
             isWhiteKing = true;
@@ -304,12 +305,14 @@ public class GameArbiter{
         // Check that consecutive moves from a given side does not happen.
         if((cp1.isWhite() && lastMoveWhite) || (!cp1.isWhite() &&
           !lastMoveWhite)){
+            System.out.println("requestMove invalid because you are moving the same side in a row.");
             return false;
         }
 
         try{
             // Check that the destination is a legal move
             Set<Point> legalMoves = legalMovesFilter(cp1, r1, c1);
+            System.out.println("requestMove unfiltered legal moves for " + cp1 + " at " + r1 + "  " + c1 + ": " + legalMoves);
             if(legalMoves.contains(new Point(r2, c2))){
                 board.move(r1, c1, r2, c2);
     
@@ -385,11 +388,13 @@ public class GameArbiter{
                 }
                 return true;
             } else{
+                System.out.println("requestMove Invalid because it is not even a legal move.");
                 return false;
             }
         } catch(NotMeException nme){
             // Should not happen at all
             nme.printStackTrace();
+            System.out.println("requestMove Invalid but this should not happen at all.");
             return false;
         }
     }

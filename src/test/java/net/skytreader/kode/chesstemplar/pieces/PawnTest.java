@@ -181,7 +181,18 @@ public class PawnTest{
     This case gave me problems in GameArbiterTest so it's here for posterity.
     */
     @Test
-    public void auxTestWhiteThreaten(){
+    public void testBlockedForward() throws NotMeException{
+        testBoard.move(6, 4, 4, 4);
+        testBoard.move(1, 4, 3, 4);
+        testBoard.move(7, 6, 5, 5);
+        testBoard.move(1, 3, 3, 3);
+        
+        // All the legal moves of the (4, 4) pawn: just a capture.
+        Point[] kingsPawnMoves = {new Point(3, 3)};
+        HashSet<Point> kingsPawnSet = new HashSet<Point>(Arrays.asList(kingsPawnMoves));
+
+        Set<Point> actualMoves = whitePawn.getMoves(4, 4, testBoard);
+        Assert.assertEquals(kingsPawnSet, actualMoves);
     }
 
     @Test
