@@ -196,7 +196,7 @@ public class GameArbiter{
         blackKingChecked = false;
 
         moveFilters = new LinkedList<MoveFilter>();
-        //moveFilters.add(new CastleFilter());
+        moveFilters.add(new CastleFilter());
         moveFilters.add(new KingCheckFilter());
     }
 
