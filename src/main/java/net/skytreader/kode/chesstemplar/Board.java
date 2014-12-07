@@ -62,7 +62,8 @@ public abstract class Board extends Observable{
     
     /**
     Add the given piece to the board. If there is already a piece at the
-    indicated location, overwrite the current piece.
+    indicated location, overwrite the current piece. If the indicated piece is
+    null, nothing should happen (not even overwrites).
     */
     public abstract void addPiece(ChessPiece cp, int r, int c);
 
