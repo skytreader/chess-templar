@@ -149,21 +149,17 @@ public class GameArbiter{
             Set<Point> updatedMoves = new HashSet<Point>();
             boolean pieceColor = cp.isWhite();
             Point kingForChecking = pieceColor ? whiteKingPosition : blackKingPosition;
-            System.out.println("KingCheckFilter.filter King for checking is " + kingForChecking);
             
             for(Point p : moves){
                 // In case this is a capture move
                 ChessPiece prevOccupant = board.getPieceAt(p.x, p.y);
                 board.move(r, c, p.x, p.y);
                 if(attackGraph.getAttackers(kingForChecking).isEmpty()){
-                    System.out.println("KingCheckFilter.filter This move " + p + " for piece " + cp + " is okay.");
                     updatedMoves.add(p);
                 }
                 // Get the board back to its previous state
-                System.out.print("KingCheckFilter.filter undoing test move...");
                 board.move(p.x, p.y, r, c);
                 board.addPiece(prevOccupant, p.x, p.y);
-                System.out.println("done!");
             }
 
             return updatedMoves;
@@ -235,11 +231,9 @@ public class GameArbiter{
     FIXME Cannot castle _through_ a check.
     */
     public Set<Point> legalMovesFilter(ChessPiece cp, int r, int c) throws NotMeException{
-        System.out.println("legalMovesFilter piece is " + cp + " at " + r + " " + c);
         Set<Point> pieceMoves = cp.getMoves(r, c, board);
 
         for(MoveFilter mf : moveFilters){
-            System.out.println("legalMovesFilter Checking with filter " + mf);
             pieceMoves = mf.filter(cp, r, c, pieceMoves);
         }
 
@@ -294,7 +288,6 @@ public class GameArbiter{
         // The move has been done if, after this call, (r2, c2) contains the piece
         // previously at (r1, c1).
         ChessPiece cp1 = board.getPieceAt(r1, c1);
-        System.out.println("REQUESTMOVE cp1 is " + cp1 + " at " + r1 + " " + c1);
         // Cache some booleans
         boolean isWhiteKing = false;
         boolean isBlackKing = false;
@@ -316,9 +309,7 @@ public class GameArbiter{
 
         try{
             // Check that the destination is a legal move
-            System.out.println("REQUESTMOVE calling legalMovesFilter");
             Set<Point> legalMoves = legalMovesFilter(cp1, r1, c1);
-            System.out.println("REQUESTMOVE done with legalMovesFilter");
             if(legalMoves.contains(new Point(r2, c2))){
                 board.move(r1, c1, r2, c2);
     
@@ -342,10 +333,8 @@ public class GameArbiter{
                 // been avoided
                 whiteKingChecked = false;
                 blackKingChecked = false;
-                System.out.println("REQUESTMOVE checking for checks.");
                 for(Point pos : piecePositions){
                     ChessPiece posPiece = board.getPieceAt(pos.x, pos.y);
-                    System.out.println("REQUESTMOVE The piece at position " + pos + " is " + posPiece);
                     Set<Point> pieceMoves = legalMovesFilter(posPiece, pos.x, pos.y);
 
                     if(cp1.isWhite()){
@@ -361,11 +350,9 @@ public class GameArbiter{
                         }
                     }
                 }
-                System.out.println("REQUESTMOVE done checking for checks.");
 
                 // Check if the move is castling because there are actually two
                 // moves to make there.
-                System.out.println("REQUESTMOVE castling checks.");
                 if(isWhiteKing && isWhiteCastle(r1, c1, r2, c2)){
                     if(c2 == 6){
                         // Move the kingside rook
@@ -380,7 +367,6 @@ public class GameArbiter{
                         board.move(0, 0, 0, 3);
                     }
                 }
-                System.out.println("REQUESTMOVE done with castling checks.");
                 
                 // FIXME Huh what's this? Looks like a big pile of bug to me...
                 // No checking whether piece is king side or queen side?

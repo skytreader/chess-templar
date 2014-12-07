@@ -113,7 +113,6 @@ public class GameArbiterTest{
     */
     @Test
     public void testWhiteKingsideRookNoCastle(){
-        System.out.println("===========testWhiteKingsideRookNoCastle===========");
         Point[] moveSeqSrc = {new Point(6, 7), new Point(1, 0), new Point(7, 7),
           new Point(1, 1), new Point(5, 7), new Point(1, 2), new Point(6, 6),
           new Point(1, 3), new Point(7, 5), new Point(1, 4), new Point(7, 6),
@@ -122,14 +121,10 @@ public class GameArbiterTest{
           new Point(2, 1), new Point(7, 7), new Point(2, 2), new Point(5, 6),
           new Point(2, 3), new Point(6, 6), new Point(2, 4), new Point(5, 5),
           new Point(2, 5)};
-        System.out.println("testWhiteKingsideRookNoCastle Executing move sequence...");
         executeMoveSequence(moveSeqSrc, moveSeqDst);
-        System.out.println("testWhiteKingsideRookNoCastle Move execution done!");
-        System.out.println("testWhiteKingsideRookNoCastle The piece at 4 7 is " + concreteBoard.getPieceAt(4, 7));
         
         // Request for a king side castle
         Assert.assertFalse(rigidArbiter.requestMove(7, 4, 7, 6));
-        System.out.println("===========end testWhiteKingsideRookNoCastle========");
     }
 
     /**
@@ -143,7 +138,6 @@ public class GameArbiterTest{
     */
     @Test
     public void testWhiteKingNoCastle(){
-        System.out.println("=============testWhiteKingNoCastle===============");
         Point[] moveSeqSrc = {new Point(6, 4), new Point(1, 4), new Point(7, 6),
           new Point(1, 3), new Point(7, 5), new Point(1, 2), new Point(7, 4),
           new Point(1, 5), new Point(7, 5), new Point(1, 6)};
@@ -153,7 +147,6 @@ public class GameArbiterTest{
         executeMoveSequence(moveSeqSrc, moveSeqDst);
 
         Assert.assertFalse(rigidArbiter.requestMove(7, 4, 7, 6));
-        System.out.println("==============end testWhiteKingNoCastle==========");
     }
 
     /**
@@ -162,14 +155,12 @@ public class GameArbiterTest{
     */
     @Test
     public void testWhiteKingChecked(){
-        System.out.println("==============testWhiteKingChecked===============");
         Point[] moveSeqSrc = {new Point(6, 3), new Point(1, 4), new Point(6, 4),
           new Point(0, 5)};
         Point[] moveSeqDst = {new Point(4, 3), new Point(3, 4), new Point(5, 4),
           new Point(4, 1)};
         executeMoveSequence(moveSeqSrc, moveSeqDst);
         Assert.assertTrue(rigidArbiter.isWhiteKingChecked());
-        System.out.println("===============end testWhiteKingChecked==========");
     }
 
     /**
@@ -180,14 +171,12 @@ public class GameArbiterTest{
     */
     @Test
     public void testBlackKingChecked(){
-        System.out.println("===================testBlackKingChecked===========");
         Point[] moveSeqSrc = {new Point(6, 4), new Point(1, 4), new Point(7, 6),
           new Point(1, 3), new Point(7, 5)};
         Point[] moveSeqDst = {new Point(4, 4), new Point(3, 4), new Point(5, 5),
           new Point(2, 3), new Point(3, 1)};
         executeMoveSequence(moveSeqSrc, moveSeqDst);
         Assert.assertTrue(rigidArbiter.isBlackKingChecked());
-        System.out.println("=================end testBlackKingChecked=========");
     }
 
     /**
@@ -203,7 +192,6 @@ public class GameArbiterTest{
     */
     @Test
     public void testWhiteKingProtectionPriority() throws NotMeException{
-        System.out.println("==============testWhiteKingProtectionPriority=====");
         Point[] moveSeqSrc = {new Point(6, 4), new Point(1, 4), new Point(7, 6),
           new Point(1, 3), new Point(4, 4), new Point(1, 2), new Point(5, 5),
           new Point(1, 5), new Point(3, 4), new Point(0, 3)};
@@ -272,7 +260,6 @@ public class GameArbiterTest{
 
             Assert.assertEquals(emptySet, pieceMoves);
         }
-        System.out.println("===============end testWhiteKingProtectionPriority=======");
     }
 
     /**
@@ -331,7 +318,6 @@ public class GameArbiterTest{
     */
     @Test
     public void testWhiteKingsideCastleRequest(){
-        System.out.println("=============testWhiteKingsideCastleRequest=======");
         Point[] moveSeqSrc = {new Point(6, 4), new Point(1, 4), new Point(7, 6),
           new Point(1, 3), new Point(7, 5), new Point(1, 2)};
         Point[] moveSeqDst = {new Point(4, 4), new Point(3, 4), new Point(5, 5),
@@ -344,7 +330,6 @@ public class GameArbiterTest{
 
         Assert.assertEquals(concreteBoard.getPieceAt(7, 6), whiteKing);
         Assert.assertEquals(concreteBoard.getPieceAt(7, 5), whiteRook);
-        System.out.println("==============end testWhiteKingsideCastleRequest====");
     }
     
     /**
@@ -355,7 +340,6 @@ public class GameArbiterTest{
     */
     @Test
     public void testWhiteQueensideCastleRequest(){
-        System.out.println("=============testWhiteQueensideCastleRequest=====");
         Point[] moveSeqSrc = {new Point(6, 3), new Point(1, 0), new Point(7, 3),
           new Point(1, 1), new Point(7, 2), new Point(1, 2), new Point(7, 1),
           new Point(1, 3)};
@@ -370,7 +354,6 @@ public class GameArbiterTest{
 
         Assert.assertEquals(new King(true), king);
         Assert.assertEquals(new Rook(true), rook);
-        System.out.println("=============end testWhiteQueensideCastleRequest====");
     }
     
     /**
@@ -381,7 +364,6 @@ public class GameArbiterTest{
     */
     @Test
     public void testBlackKingsideCastleRequest(){
-        System.out.println("========testBlackKingsideCastleRequest============");
         Point[] moveSeqSrc = {new Point(6, 0), new Point(1, 4), new Point(6, 1),
           new Point(0, 5), new Point(6, 2), new Point(0, 6), new Point(6, 3)};
         Point[] moveSeqDst = {new Point(5, 0), new Point(3, 4), new Point(5, 1),
@@ -394,7 +376,6 @@ public class GameArbiterTest{
 
         Assert.assertEquals(concreteBoard.getPieceAt(0, 6), blackKing);
         Assert.assertEquals(concreteBoard.getPieceAt(0, 5), blackRook);
-        System.out.println("=========end testBlackKingsideCastleRequest=======");
     }
 
     /**
@@ -406,7 +387,6 @@ public class GameArbiterTest{
     */
     @Test
     public void testBlackQueensideCastleRequest(){
-        System.out.println("===========testBlackQueensideCastleRequest=======");
         Point[] moveSeqSrc = {new Point(6, 0), new Point(1, 3), new Point(6, 1),
           new Point(0, 3), new Point(6, 2), new Point(0, 2), new Point(6, 3),
           new Point(0, 1), new Point(6, 4)};
@@ -421,6 +401,5 @@ public class GameArbiterTest{
 
         Assert.assertEquals(concreteBoard.getPieceAt(0, 2), blackKing);
         Assert.assertEquals(concreteBoard.getPieceAt(0, 3), blackRook);
-        System.out.println("==============end testBlackQueensideCastleRequest====");
     }
 }
