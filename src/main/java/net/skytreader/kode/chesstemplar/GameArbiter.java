@@ -162,6 +162,7 @@ public class GameArbiter{
                 // Get the board back to its previous state
                 System.out.print("KingCheckFilter.filter undoing test move...");
                 board.move(p.x, p.y, r, c);
+                board.addPiece(prevOccupant, p.x, p.y);
                 System.out.println("done!");
             }
 

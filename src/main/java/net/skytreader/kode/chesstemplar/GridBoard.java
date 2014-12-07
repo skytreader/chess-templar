@@ -203,6 +203,10 @@ public class GridBoard extends Board{
     }
 
     public void addPiece(ChessPiece cp, int r, int c){
+        if(cp == null){
+            return;
+        }
+
         if(cp.isWhite()){
             int posIndex = WHITE_LIST.indexOf(cp);
             board[r][c] = getWhiteRep(posIndex);
