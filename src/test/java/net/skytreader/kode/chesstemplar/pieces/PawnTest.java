@@ -23,6 +23,7 @@ public class PawnTest{
     
     private Pawn whitePawn;
     private Pawn blackPawn;
+    private Board testBoard;
 
     @Rule
     public ExpectedException exception = ExpectedException.none();
@@ -31,6 +32,7 @@ public class PawnTest{
     public void setUp(){
         whitePawn = new Pawn(ChessPiece.WHITE);
         blackPawn = new Pawn(!ChessPiece.WHITE);
+        testBoard = new GridBoard();
     }
 
     @Test
@@ -97,8 +99,6 @@ public class PawnTest{
     @Test
     public void testWhiteUnmoved(){
         try{
-            Board testBoard = new GridBoard();
-
             // Test unmoved white pawn at (6, 1)
             Point[] whiteUnmoves = {new Point(5, 1), new Point(4, 1)};
             HashSet<Point> whiteUnmovesSet = new HashSet<Point>(Arrays.asList(whiteUnmoves));
@@ -113,8 +113,6 @@ public class PawnTest{
     @Test
     public void testBlackUnmoved(){
         try{
-            Board testBoard = new GridBoard();
-
             // Test unmoved black pawn at (1, 1)
             Point[] blackUnmoves = {new Point(2, 1), new Point(3, 1)};
             HashSet<Point> blackUnmovesSet = new HashSet<Point>(Arrays.asList(blackUnmoves));
@@ -131,8 +129,6 @@ public class PawnTest{
     @Test
     public void testThreatenBlack(){
         try{
-            Board testBoard = new GridBoard();
-
             // Move pawns into threatening positions and see that getMoves
             // includes the possibility of capture
             testBoard.move(1, 1, 3, 1);
@@ -158,8 +154,6 @@ public class PawnTest{
     @Test
     public void testThreatenWhite(){
         try{
-            Board testBoard = new GridBoard();
-
             // Move pawns into threatening positions and see that getMoves
             // includes the possibility of capture
             testBoard.move(1, 1, 3, 1);
@@ -183,11 +177,16 @@ public class PawnTest{
         }
     }
 
+    /**
+    This case gave me problems in GameArbiterTest so it's here for posterity.
+    */
+    @Test
+    public void auxTestWhiteThreaten(){
+    }
+
     @Test
     public void testMoves(){
         try{
-            Board testBoard = new GridBoard();
-            
             // There is a black pawn at 1, 0 which has never moved yet.
             // Enumerate its legal moves.
             Point[] legalMoves = {new Point(2, 0), new Point(3, 0)};
@@ -205,7 +204,6 @@ public class PawnTest{
     */
     @Test
     public void testNoForwardCapture() throws NotMeException{
-        Board testBoard = new GridBoard();
         testBoard.move(6, 4, 4, 4);
         testBoard.move(1, 4, 3, 4);
         HashSet<Point>legalMoves = new HashSet<Point>();
@@ -216,7 +214,6 @@ public class PawnTest{
     @Test
     public void testNotMe() throws NotMeException{
         exception.expect(NotMeException.class);
-        Board testBoard = new GridBoard();
     
         // Try to use a white pawn to move the rook at (0, 0).
         whitePawn.getMoves(0, 0, testBoard);
