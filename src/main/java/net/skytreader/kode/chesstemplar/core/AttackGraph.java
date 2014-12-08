@@ -155,6 +155,7 @@ public class AttackGraph implements Observer{
       - attacker and target are not equal
     */
     private void updateAttackGraph(Point attacker, Point target){
+        System.out.println("updateAttackGraph");
         Set<Point> theAttacked = attackGraph.get(attacker);
         theAttacked.add(target);
         attackGraph.put(attacker, theAttacked);
@@ -163,6 +164,7 @@ public class AttackGraph implements Observer{
     @Override
     public void update(Observable o, Object arg){
         if(observedBoard.equals(o) && observedBoard.hasChanged()){
+            System.out.println("update Updating attack graph...");
             // Only do something if the update comes from the board we are
             // observing.
 
@@ -190,9 +192,11 @@ public class AttackGraph implements Observer{
                   moveDesc[1].y);
                 Set<Point> movedPieceMoves = movedPiece.getMoves(moveDesc[1].x,
                   moveDesc[1].y, observedBoard);
+
                 for(Point pos : piecePos){
                     ChessPiece cp = observedBoard.getPieceAt(pos.x, pos.y);
                     Set<Point> moves = cp.getMoves(pos.x, pos.y, observedBoard);
+                    System.out.println("update " + cp + " is attacking " + movedPiece);
                     
                     if(moves.contains(moveDesc[1])){
                         updateAttackGraph(pos, moveDesc[1]);

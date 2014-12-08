@@ -225,9 +225,15 @@ public class GridBoard extends Board{
 
         // Observable-related methods
         Point[] moveMade = {new Point(r1, c1), new Point(r2, c2)};
+        System.out.print("move calling setChanged...");
         setChanged();
+        System.out.println("done!");
+        System.out.print("move notifying observers...");
         notifyObservers(moveMade);
+        System.out.println("done!");
+        System.out.print("move clearing changed state...");
         clearChanged();
+        System.out.println("done!");
     }
 
     @Override
