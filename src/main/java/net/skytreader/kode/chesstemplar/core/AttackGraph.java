@@ -37,9 +37,6 @@ public class AttackGraph implements Observer{
     The first element (index 0) of every list in this set-of-lists is the chess
     piece represented by that list. The rest of the elements in the list
     (elements 1 to n) are the nodes attacked by current element.
-
-    TODO We'll get better performance if we change this to
-    </code>Map<Point, List<Point>></code>
     */
     private Map<Point, Set<Point>> attackGraph;
 
