@@ -153,6 +153,11 @@ public class AttackGraph implements Observer{
     */
     private void updateAttackGraph(Point attacker, Point target){
         Set<Point> theAttacked = attackGraph.get(attacker);
+
+        if(theAttacked == null){
+            theAttacked = new HashSet<Point>();
+        }
+
         theAttacked.add(target);
         attackGraph.put(attacker, theAttacked);
     }
@@ -205,5 +210,20 @@ public class AttackGraph implements Observer{
                 nme.printStackTrace();
             }
         }
+    }
+
+    @Override
+    public String toString(){
+        Set<Point> attackers = attackGraph.keySet();
+        StringBuilder sb = new StringBuilder("attackGraph: ");
+
+        for(Point a : attackers){
+            sb.append(a.toString());
+            sb.append(" attacks ");
+            sb.append(attackGraph.get(a).toString());
+            sb.append("\n");
+        }
+
+        return sb.toString();
     }
 }
