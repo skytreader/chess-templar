@@ -256,10 +256,12 @@ public class GameArbiterTest{
                 continue;
             }
             ChessPiece p = concreteBoard.getPieceAt(7, i);
-            Set<Point> pieceMoves = rigidArbiter.legalMovesFilter(p, 7, i);
             System.out.println("testWhiteKingProtectionPriority checking " + p + " at " + 7 + " " + i);
+            Set<Point> pieceMoves = rigidArbiter.legalMovesFilter(p, 7, i);
 
+            System.out.println("testWhiteKingProtectionPriority Asserting empty set...");
             Assert.assertEquals(emptySet, pieceMoves);
+            System.out.println("testWhiteKingProtectionPriority Empty set indeed.");
         }
         System.out.println("=======end testWhiteKingProtectionPriority=======");
     }

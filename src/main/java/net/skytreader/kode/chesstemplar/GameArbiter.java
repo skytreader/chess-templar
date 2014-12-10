@@ -149,12 +149,16 @@ public class GameArbiter{
             Set<Point> updatedMoves = new HashSet<Point>();
             boolean pieceColor = cp.isWhite();
             Point kingForChecking = pieceColor ? whiteKingPosition : blackKingPosition;
-            
+
             for(Point p : moves){
                 // In case this is a capture move
                 ChessPiece prevOccupant = board.getPieceAt(p.x, p.y);
                 board.move(r, c, p.x, p.y);
-                if(attackGraph.getAttackers(kingForChecking).isEmpty()){
+                System.out.println("KingCheckFilter.filter King for checking is at " + kingForChecking);
+                if(!kingForChecking.equals(new Point(r, c)) && attackGraph.getAttackers(kingForChecking).isEmpty()){
+                    System.out.println("KingCheckFilter.filter Allowing point " + p);
+                    updatedMoves.add(p);
+                } else if(kingForChecking.equals(new Point(r, c)) && attackGraph.getAttackers(p).isEmpty()){
                     updatedMoves.add(p);
                 }
                 // Get the board back to its previous state

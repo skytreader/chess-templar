@@ -198,6 +198,7 @@ public class AttackGraph implements Observer{
                     Set<Point> moves = cp.getMoves(pos.x, pos.y, observedBoard);
                     
                     if(moves.contains(moveDesc[1])){
+                        System.out.println("update " + cp + " is attacking " + moveDesc[1]);
                         updateAttackGraph(pos, moveDesc[1]);
                     }
 
