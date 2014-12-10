@@ -252,7 +252,8 @@ public class GameArbiterTest{
 
         // Check the other pieces
         for(int i = 0; i < 8; i++){
-            if(valid64Defenders.contains(new Point(7, i))){
+            // i == 6 the Knight that moved
+            if(valid64Defenders.contains(new Point(7, i)) || i == 6){
                 continue;
             }
             ChessPiece p = concreteBoard.getPieceAt(7, i);
