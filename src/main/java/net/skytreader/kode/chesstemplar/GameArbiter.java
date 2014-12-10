@@ -154,9 +154,7 @@ public class GameArbiter{
                 // In case this is a capture move
                 ChessPiece prevOccupant = board.getPieceAt(p.x, p.y);
                 board.move(r, c, p.x, p.y);
-                System.out.println("KingCheckFilter.filter King for checking is at " + kingForChecking);
                 if(!kingForChecking.equals(new Point(r, c)) && attackGraph.getAttackers(kingForChecking).isEmpty()){
-                    System.out.println("KingCheckFilter.filter Allowing point " + p);
                     updatedMoves.add(p);
                 } else if(kingForChecking.equals(new Point(r, c)) && attackGraph.getAttackers(p).isEmpty()){
                     updatedMoves.add(p);

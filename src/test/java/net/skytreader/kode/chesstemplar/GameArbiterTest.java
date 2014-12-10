@@ -192,7 +192,6 @@ public class GameArbiterTest{
     */
     @Test
     public void testWhiteKingProtectionPriority() throws NotMeException{
-        System.out.println("================testWhiteKingProtectionPriority====");
         Point[] moveSeqSrc = {new Point(6, 4), new Point(1, 4), new Point(7, 6),
           new Point(1, 3), new Point(4, 4), new Point(1, 2), new Point(5, 5),
           new Point(1, 5), new Point(3, 4), new Point(0, 3)};
@@ -257,14 +256,10 @@ public class GameArbiterTest{
                 continue;
             }
             ChessPiece p = concreteBoard.getPieceAt(7, i);
-            System.out.println("testWhiteKingProtectionPriority checking " + p + " at " + 7 + " " + i);
             Set<Point> pieceMoves = rigidArbiter.legalMovesFilter(p, 7, i);
 
-            System.out.println("testWhiteKingProtectionPriority Asserting empty set...");
             Assert.assertEquals(emptySet, pieceMoves);
-            System.out.println("testWhiteKingProtectionPriority Empty set indeed.");
         }
-        System.out.println("=======end testWhiteKingProtectionPriority=======");
     }
 
     /**
