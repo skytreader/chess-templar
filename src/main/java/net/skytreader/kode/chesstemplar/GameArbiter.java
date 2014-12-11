@@ -283,7 +283,7 @@ public class GameArbiter{
     holding a piece with the same color.
 
     To describe a castle move, move the King to its terminal position once the
-    move is castle is done.
+    castle is done.
 
     @param r1
     @param c1
@@ -378,19 +378,17 @@ public class GameArbiter{
                     }
                 }
                 
-                // FIXME Huh what's this? Looks like a big pile of bug to me...
-                // No checking whether piece is king side or queen side?
                 if(cp1.equals(GameArbiter.WHITE_KING)){
                     whiteKingMoved = true;
                 } else if(cp1.equals(GameArbiter.BLACK_KING)){
                     blackKingMoved = true;
-                } else if(cp1.equals(GameArbiter.WHITE_ROOK)){
+                } else if(cp1.equals(GameArbiter.WHITE_ROOK) && r1 == 7 && c1 == 7){
                     whiteKingsideRookMoved = true;
-                } else if(cp1.equals(GameArbiter.WHITE_ROOK)){
+                } else if(cp1.equals(GameArbiter.WHITE_ROOK) && r1 == 7 && c1 == 0){
                     whiteQueensideRookMoved = true;
-                } else if(cp1.equals(GameArbiter.BLACK_ROOK)){
+                } else if(cp1.equals(GameArbiter.BLACK_ROOK) && r1 == 0 && c1 == 7){
                     blackKingsideRookMoved = true;
-                } else if(cp1.equals(GameArbiter.BLACK_ROOK)){
+                } else if(cp1.equals(GameArbiter.BLACK_ROOK) && r1 == 0 && c1 == 0){
                     blackQueensideRookMoved = true;
                 }
                 return true;
