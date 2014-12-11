@@ -391,6 +391,13 @@ public class GameArbiter{
                 } else if(cp1.equals(GameArbiter.BLACK_ROOK) && r1 == 0 && c1 == 0){
                     blackQueensideRookMoved = true;
                 }
+
+                // Check if both players has castled, and remove castle filter if so
+                if((whiteKingMoved && (whiteKingsideRookMoved || whiteQueensideRookMoved)) &&
+                  (blackKingMoved && (blackKingsideRookMoved || blackQueensideRookMoved))){
+                    removeFilter(CastleFilter.class);
+                }
+
                 return true;
             } else{
                 return false;
