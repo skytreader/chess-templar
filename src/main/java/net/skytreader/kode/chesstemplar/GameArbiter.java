@@ -197,6 +197,14 @@ public class GameArbiter{
         moveFilters.add(new CastleFilter());
         moveFilters.add(new KingCheckFilter());
     }
+    
+    private void removeFilter(Class c){
+        for(MoveFilter mf : moveFilters){
+            if(mf.getClass().equals(c)){
+                moveFilters.remove(mf);
+            }
+        }
+    }
 
     /**
     Get the last move allowed by this arbiter (i.e., the last move passed to
