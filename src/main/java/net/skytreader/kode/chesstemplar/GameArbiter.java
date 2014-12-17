@@ -173,6 +173,19 @@ public class GameArbiter{
         }
     }
 
+    private class EnPassantFilter implements MoveFilter{
+        @Override
+        public Set<Point> filter(ChessPiece cp, int r, int c, Set<Point> moves){
+            // TODO
+            Point[] lastMove = getLastMove();
+
+            if(lastMove[1].x == 4){
+            }
+
+            return moves;
+        }
+    }
+
     public GameArbiter(Board b){
         board = b;
         attackGraph = new AttackGraph(board);
@@ -237,10 +250,9 @@ public class GameArbiter{
     Among the edits involved are removing moves that will expose the King to
     a check and, in the case of the King, add the possibility of castles.
 
-    TODO I think this should be made protected?
     FIXME Cannot castle _through_ a check.
     */
-    public Set<Point> legalMovesFilter(ChessPiece cp, int r, int c) throws NotMeException{
+    protected Set<Point> legalMovesFilter(ChessPiece cp, int r, int c) throws NotMeException{
         Set<Point> pieceMoves = cp.getMoves(r, c, board);
 
         for(MoveFilter mf : moveFilters){
