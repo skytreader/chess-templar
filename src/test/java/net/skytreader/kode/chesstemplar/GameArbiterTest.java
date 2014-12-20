@@ -9,6 +9,7 @@ import net.skytreader.kode.chesstemplar.exceptions.NotMeException;
 
 import net.skytreader.kode.chesstemplar.pieces.ChessPiece;
 import net.skytreader.kode.chesstemplar.pieces.King;
+import net.skytreader.kode.chesstemplar.pieces.Pawn;
 import net.skytreader.kode.chesstemplar.pieces.Rook;
 
 import java.util.Arrays;
@@ -99,6 +100,28 @@ public class GameArbiterTest{
           7, 4);
 
         Assert.assertEquals(withCastleMoves, kingLegalMoves);
+    }
+
+    /**
+    1 e4 c5
+    2 e5 d5
+    
+    En-passant move exd6 should be possible after this
+    */
+    @Test
+    public void testEnPassantFilterWhite() throws NotMeException{
+        Point[] moveSeqSrc = {new Point(6, 4), new Point(1, 2), new Point(4, 4),
+          new Point(1, 3)};
+        Point[] moveSeqDst = {new Point(4, 4), new Point(3, 2), new Point(3, 4),
+          new Point(3, 3)};
+
+        executeMoveSequence(moveSeqSrc, moveSeqDst);
+        Point[] expectedEnPassant = {new Point(2, 4), new Point(2, 3)};
+        Set<Point> pawnMoves = new HashSet<Point>(Arrays.asList(expectedEnPassant));
+        Set<Point> pawnLegalMoves = rigidArbiter.legalMovesFilter(new Pawn(true),
+          3, 4);
+
+        Assert.assertEquals(pawnMoves, pawnLegalMoves);
     }
     
     /**
