@@ -43,9 +43,14 @@ public class GameArbiter{
     
     private Point whiteKingPosition;
     private Point blackKingPosition;
-    private Point[] lastMove;
 
     private List<MoveFilter> moveFilters;
+    /**
+    Going from 0 to n (so the most recent move made is at the tail of the list).
+    The arrays have two Point elements, the first being the origin and the second
+    being the destination.
+    */
+    private LinkedList<Point[]> moveList;
 
     // Use these for comparisons
     private static final King WHITE_KING = new King(true);
@@ -196,7 +201,6 @@ public class GameArbiter{
         blackKingsideRookMoved = false;
         blackQueensideRookMoved = false;
         lastMoveWhite = false;
-        lastMove = new Point[2];
 
         // FIXME Assuming that the board is set to normal initial state
         // FIXME that is not always the case
@@ -206,6 +210,7 @@ public class GameArbiter{
         whiteKingChecked = false;
         blackKingChecked = false;
 
+        moveList = new LinkedList<Point[]>();
         moveFilters = new LinkedList<MoveFilter>();
         moveFilters.add(new CastleFilter());
         moveFilters.add(new KingCheckFilter());
@@ -228,7 +233,7 @@ public class GameArbiter{
     initial game configuration), the elements of the array are both null.
     */
     public Point[] getLastMove(){
-        return lastMove;
+        return moveList.getLast();
     }
 
     public boolean isWhiteKingChecked(){
@@ -266,7 +271,6 @@ public class GameArbiter{
     Function to check that the move is white king castling.
     */
     private boolean isWhiteCastle(int r1, int c1, int r2, int c2){
-        // TODO Simplify!
         return (r1 == 7 && c1 == 4) && ((r2 == 7 && c2 == 6) || (r2 == 7 &&
           c2 == 2));
     }
@@ -337,8 +341,8 @@ public class GameArbiter{
     
                 lastMoveWhite = cp1.isWhite();
     
-                lastMove[0] = new Point(r1, c1);
-                lastMove[1] = new Point(r2, c2);
+                Point[] move = {new Point(r1, c1), new Point(r2, c2)};
+                moveList.add(move);
 
                 // Check if the piece moved was a King and if so, note properly.
                 if(isWhiteKing){
