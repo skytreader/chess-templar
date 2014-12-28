@@ -10,10 +10,12 @@ import net.skytreader.kode.chesstemplar.Board;
 import net.skytreader.kode.chesstemplar.exceptions.NotMeException;
 
 public class Pawn extends ChessPiece{
+    
+    public static final String PIECE_NAME = "PAWN";
 
     public Pawn(boolean isWhite){
         this.color = isWhite;
-        this.pieceName = "PAWN";
+        this.pieceName = Pawn.PIECE_NAME;
     }
 
     @Override
