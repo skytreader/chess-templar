@@ -106,7 +106,7 @@ public class GameArbiterTest{
     1 e4 c5
     2 e5 d5
     
-    En-passant move exd6 should be possible after this
+    En-passant WHITE move exd6 should be possible after this.
     */
     @Test
     public void testEnPassantFilterWhite() throws NotMeException{
@@ -124,11 +124,82 @@ public class GameArbiterTest{
         Assert.assertEquals(pawnMoves, pawnLegalMoves);
     }
 
-    // TODO En Passant test for black
-    // TODO Negative En Passant tests
+    /**
+    1 a4 d5
+    2 b4 d4
+    3 e4
+
+    En-passant BLACK move dxe3 should be possible after this.
+    */
+    @Test
+    public void testEnPassantFilterBlack() throws NotMeException{
+        Point[] moveSeqSrc = {new Point(6, 0), new Point(1, 3), new Point(6, 1),
+          new Point(3, 3), new Point(6, 4)};
+        Point[] moveSeqDst = {new Point(4, 0), new Point(3, 3), new Point(4, 1),
+          new Point(4, 3), new Point(4, 4)};
+
+        executeMoveSequence(moveSeqSrc, moveSeqDst);
+        Point[] expectedEnPassant = {new Point(5, 3), new Point(5, 4)};
+        Set<Point> pawnMoves = new HashSet<Point>(Arrays.asList(expectedEnPassant));
+        Set<Point> pawnLegalMoves = rigidArbiter.legalMovesFilter(new Pawn(false),
+          4, 3);
+
+        Assert.assertEquals(pawnMoves, pawnLegalMoves);
+    }
+
     // TODO Capture En Passant tests
-    // TODO Ensure that an En Passant move performs a capture
     
+    /**
+    1 e4 c5
+    2 e5 d5
+    
+    WHITE move exd6 should remove the black pawn at d5.
+    */
+    @Test
+    public void testEnPassantCaptureWhite() throws NotMeException{
+        Point[] moveSeqSrc = {new Point(6, 4), new Point(1, 2), new Point(4, 4),
+          new Point(1, 3)};
+        Point[] moveSeqDst = {new Point(4, 4), new Point(3, 2), new Point(3, 4),
+          new Point(3, 3)};
+
+        executeMoveSequence(moveSeqSrc, moveSeqDst);
+        Point[] expectedEnPassant = {new Point(2, 4), new Point(2, 3)};
+        Set<Point> pawnMoves = new HashSet<Point>(Arrays.asList(expectedEnPassant));
+        Set<Point> pawnLegalMoves = rigidArbiter.legalMovesFilter(new Pawn(true),
+          3, 4);
+
+        Assert.assertEquals(pawnMoves, pawnLegalMoves);
+
+        rigidArbiter.requestMove(3, 4, 2, 3);
+        Assert.assertNull(concreteBoard.getPieceAt(3, 3));
+    }
+
+    /**
+    1 a4 d5
+    2 b4 d4
+    3 e4
+
+    BLACK move dxe3 should remove the white pawn at e4.
+    */
+    @Test
+    public void testEnPassantCaptureBlack() throws NotMeException{
+        Point[] moveSeqSrc = {new Point(6, 0), new Point(1, 3), new Point(6, 1),
+          new Point(3, 3), new Point(6, 4)};
+        Point[] moveSeqDst = {new Point(4, 0), new Point(3, 3), new Point(4, 1),
+          new Point(4, 3), new Point(4, 4)};
+
+        executeMoveSequence(moveSeqSrc, moveSeqDst);
+        Point[] expectedEnPassant = {new Point(5, 3), new Point(5, 4)};
+        Set<Point> pawnMoves = new HashSet<Point>(Arrays.asList(expectedEnPassant));
+        Set<Point> pawnLegalMoves = rigidArbiter.legalMovesFilter(new Pawn(false),
+          4, 3);
+
+        Assert.assertEquals(pawnMoves, pawnLegalMoves);
+
+        rigidArbiter.requestMove(4, 3, 5, 4);
+        Assert.assertNull(concreteBoard.getPieceAt(4, 4));
+    }
+
     /**
     Test that the right of castling is invalidated when the Kingside Rook moves.
 
