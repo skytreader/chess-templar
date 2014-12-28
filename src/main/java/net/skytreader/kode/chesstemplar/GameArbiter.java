@@ -11,10 +11,10 @@ import net.skytreader.kode.chesstemplar.core.AttackGraph;
 
 import net.skytreader.kode.chesstemplar.exceptions.NotMeException;
 
-import net.skytreader.kode.chesstemplar.pieces.King;
-import net.skytreader.kode.chesstemplar.pieces.Rook;
-
 import net.skytreader.kode.chesstemplar.pieces.ChessPiece;
+import net.skytreader.kode.chesstemplar.pieces.King;
+import net.skytreader.kode.chesstemplar.pieces.Pawn;
+import net.skytreader.kode.chesstemplar.pieces.Rook;
 
 /**
 The GameArbiter imposes the rules of Chess. An arbiter is tied to a particular
@@ -181,10 +181,30 @@ public class GameArbiter{
     private class EnPassantFilter implements MoveFilter{
         @Override
         public Set<Point> filter(ChessPiece cp, int r, int c, Set<Point> moves){
-            // TODO
-            Point[] lastMove = getLastMove();
+            int moveListSize = moveList.size();
 
-            if(lastMove[1].x == 4){
+            if(moveListSize >= 2){
+                Point[] myLastMove = moveList.get(moveListSize - 2);
+                Point[] opponentLastMove = moveList.get(moveListSize - 1);
+
+                if(myLastMove[0] == null || myLastMove[1] == null ||
+                  opponentLastMove[0] == null || opponentLastMove[1] == null){
+                    return moves;
+                }
+
+                // If my last move was to row index 3 of a pawn
+                ChessPiece myLastPiece = board.getPieceAt(myLastMove[1].x, myLastMove[1].y);
+
+                if(Pawn.PIECE_NAME.equals(myLastPiece.getPieceName()) && myLastMove[1].x == 3){
+                    // Check if opponent's last move was the special pawn two moves down
+                    ChessPiece opponentLastPiece = board.getPieceAt(opponentLastMove[1].x,
+                      opponentLastMove[1].y);
+                    
+                    if(Pawn.PIECE_NAME.equals(opponentLastPiece.getPieceName()) &&
+                      opponentLastMove[0].x == (opponentLastMove[1].x - 2)){
+                        moves.add(new Point(myLastMove[1].x + 1, opponentLastMove[1].y));
+                    }
+                }
             }
 
             return moves;
@@ -217,6 +237,7 @@ public class GameArbiter{
         moveFilters = new LinkedList<MoveFilter>();
         moveFilters.add(new CastleFilter());
         moveFilters.add(new KingCheckFilter());
+        moveFilters.add(new EnPassantFilter());
     }
     
     private void removeFilter(Class c){
