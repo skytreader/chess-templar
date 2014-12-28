@@ -123,6 +123,11 @@ public class GameArbiterTest{
 
         Assert.assertEquals(pawnMoves, pawnLegalMoves);
     }
+
+    // TODO En Passant test for black
+    // TODO Negative En Passant tests
+    // TODO Capture En Passant tests
+    // TODO Ensure that an En Passant move performs a capture
     
     /**
     Test that the right of castling is invalidated when the Kingside Rook moves.

@@ -202,7 +202,7 @@ public class GameArbiter{
                     
                     if(Pawn.PIECE_NAME.equals(opponentLastPiece.getPieceName()) &&
                       opponentLastMove[0].x == (opponentLastMove[1].x - 2)){
-                        moves.add(new Point(myLastMove[1].x + 1, opponentLastMove[1].y));
+                        moves.add(new Point(myLastMove[1].x - 1, opponentLastMove[1].y));
                     }
                 }
             }
