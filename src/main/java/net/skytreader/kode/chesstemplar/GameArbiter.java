@@ -182,6 +182,8 @@ public class GameArbiter{
         @Override
         public Set<Point> filter(ChessPiece cp, int r, int c, Set<Point> moves){
             int moveListSize = moveList.size();
+            int crucialRow = cp.isWhite() ? 3 : 4;
+            int opponentOriginTracker = cp.isWhite() ? -2 : 2;
 
             if(moveListSize >= 2){
                 Point[] myLastMove = moveList.get(moveListSize - 2);
@@ -195,14 +197,19 @@ public class GameArbiter{
                 // If my last move was to row index 3 of a pawn
                 ChessPiece myLastPiece = board.getPieceAt(myLastMove[1].x, myLastMove[1].y);
 
-                if(Pawn.PIECE_NAME.equals(myLastPiece.getPieceName()) && myLastMove[1].x == 3){
+                if(Pawn.PIECE_NAME.equals(myLastPiece.getPieceName()) &&
+                  myLastMove[1].x == crucialRow){
                     // Check if opponent's last move was the special pawn two moves down
                     ChessPiece opponentLastPiece = board.getPieceAt(opponentLastMove[1].x,
                       opponentLastMove[1].y);
                     
                     if(Pawn.PIECE_NAME.equals(opponentLastPiece.getPieceName()) &&
-                      opponentLastMove[0].x == (opponentLastMove[1].x - 2)){
-                        moves.add(new Point(myLastMove[1].x - 1, opponentLastMove[1].y));
+                      opponentLastMove[0].x == (opponentLastMove[1].x + opponentOriginTracker)){
+                        if(cp.isWhite()){
+                            moves.add(new Point(myLastMove[1].x - 1, opponentLastMove[1].y));
+                        } else{
+                            moves.add(new Point(myLastMove[1].x + 1, opponentLastMove[1].y));
+                        }
                     }
                 }
             }
