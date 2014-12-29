@@ -336,6 +336,32 @@ public class GameArbiter{
     }
     
     /**
+    Assuming that the given color just moved, check if any of the Kings got
+    checked.
+    */
+    private void setKingCheckFlags(boolean pieceColor) throws NotMeException{
+        Set<Point> piecePositions = board.getPiecePositions();
+
+        for(Point pos : piecePositions){
+            ChessPiece posPiece = board.getPieceAt(pos.x, pos.y);
+            Set<Point> pieceMoves = legalMovesFilter(posPiece, pos.x, pos.y);
+
+            if(pieceColor){
+                // Only black King can be checked
+                blackKingChecked = pieceMoves.contains(blackKingPosition);
+                if(blackKingChecked){
+                    break;
+                }
+            } else{
+                whiteKingChecked = pieceMoves.contains(whiteKingPosition);
+                if(whiteKingChecked){
+                    break;
+                }
+            }
+        }
+    }
+    
+    /**
     Checks if the described move is possible and legal and enacts it on the Board
     if it is so. The move is described as (r1, c1) being the initial square and
     (r2, c2) being the terminal square. This method returns true if the move
@@ -408,30 +434,12 @@ public class GameArbiter{
                 }
 
                 // Check if, in this new position, any King is checked.
-                // Be wary of discovered attacks!
-                Set<Point> piecePositions = board.getPiecePositions();
-
                 // Set both to false for the meantime, just in case check has
                 // been avoided
                 whiteKingChecked = false;
                 blackKingChecked = false;
-                for(Point pos : piecePositions){
-                    ChessPiece posPiece = board.getPieceAt(pos.x, pos.y);
-                    Set<Point> pieceMoves = legalMovesFilter(posPiece, pos.x, pos.y);
 
-                    if(cp1.isWhite()){
-                        // Only black King can be checked
-                        blackKingChecked = pieceMoves.contains(blackKingPosition);
-                        if(blackKingChecked){
-                            break;
-                        }
-                    } else{
-                        whiteKingChecked = pieceMoves.contains(whiteKingPosition);
-                        if(whiteKingChecked){
-                            break;
-                        }
-                    }
-                }
+                setKingCheckFlags(cp1.isWhite());
 
                 // Check if the move is castling because there are actually two
                 // moves to make there.
