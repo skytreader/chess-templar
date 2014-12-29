@@ -406,8 +406,6 @@ public class GameArbiter{
       successfully on the given Board.
     */
     public boolean requestMove(int r1, int c1, int r2, int c2){
-        boolean isMoveDone = false;
-
         // The move has been done if, after this call, (r2, c2) contains the piece
         // previously at (r1, c1).
         ChessPiece cp1 = board.getPieceAt(r1, c1);
