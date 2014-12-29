@@ -362,6 +362,25 @@ public class GameArbiter{
     }
     
     /**
+    Toggle the flags we use for checking validity of castle move requests.
+    */
+    private void setCastleFlags(ChessPiece movedPiece, int fromRow, int fromCol){
+        if(movedPiece.equals(GameArbiter.WHITE_KING)){
+            whiteKingMoved = true;
+        } else if(movedPiece.equals(GameArbiter.BLACK_KING)){
+            blackKingMoved = true;
+        } else if(movedPiece.equals(GameArbiter.WHITE_ROOK) && fromRow == 7 && fromCol == 7){
+            whiteKingsideRookMoved = true;
+        } else if(movedPiece.equals(GameArbiter.WHITE_ROOK) && fromRow == 7 && fromCol == 0){
+            whiteQueensideRookMoved = true;
+        } else if(movedPiece.equals(GameArbiter.BLACK_ROOK) && fromRow == 0 && fromCol == 7){
+            blackKingsideRookMoved = true;
+        } else if(movedPiece.equals(GameArbiter.BLACK_ROOK) && fromRow == 0 && fromCol == 0){
+            blackQueensideRookMoved = true;
+        }
+    }
+    
+    /**
     Checks if the described move is possible and legal and enacts it on the Board
     if it is so. The move is described as (r1, c1) being the initial square and
     (r2, c2) being the terminal square. This method returns true if the move
@@ -458,19 +477,7 @@ public class GameArbiter{
                     }
                 }
                 
-                if(cp1.equals(GameArbiter.WHITE_KING)){
-                    whiteKingMoved = true;
-                } else if(cp1.equals(GameArbiter.BLACK_KING)){
-                    blackKingMoved = true;
-                } else if(cp1.equals(GameArbiter.WHITE_ROOK) && r1 == 7 && c1 == 7){
-                    whiteKingsideRookMoved = true;
-                } else if(cp1.equals(GameArbiter.WHITE_ROOK) && r1 == 7 && c1 == 0){
-                    whiteQueensideRookMoved = true;
-                } else if(cp1.equals(GameArbiter.BLACK_ROOK) && r1 == 0 && c1 == 7){
-                    blackKingsideRookMoved = true;
-                } else if(cp1.equals(GameArbiter.BLACK_ROOK) && r1 == 0 && c1 == 0){
-                    blackQueensideRookMoved = true;
-                }
+                setCastleFlags(cp1, r1, c1);
 
                 // Check if both players has castled, and remove castle filter if so
                 if((whiteKingMoved && (whiteKingsideRookMoved || whiteQueensideRookMoved)) &&
