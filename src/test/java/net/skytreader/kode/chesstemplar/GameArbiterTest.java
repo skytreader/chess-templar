@@ -147,8 +147,6 @@ public class GameArbiterTest{
         Assert.assertEquals(pawnMoves, pawnLegalMoves);
     }
 
-    // TODO Capture En Passant tests
-    
     /**
     1 e4 c5
     2 e5 d5
@@ -198,6 +196,53 @@ public class GameArbiterTest{
 
         rigidArbiter.requestMove(4, 3, 5, 4);
         Assert.assertNull(concreteBoard.getPieceAt(4, 4));
+    }
+
+    /**
+    1 e4 c5
+    2 e5 d5
+    3 Nf3 Nc6
+    
+    Because of Nf3, exd6 should no longer be a valid move.
+    */
+    @Test
+    public void testEnPassantInvalidationWhite() throws NotMeException{
+        Point[] moveSeqSrc = {new Point(6, 4), new Point(1, 2), new Point(4, 4),
+          new Point(1, 3), new Point(7, 6), new Point(0, 1)};
+        Point[] moveSeqDst = {new Point(4, 4), new Point(3, 2), new Point(3, 4),
+          new Point(3, 3), new Point(5, 5), new Point(2, 2)};
+
+        executeMoveSequence(moveSeqSrc, moveSeqDst);
+        Point[] expectedEnPassant = {new Point(2, 4)};
+        Set<Point> pawnMoves = new HashSet<Point>(Arrays.asList(expectedEnPassant));
+        Set<Point> pawnLegalMoves = rigidArbiter.legalMovesFilter(new Pawn(true),
+          3, 4);
+
+        Assert.assertEquals(pawnMoves, pawnLegalMoves);
+    }
+
+    /**
+    1 a4 d5
+    2 b4 d4
+    3 e4 Nc6
+    4 Nf3
+
+    Because of Nc6, dxe3 should no longer be a valid move.
+    */
+    @Test
+    public void testEnPassantInvalidationBlack() throws NotMeException{
+        Point[] moveSeqSrc = {new Point(6, 0), new Point(1, 3), new Point(6, 1),
+          new Point(3, 3), new Point(6, 4), new Point(0, 1), new Point(7, 6)};
+        Point[] moveSeqDst = {new Point(4, 0), new Point(3, 3), new Point(4, 1),
+          new Point(4, 3), new Point(4, 4), new Point(2, 2), new Point(5, 5)};
+
+        executeMoveSequence(moveSeqSrc, moveSeqDst);
+        Point[] expectedEnPassant = {new Point(5, 3)};
+        Set<Point> pawnMoves = new HashSet<Point>(Arrays.asList(expectedEnPassant));
+        Set<Point> pawnLegalMoves = rigidArbiter.legalMovesFilter(new Pawn(false),
+          4, 3);
+
+        Assert.assertEquals(pawnMoves, pawnLegalMoves);
     }
 
     /**
