@@ -197,6 +197,10 @@ public class GameArbiter{
                 // If my last move was to row index 3 of a pawn
                 ChessPiece myLastPiece = board.getPieceAt(myLastMove[1].x, myLastMove[1].y);
 
+                if(myLastPiece == null){
+                    return moves;
+                }
+
                 if(Pawn.PIECE_NAME.equals(myLastPiece.getPieceName()) &&
                   myLastMove[1].x == crucialRow){
                     // Check if opponent's last move was the special pawn two moves down
@@ -315,6 +319,23 @@ public class GameArbiter{
     }
     
     /**
+    Checks if the move described is an en passant capture. This method assumes
+    that the board state and the move hass already been validated but that the
+    move <i>has not been enacted yet</i>.
+
+    The main purpose of this method is to check whether we must remove a pawn
+    captured en passant. Legality of the en passant move is for legalMovesFilter
+    to check. This method has very shallow checking.
+    */
+    private boolean isEnPassant(int r1, int c1, int r2, int c2){
+        ChessPiece cp = board.getPieceAt(r1, c1);
+        Pawn opposingPawn = new Pawn(!cp.isWhite());
+
+        ChessPiece capturePawn = board.getPieceAt(r1, c2);
+        return capturePawn != null && opposingPawn.equals(capturePawn);
+    }
+    
+    /**
     Checks if the described move is possible and legal and enacts it on the Board
     if it is so. The move is described as (r1, c1) being the initial square and
     (r2, c2) being the terminal square. This method returns true if the move
@@ -368,6 +389,10 @@ public class GameArbiter{
             // Check that the destination is a legal move
             Set<Point> legalMoves = legalMovesFilter(cp1, r1, c1);
             if(legalMoves.contains(new Point(r2, c2))){
+                if(isEnPassant(r1, c1, r2, c2)){
+                    board.removePiece(r1, c2);
+                }
+
                 board.move(r1, c1, r2, c2);
     
                 lastMoveWhite = cp1.isWhite();
