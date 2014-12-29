@@ -546,4 +546,25 @@ public class GameArbiterTest{
         Assert.assertEquals(concreteBoard.getPieceAt(0, 2), blackKing);
         Assert.assertEquals(concreteBoard.getPieceAt(0, 3), blackRook);
     }
+    
+    /**
+    1 e4 d5
+    2 f3 Bh3
+    4 g4 Qc8
+    5 Bd3 Qd8
+    6 Ne2 Qc8
+
+    You cannot castle through a check.
+    */
+    @Test
+    public void testWhiteCastleThroughCheck(){
+        Point[] moveSeqSrc = {new Point(6, 4), new Point(1, 3), new Point(6, 5),
+          new Point(0, 2), new Point(6, 6), new Point(0, 3), new Point(7, 5),
+          new Point(0, 2), new Point(7, 6), new Point(0, 3)};
+        Point[] moveSeqDst = {new Point(4, 4), new Point(3, 3), new Point(5, 5),
+          new Point(5, 7), new Point(4, 6), new Point(0, 2), new Point(5, 3),
+          new Point(0, 3), new Point(6, 4), new Point(0, 2)};
+
+        Assert.assertFalse(rigidArbiter.requestMove(7, 4, 7, 6));
+    }
 }

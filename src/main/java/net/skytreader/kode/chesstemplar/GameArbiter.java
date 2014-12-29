@@ -72,10 +72,6 @@ public class GameArbiter{
         public Set<Point> filter(ChessPiece cp, int r, int c, Set<Point> moves){
             Set<Point> pieceMoves = moves;
             if(WHITE_KING.equals(cp)){
-                /*
-                Check if the king side is clear. We only check if conditions for
-                castling is still valid at king side.
-                */
                 if(!whiteKingMoved && !whiteKingsideRookMoved){
                     boolean kingSideClear = true;
                     for(int i = 5; i < 7; i++){
