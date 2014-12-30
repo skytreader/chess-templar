@@ -557,14 +557,40 @@ public class GameArbiterTest{
     You cannot castle through a check.
     */
     @Test
-    public void testWhiteCastleThroughCheck(){
+    public void testWhiteKingsideCastleThroughCheck(){
         Point[] moveSeqSrc = {new Point(6, 4), new Point(1, 3), new Point(6, 5),
           new Point(0, 2), new Point(6, 6), new Point(0, 3), new Point(7, 5),
           new Point(0, 2), new Point(7, 6), new Point(0, 3)};
         Point[] moveSeqDst = {new Point(4, 4), new Point(3, 3), new Point(5, 5),
           new Point(5, 7), new Point(4, 6), new Point(0, 2), new Point(5, 3),
           new Point(0, 3), new Point(6, 4), new Point(0, 2)};
+        
+        executeMoveSequence(moveSeqSrc, moveSeqDst);
 
         Assert.assertFalse(rigidArbiter.requestMove(7, 4, 7, 6));
+    }
+    
+    /**
+    1 e4 d5
+    2 d4 Bg4
+    3 c4 Qc8
+    4 Qc2 Qd8
+    5 Bf4 Qc8
+    6 Nc3 Qd8
+
+    King can't castle through a check.
+    */
+    @Test
+    public void testWhiteQueensideCastleThroughCheck(){
+        Point[] moveSeqSrc = {new Point(6, 4), new Point(1, 3), new Point(6, 3),
+          new Point(6, 2), new Point(0, 3), new Point(7, 3), new Point(0, 2),
+          new Point(7, 2), new Point(0, 3), new Point(7, 1)};
+        Point[] moveSeqDst = {new Point(4, 4), new Point(3, 3), new Point(4, 3),
+          new Point(4, 2), new Point(0, 2), new Point(6, 2), new Point(0, 3),
+          new Point(4, 5), new Point(0, 2), new Point(5, 2)};
+
+        executeMoveSequence(moveSeqSrc, moveSeqDst);
+
+        Assert.assertFalse(rigidArbiter.requestMove(7, 4, 7, 2));
     }
 }
