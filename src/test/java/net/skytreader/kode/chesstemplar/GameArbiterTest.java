@@ -593,4 +593,47 @@ public class GameArbiterTest{
 
         Assert.assertFalse(rigidArbiter.requestMove(7, 4, 7, 2));
     }
+
+    /**
+    1 d4 e5
+    2 Bd2 g6
+    3 Bb4 Bf7
+    4 c3 Nf6
+    5 b3
+    */
+    @Test
+    public void testBlackKingsideCastleThroughCheck(){
+        Point[] moveSeqSrc = {new Point(6, 3), new Point(1, 4), new Point(7, 2),
+          new Point(1, 6), new Point(6, 3), new Point(0, 5), new Point(6, 2),
+          new Point(0, 6), new Point(6, 1)};
+        Point[] moveSeqDst = {new Point(4, 3), new Point(3, 4), new Point(6, 3),
+          new Point(2, 6), new Point(4, 1), new Point(1, 6), new Point(5, 2),
+          new Point(2, 5), new Point(5, 1)};
+
+        executeMoveSequence(moveSeqSrc, moveSeqDst);
+
+        Assert.assertFalse(rigidArbiter.requestMove(0, 4, 0, 6));
+    }
+
+    /**
+    1 d4 e5
+    2 Bg5 d5
+    3 a4 Qd6
+    4 b4 Bd7
+    5 c4 Nc6
+    6 e4
+    */
+    @Test
+    public void testBackQueensideCastleThroughCheck(){
+        Point[] moveSeqSrc = {new Point(6, 3), new Point(1, 4), new Point(7, 2),
+          new Point(1, 3), new Point(6, 0), new Point(0, 3), new Point(6, 1),
+          new Point(0, 2), new Point(6, 2), new Point(0, 1), new Point(6, 4)};
+        Point[] moveSeqDst = {new Point(4, 3), new Point(3, 4), new Point(3, 6),
+          new Point(3, 3), new Point(4, 0), new Point(2, 3), new Point(4, 1),
+          new Point(1, 3), new Point(4, 2), new Point(2, 2), new Point(4, 4)};
+
+        executeMoveSequence(moveSeqSrc, moveSeqDst);
+
+        Assert.assertFalse(rigidArbiter.requestMove(0, 4, 0, 2));
+    }
 }
