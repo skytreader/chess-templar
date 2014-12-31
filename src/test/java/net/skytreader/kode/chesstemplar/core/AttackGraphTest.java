@@ -78,7 +78,7 @@ public class AttackGraphTest{
     }
 
     @Test
-    public void testUpdate(){
+    public void testUpdate() throws NotMeException{
         // Make a move on the board and the graph should update accordingly.
         testBoard.move(3, 1, 3, 7);
         // Pawn at b6 is no longer attacked by anything at b5 (b5 is empty)
@@ -88,5 +88,19 @@ public class AttackGraphTest{
         // Rooks are in mutual attack
         Assert.assertTrue(testGraph.isAttacking(new Point(0, 7), new Point(3, 7)));
         Assert.assertTrue(testGraph.isAttacking(new Point(3, 7), new Point(0, 7)));
+
+        /*
+        Make sure that the underlying representation was also updated properly.
+        */
+        Set<Point> allPiecePos = testBoard.getPiecePositions();
+
+        for(Point pos : allPiecePos){
+            ChessPiece cp = testBoard.getPieceAt(pos.x, pos.y);
+            Set<Point> cpMoves = cp.getMoves(pos.x, pos.y, testBoard);
+
+            for(Point pressured : cpMoves){
+                Assert.assertTrue(testGraph.isAttacking(pos, pressured));
+            }
+        }
     }
 }
