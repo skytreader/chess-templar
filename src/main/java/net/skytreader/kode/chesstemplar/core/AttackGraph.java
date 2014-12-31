@@ -53,14 +53,14 @@ public class AttackGraph implements Observer{
     }
     
     /**
-    Return true if the piece at square p1 is attacking the piece at square p2.
-    If either p1 or p2 is empty, return false.
+    Return true if the piece at square p1 is attacking square p2.
+    If p1, return false.
     */
     public boolean isAttacking(Point p1, Point p2){
         try{
             ChessPiece cp1 = observedBoard.getPieceAt(p1.x, p1.y);
             ChessPiece cp2 = observedBoard.getPieceAt(p2.x, p2.y);
-            if(cp1 == null || cp2 == null){
+            if(cp1 == null){
                 return false;
             }
             Set<Point> cp1Moves = cp1.getMoves(p1.x, p1.y, observedBoard);
@@ -86,6 +86,23 @@ public class AttackGraph implements Observer{
             }
         }
         return attackers;
+    }
+    
+    /**
+    Check whether the given Point p is under attack by any piece of the given
+    color.
+    */
+    public boolean isAttacked(Point p, boolean color){
+        Set<Point> attackers = getAttackers(p);
+
+        for(Point attacker : attackers){
+            ChessPiece piece = observedBoard.getPieceAt(attacker.x, attacker.y);
+            if(piece.isWhite() == color){
+                return true;
+            }
+        }
+
+        return false;
     }
     
     /**
@@ -119,6 +136,7 @@ public class AttackGraph implements Observer{
             for(Point pos : piecePos){
                 ChessPiece cp = observedBoard.getPieceAt(pos.x, pos.y);
                 Set<Point> possibleMoves = cp.getMoves(pos.x, pos.y, observedBoard);
+                possibleMoves.add(pos);
                 Set<Point> cpNode = new HashSet<Point>();
                 cpNode.add(pos);
 
@@ -137,7 +155,7 @@ public class AttackGraph implements Observer{
                         }
                     }
                 }
-                attackGraph.put(pos, cpNode);
+                attackGraph.put(pos, possibleMoves);
             }
         } catch(NotMeException nme){
             // There should be no reason for the code above to go here.
@@ -175,35 +193,37 @@ public class AttackGraph implements Observer{
             Point[] moveDesc = (Point[]) arg;
 
             for(Point square : attackGraph.keySet()){
-                // Remove the element from the Set first because we _might_ need
-                // to modify it.
                 Set<Point> attackedSet = attackGraph.get(square);
                 attackedSet.remove(moveDesc[0]);
-                // Add back, now that possible modifications are done
                 attackGraph.put(square, attackedSet);
             }
 
             /*
             Get the terminal square of the move and add it to its new attackers
+            and create link it to those it is attacking.
             */
-            Set<Point> piecePos = observedBoard.getPiecePositions();
+            Set<Point> allPiecePos = observedBoard.getPiecePositions();
             try{
                 ChessPiece movedPiece = observedBoard.getPieceAt(moveDesc[1].x,
                   moveDesc[1].y);
                 Set<Point> movedPieceMoves = movedPiece.getMoves(moveDesc[1].x,
                   moveDesc[1].y, observedBoard);
 
-                for(Point pos : piecePos){
+                for(Point pos : allPiecePos){
                     ChessPiece cp = observedBoard.getPieceAt(pos.x, pos.y);
                     Set<Point> moves = cp.getMoves(pos.x, pos.y, observedBoard);
                     
                     if(moves.contains(moveDesc[1])){
-                        updateAttackGraph(pos, moveDesc[1]);
+                        attackGraph.put(pos, moves);
                     }
 
-                    if(movedPieceMoves.contains(pos)){
+                    /*if(movedPieceMoves.contains(pos)){
                         updateAttackGraph(moveDesc[1], pos);
-                    }
+                    }*/
+                }
+
+                for(Point pos : movedPieceMoves){
+                    updateAttackGraph(moveDesc[1], pos);
                 }
             } catch(NotMeException nme){
                 // Again, code should never go here

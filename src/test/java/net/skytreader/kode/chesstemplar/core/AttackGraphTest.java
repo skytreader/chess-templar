@@ -18,6 +18,9 @@ public class AttackGraphTest{
     private BlankBoard testBoard;
     private AttackGraph testGraph;
 
+    /**
+    7R/8/1P1K4/Pr6/6k1/7p/1b6/8
+    */
     @Before 
     public void setUp(){
         testBoard = new BlankBoard();

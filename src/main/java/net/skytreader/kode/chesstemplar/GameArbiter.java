@@ -81,7 +81,7 @@ public class GameArbiter{
                         }
                     }
 
-                    if(kingSideClear){
+                    if(kingSideClear && !attackGraph.isAttacked(new Point(7, 5), false)){
                         pieceMoves.add(new Point(7, 6));
                     }
                 }
@@ -96,7 +96,7 @@ public class GameArbiter{
                         }
                     }
     
-                    if(queenSideClear){
+                    if(queenSideClear && !attackGraph.isAttacked(new Point(7, 3), false)){
                         pieceMoves.add(new Point(7, 2));
                     }
                 }
