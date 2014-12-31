@@ -2,9 +2,14 @@ package net.skytreader.kode.chesstemplar.core;
 
 import java.awt.Point;
 
+import java.util.Set;
+
 import net.skytreader.kode.chesstemplar.BlankBoard;
 
+import net.skytreader.kode.chesstemplar.exceptions.NotMeException;
+
 import net.skytreader.kode.chesstemplar.pieces.Bishop;
+import net.skytreader.kode.chesstemplar.pieces.ChessPiece;
 import net.skytreader.kode.chesstemplar.pieces.King;
 import net.skytreader.kode.chesstemplar.pieces.Pawn;
 import net.skytreader.kode.chesstemplar.pieces.Rook;
@@ -56,7 +61,20 @@ public class AttackGraphTest{
         Assert.assertFalse(testGraph.isAttacking(new Point(1, 1), new Point(2, 1)));
         // Right empty
         Assert.assertFalse(testGraph.isAttacking(new Point(2, 1), new Point(1, 1)));
+    }
 
+    @Test
+    public void testControl() throws NotMeException{
+        Set<Point> allPiecePos = testBoard.getPiecePositions();
+
+        for(Point pos : allPiecePos){
+            ChessPiece cp = testBoard.getPieceAt(pos.x, pos.y);
+            Set<Point> cpMoves = cp.getMoves(pos.x, pos.y, testBoard);
+
+            for(Point pressured : cpMoves){
+                Assert.assertTrue(testGraph.isAttacking(pos, pressured));
+            }
+        }
     }
 
     @Test
