@@ -583,11 +583,11 @@ public class GameArbiterTest{
     @Test
     public void testWhiteQueensideCastleThroughCheck(){
         Point[] moveSeqSrc = {new Point(6, 4), new Point(1, 3), new Point(6, 3),
-          new Point(6, 2), new Point(0, 3), new Point(7, 3), new Point(0, 2),
-          new Point(7, 2), new Point(0, 3), new Point(7, 1)};
+          new Point (0, 2), new Point(6, 2), new Point(0, 3), new Point(7, 3),
+          new Point(0, 2), new Point(7, 2), new Point(0, 3), new Point(7, 1)};
         Point[] moveSeqDst = {new Point(4, 4), new Point(3, 3), new Point(4, 3),
-          new Point(4, 2), new Point(0, 2), new Point(6, 2), new Point(0, 3),
-          new Point(4, 5), new Point(0, 2), new Point(5, 2)};
+          new Point(4, 6), new Point(4, 2), new Point(0, 2), new Point(6, 2),
+          new Point(0, 3), new Point(4, 5), new Point(0, 2), new Point(5, 2)};
 
         executeMoveSequence(moveSeqSrc, moveSeqDst);
 
