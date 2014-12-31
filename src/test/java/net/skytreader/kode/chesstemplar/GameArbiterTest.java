@@ -624,7 +624,7 @@ public class GameArbiterTest{
     6 e4
     */
     @Test
-    public void testBackQueensideCastleThroughCheck(){
+    public void testBlackQueensideCastleThroughCheck(){
         Point[] moveSeqSrc = {new Point(6, 3), new Point(1, 4), new Point(7, 2),
           new Point(1, 3), new Point(6, 0), new Point(0, 3), new Point(6, 1),
           new Point(0, 2), new Point(6, 2), new Point(0, 1), new Point(6, 4)};

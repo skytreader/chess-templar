@@ -112,7 +112,7 @@ public class GameArbiter{
                         }
                     }
 
-                    if(kingSideClear){
+                    if(kingSideClear && !attackGraph.isAttacked(new Point(0, 5), true)){
                         pieceMoves.add(new Point(0, 6));
                     }
                 }

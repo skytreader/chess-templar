@@ -60,7 +60,7 @@ public class AttackGraphTest{
         // Left empty
         Assert.assertFalse(testGraph.isAttacking(new Point(1, 1), new Point(2, 1)));
         // Right empty
-        Assert.assertFalse(testGraph.isAttacking(new Point(2, 1), new Point(1, 1)));
+        Assert.assertFalse(testGraph.isAttacking(new Point(2, 1), new Point(0, 1)));
     }
 
     @Test
