@@ -11,9 +11,11 @@ import net.skytreader.kode.chesstemplar.exceptions.NotMeException;
 
 public class Bishop extends ChessPiece{
     
+    public static final String PIECE_NAME = "BISHOP";
+    
     public Bishop(boolean isWhite){
         this.color = isWhite;
-        this.pieceName = "BISHOP";
+        this.pieceName = Bishop.PIECE_NAME;
     }
 
     @Override

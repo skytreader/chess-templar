@@ -11,9 +11,11 @@ import net.skytreader.kode.chesstemplar.exceptions.NotMeException;
 
 public class King extends ChessPiece{
     
+    public static final String PIECE_NAME = "KING";
+    
     public King(boolean isWhite){
         this.color = isWhite;
-        this.pieceName = "KING";
+        this.pieceName = King.PIECE_NAME;
     }
 
     private boolean movesetFilter(Point p){

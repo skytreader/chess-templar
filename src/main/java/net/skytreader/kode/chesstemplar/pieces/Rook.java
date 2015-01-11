@@ -10,10 +10,12 @@ import net.skytreader.kode.chesstemplar.Board;
 import net.skytreader.kode.chesstemplar.exceptions.NotMeException;
 
 public class Rook extends ChessPiece{
+
+    public static final String PIECE_NAME = "ROOK";
     
     public Rook(boolean isWhite){
         this.color = isWhite;
-        this.pieceName = "ROOK";
+        this.pieceName = Rook.PIECE_NAME;
     }
 
     @Override

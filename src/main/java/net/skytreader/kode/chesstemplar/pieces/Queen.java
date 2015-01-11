@@ -10,10 +10,12 @@ import net.skytreader.kode.chesstemplar.Board;
 import net.skytreader.kode.chesstemplar.exceptions.NotMeException;
 
 public class Queen extends ChessPiece{
+
+    private static final String PIECE_NAME = "QUEEN";
     
     public Queen(boolean isWhite){
         this.color = isWhite;
-        this.pieceName = "QUEEN";
+        this.pieceName = Queen.PIECE_NAME;
     }
 
     @Override
