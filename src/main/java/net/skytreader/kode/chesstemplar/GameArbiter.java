@@ -267,6 +267,10 @@ public class GameArbiter{
         return moveList.getLast();
     }
 
+    public Board getBoard(){
+        return board;
+    }
+
     public boolean isWhiteKingChecked(){
         return whiteKingChecked;
     }
