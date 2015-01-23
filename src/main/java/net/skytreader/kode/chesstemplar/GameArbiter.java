@@ -283,6 +283,30 @@ public class GameArbiter{
         return false;
     }
 
+    public Set<Point[]> getAllLegalMoves(){
+        Set<Point[]> legalMoves = new HashSet<Point[]>();
+        Set<Point> pieces = board.getPiecePositions();
+
+        try{
+            for(Point piecePos : pieces){
+                ChessPiece cp = board.getPieceAt(piecePos.x, piecePos.y);
+                Set<Point> pieceMoves = cp.getMoves(piecePos.x, piecePos.y, board);
+
+                for(Point terminalSquare : pieceMoves){
+                    if(requestMove(piecePos.x, piecePos.y, terminalSquare.x,
+                      terminalSquare.y)){
+                        Point[] pa = {piecePos, terminalSquare};
+                        legalMoves.add(pa);
+                    }
+                }
+            }
+        } catch(NotMeException nme){
+            nme.printStackTrace();
+        }
+
+        return legalMoves;
+    }
+
     /**
     Edits the moveset returned by the ChessPiece to take Chess rules in
     consideration.

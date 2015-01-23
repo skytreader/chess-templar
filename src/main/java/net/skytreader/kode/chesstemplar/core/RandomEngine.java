@@ -21,7 +21,7 @@ public class RandomEngine extends AIEngine{
     
     @Override
     public Point[] getMove(){
-        LinkedList<Point[]> nextMoves = new LinkedList<Point[]>(getAllLegalMoves());
+        LinkedList<Point[]> nextMoves = new LinkedList<Point[]>(arbiter.getAllLegalMoves());
         int randomMoveIndex = randomChooser.nextInt(nextMoves.size());
         return nextMoves.get(randomMoveIndex);
     }
