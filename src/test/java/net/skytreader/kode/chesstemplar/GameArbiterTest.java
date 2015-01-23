@@ -642,6 +642,7 @@ public class GameArbiterTest{
     */
     @Test
     public void testEndgameFalse(){
+        System.out.println("testEndgameFalse");
         Assert.assertFalse(rigidArbiter.isEndgame());
     }
     
@@ -653,6 +654,7 @@ public class GameArbiterTest{
     */
     @Test
     public void testEndgameWhite(){
+        System.out.println("testEndgameWhite");
         Point[] moveSeqSrc = {new Point(6, 5), new Point(1, 4), new Point(6, 6),
           new Point(0, 3)};
         Point[] moveSeqDst = {new Point(4, 5), new Point(3, 4), new Point(6, 4),
@@ -672,6 +674,7 @@ public class GameArbiterTest{
     */
     @Test
     public void testEndgameBlack(){
+        System.out.println("testEndgameBlack");
         Point[] moveSeqSrc = {new Point(6, 4), new Point(1, 5), new Point(6, 0),
           new Point(1, 6), new Point(7, 3)};
         Point[] moveSeqDst = {new Point(4, 4), new Point(3, 5), new Point(4, 0),

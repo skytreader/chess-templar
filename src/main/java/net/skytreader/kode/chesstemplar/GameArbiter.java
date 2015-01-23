@@ -2,6 +2,7 @@ package net.skytreader.kode.chesstemplar;
 
 import java.awt.Point;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -141,6 +142,10 @@ public class GameArbiter{
         }
     }
 
+    /**
+    This filter checks that for the given move, you are not putting your own King
+    in check.
+    */
     private class KingCheckFilter implements MoveFilter{
         @Override
         public Set<Point> filter(ChessPiece cp, int r, int c, Set<Point> moves){
@@ -166,6 +171,44 @@ public class GameArbiter{
             }
 
             return updatedMoves;
+        }
+
+        @Override
+        public String toString(){
+            return this.getClass().getCanonicalName();
+        }
+    }
+    
+    /**
+    This filter ensures that, if the King is in check, only moves that get the
+    King out of check gets through.
+    */
+    private class KingSafetyFilter implements MoveFilter{
+        @Override
+        public Set<Point> filter(ChessPiece cp, int r, int c, Set<Point> moves){
+            boolean cpColor = cp.isWhite();
+            boolean kingCheck = cpColor ? whiteKingChecked : blackKingChecked;
+            Point kingForChecking = cpColor ? whiteKingPosition : blackKingPosition;
+
+            /*
+            Only do the costly part if king is actually in check.
+            */
+            if(kingCheck){
+                Set<Point> updatedMoves = new HashSet<Point>();
+                for(Point p : moves){
+                    ChessPiece prevOccupant = board.getPieceAt(p.x, p.y);
+                    board.move(r, c, p.x, p.y);
+                    if(attackGraph.getAttackers(kingForChecking).isEmpty()){
+                        updatedMoves.add(p);
+                    }
+                    board.move(p.x, p.y, r, c);
+                    board.addPiece(prevOccupant, p.x, p.y);
+                }
+
+                return updatedMoves;
+            }
+
+            return moves;
         }
 
         @Override
@@ -245,6 +288,7 @@ public class GameArbiter{
         moveFilters.add(new CastleFilter());
         moveFilters.add(new KingCheckFilter());
         moveFilters.add(new EnPassantFilter());
+        moveFilters.add(new KingSafetyFilter());
     }
     
     private void removeFilter(Class c){
@@ -282,9 +326,19 @@ public class GameArbiter{
     public boolean isEndgame(){
         Set<Point[]> emptySet = new HashSet<Point[]>();
         Set<Point[]> allLegalMoves = getAllLegalMoves();
+        StringBuilder sb = new StringBuilder("(");
+        for(Point[] move : allLegalMoves){
+            sb.append(Arrays.toString(move));
+            sb.append(',');
+        }
+        sb.append(')');
+        System.out.println("isEndGame? all legal moves: " + sb.toString());
         return emptySet.equals(allLegalMoves);
     }
 
+    /**
+    Get the legal moves for every piece in the board.
+    */
     public Set<Point[]> getAllLegalMoves(){
         Set<Point[]> legalMoves = new HashSet<Point[]>();
         Set<Point> pieces = board.getPiecePositions();
@@ -521,23 +575,16 @@ public class GameArbiter{
     }
     
     /**
-    Dedicated method for checking whether a move is legal. <strong>Does not</strong>
-    make any moves on the board or change the state of the game (or of the
-    GameArbiter) in any way.
+    Dedicated method for checking whether a move is legal <em>for the game's
+    given turn</em>. <strong>Does not</strong> make any moves on the board or
+    change the state of the game or of the GameArbiter in any way.
     */
     private boolean isLegalMove(int r1, int c1, int r2, int c2){
         ChessPiece cp1 = board.getPieceAt(r1, c1);
-        // Cache some booleans
-        boolean isWhiteKing = false;
-        boolean isBlackKing = false;
 
         // Piece checks
         if(cp1 == null){
             return false;
-        } else if(cp1.equals(WHITE_KING)){
-            isWhiteKing = true;
-        } else if(cp1.equals(BLACK_KING)){
-            isBlackKing = true;
         }
 
         // Check that consecutive moves from a given side does not happen.
@@ -549,12 +596,7 @@ public class GameArbiter{
         try{
             // Check that the destination is a legal move
             Set<Point> legalMoves = legalMovesFilter(cp1, r1, c1);
-            // TODO Simplify!
-            if(legalMoves.contains(new Point(r2, c2))){
-                return true;
-            } else{
-                return false;
-            }
+            return legalMoves.contains(new Point(r2, c2));
         } catch(NotMeException nme){
             // Should not happen at all
             nme.printStackTrace();
