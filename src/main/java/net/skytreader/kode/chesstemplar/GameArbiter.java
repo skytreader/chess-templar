@@ -280,7 +280,9 @@ public class GameArbiter{
     }
 
     public boolean isEndgame(){
-        return false;
+        Set<Point[]> emptySet = new HashSet<Point[]>();
+        Set<Point[]> allLegalMoves = getAllLegalMoves();
+        return emptySet.equals(allLegalMoves);
     }
 
     public Set<Point[]> getAllLegalMoves(){
@@ -293,7 +295,7 @@ public class GameArbiter{
                 Set<Point> pieceMoves = cp.getMoves(piecePos.x, piecePos.y, board);
 
                 for(Point terminalSquare : pieceMoves){
-                    if(requestMove(piecePos.x, piecePos.y, terminalSquare.x,
+                    if(isLegalMove(piecePos.x, piecePos.y, terminalSquare.x,
                       terminalSquare.y)){
                         Point[] pa = {piecePos, terminalSquare};
                         legalMoves.add(pa);
@@ -507,6 +509,48 @@ public class GameArbiter{
                     removeFilter(CastleFilter.class);
                 }
 
+                return true;
+            } else{
+                return false;
+            }
+        } catch(NotMeException nme){
+            // Should not happen at all
+            nme.printStackTrace();
+            return false;
+        }
+    }
+    
+    /**
+    Dedicated method for checking whether a move is legal. <strong>Does not</strong>
+    make any moves on the board or change the state of the game (or of the
+    GameArbiter) in any way.
+    */
+    private boolean isLegalMove(int r1, int c1, int r2, int c2){
+        ChessPiece cp1 = board.getPieceAt(r1, c1);
+        // Cache some booleans
+        boolean isWhiteKing = false;
+        boolean isBlackKing = false;
+
+        // Piece checks
+        if(cp1 == null){
+            return false;
+        } else if(cp1.equals(WHITE_KING)){
+            isWhiteKing = true;
+        } else if(cp1.equals(BLACK_KING)){
+            isBlackKing = true;
+        }
+
+        // Check that consecutive moves from a given side does not happen.
+        if((cp1.isWhite() && lastMoveWhite) || (!cp1.isWhite() &&
+          !lastMoveWhite)){
+            return false;
+        }
+
+        try{
+            // Check that the destination is a legal move
+            Set<Point> legalMoves = legalMovesFilter(cp1, r1, c1);
+            // TODO Simplify!
+            if(legalMoves.contains(new Point(r2, c2))){
                 return true;
             } else{
                 return false;
