@@ -636,4 +636,49 @@ public class GameArbiterTest{
 
         Assert.assertFalse(rigidArbiter.requestMove(0, 4, 0, 2));
     }
+
+    /**
+    Just to test that the isEndgame method is not just blindly returning true.
+    */
+    @Test
+    public void testEndgameFalse(){
+        Assert.assertFalse(rigidArbiter.isEndgame());
+    }
+    
+    /**
+    1 f4 e5
+    2 g4?? Qh4#
+
+    Endgame test where white gets checkmated.
+    */
+    @Test
+    public void testEndgameWhite(){
+        Point[] moveSeqSrc = {new Point(6, 5), new Point(1, 4), new Point(6, 6),
+          new Point(0, 3)};
+        Point[] moveSeqDst = {new Point(4, 5), new Point(3, 4), new Point(6, 4),
+          new Point(4, 7)};
+
+        executeMoveSequence(moveSeqSrc, moveSeqDst);
+
+        Assert.assertTrue(rigidArbiter.isEndgame());
+    }
+
+    /**
+    1 e4 f5
+    2 a4 g5??
+    3 Qh5#
+    
+    Endgame test where black gets checkmated.
+    */
+    @Test
+    public void testEndgameBlack(){
+        Point[] moveSeqSrc = {new Point(6, 4), new Point(1, 5), new Point(6, 0),
+          new Point(1, 6), new Point(7, 3)};
+        Point[] moveSeqDst = {new Point(4, 4), new Point(3, 5), new Point(4, 0),
+          new Point(3, 6), new Point(3, 7)};
+
+        executeMoveSequence(moveSeqSrc, moveSeqDst);
+
+        Assert.assertTrue(rigidArbiter.isEndgame());
+    }
 }
