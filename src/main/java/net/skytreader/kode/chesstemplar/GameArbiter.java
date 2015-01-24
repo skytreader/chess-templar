@@ -144,7 +144,7 @@ public class GameArbiter{
 
     /**
     This filter checks that for the given move, you are not putting your own King
-    in check.
+    in check (discovered attacks in mind).
     */
     private class KingCheckFilter implements MoveFilter{
         @Override
@@ -288,7 +288,7 @@ public class GameArbiter{
         moveFilters.add(new CastleFilter());
         moveFilters.add(new KingCheckFilter());
         moveFilters.add(new EnPassantFilter());
-        moveFilters.add(new KingSafetyFilter());
+        //moveFilters.add(new KingSafetyFilter());
     }
     
     private void removeFilter(Class c){

@@ -657,11 +657,12 @@ public class GameArbiterTest{
         System.out.println("testEndgameWhite");
         Point[] moveSeqSrc = {new Point(6, 5), new Point(1, 4), new Point(6, 6),
           new Point(0, 3)};
-        Point[] moveSeqDst = {new Point(4, 5), new Point(3, 4), new Point(6, 4),
+        Point[] moveSeqDst = {new Point(4, 5), new Point(3, 4), new Point(4, 6),
           new Point(4, 7)};
 
         executeMoveSequence(moveSeqSrc, moveSeqDst);
 
+        Assert.assertTrue(rigidArbiter.isWhiteKingChecked());
         Assert.assertTrue(rigidArbiter.isEndgame());
     }
 
@@ -682,6 +683,7 @@ public class GameArbiterTest{
 
         executeMoveSequence(moveSeqSrc, moveSeqDst);
 
+        Assert.assertTrue(rigidArbiter.isBlackKingChecked());
         Assert.assertTrue(rigidArbiter.isEndgame());
     }
 }
