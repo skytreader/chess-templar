@@ -18,15 +18,18 @@ import net.skytreader.kode.chesstemplar.exceptions.NotMeException;
 import net.skytreader.kode.chesstemplar.pieces.ChessPiece;
 
 /**
-An attack graph represents the attacking relationship between pieces in a
-Chess board. The graph is directed and the nodes represent the pieces in the
-game. An edge coming from node A to node B means that piece B is under attack
-by piece A.
+An attack graph represents the attacking relationship between the squares of a
+Chess board. The graph is directed and the nodes represent the squares in the
+board. An edge coming from node A to node B means that the piece at node A is
+in control/attacking square node B (regardless of whether there is a piece
+in square node B or not).
 
 In constructing the connections of the attack graph, the legality of moves is not
 considered. It is still up to GameArbiter to filter the legality of moves. All
 that is taken into account when constructing and using the attack graph is that
 a piece <em>can</em> make the said move.
+
+Any changes in the board is automatically reflected in AttackGraph.
 
 @author Chad Estioco
 */
