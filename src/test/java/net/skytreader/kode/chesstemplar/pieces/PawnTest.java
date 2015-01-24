@@ -195,6 +195,48 @@ public class PawnTest{
         Assert.assertEquals(kingsPawnSet, actualMoves);
     }
 
+    /**
+    This case gave me problems in GameArbiterTest so it's here for posterity.
+    */
+    @Test
+    public void testQueenBlockForwardWhite() throws NotMeException{
+        Point[] moveSeqSrc = {new Point(6, 5), new Point(1, 4), new Point(6, 6),
+          new Point(0, 3)};
+        Point[] moveSeqDst = {new Point(4, 5), new Point(3, 4), new Point(4, 6),
+          new Point(4, 7)};
+
+        for(int i = 0; i < moveSeqSrc.length; i++){
+            testBoard.move(moveSeqSrc[i].x, moveSeqSrc[i].y, moveSeqDst[i].x,
+              moveSeqDst[i].y);
+        }
+
+        // No legal moves for any white piece, let alone the pawns
+        Set<Point> rightMostPawnMoves = new HashSet<Point>();
+        Set<Point> actualMoves = whitePawn.getMoves(6, 7, testBoard);
+        Assert.assertEquals(rightMostPawnMoves, actualMoves);
+    }
+
+    /**
+    This case gave me problems in GameArbiterTest so it's here for posterity.
+    */
+    @Test
+    public void testQueenBlockForwardBlack() throws NotMeException{
+        Point[] moveSeqSrc = {new Point(6, 4), new Point(1, 5), new Point(6, 0),
+          new Point(1, 6), new Point(7, 3)};
+        Point[] moveSeqDst = {new Point(4, 4), new Point(3, 5), new Point(4, 0),
+          new Point(3, 6), new Point(3, 7)};
+
+        for(int i = 0; i < moveSeqSrc.length; i++){
+            testBoard.move(moveSeqSrc[i].x, moveSeqSrc[i].y, moveSeqDst[i].x,
+              moveSeqDst[i].y);
+        }
+
+        // No legal moves for any white piece, let alone the pawns
+        Set<Point> rightMostPawnMoves = new HashSet<Point>();
+        Set<Point> actualMoves = blackPawn.getMoves(1, 7, testBoard);
+        Assert.assertEquals(rightMostPawnMoves, actualMoves);
+    }
+
     @Test
     public void testMoves(){
         try{
