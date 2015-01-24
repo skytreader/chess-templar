@@ -38,15 +38,14 @@ public class Pawn extends ChessPiece{
         }
 
         // If you are white and unmoved, you are at the second-to-the-last row
-        if(this.color && r == 6){
+        if(this.color && r == 6 && b.getPieceAt(4, c) == null){
             // Add two blocks ahead.
             moveSet.add(new Point(r - 2, c));
-        } else if(!this.color && r == 1){
+        } else if(!this.color && r == 1 && b.getPieceAt(3, c) == null){
             moveSet.add(new Point(r + 2, c));
         }
 
         // Check if you can capture
-        // TODO En passant capture
         if(this.color){
             ChessPiece upperLeft = b.getPieceAt(r - 1, c - 1);
             ChessPiece upperRight = b.getPieceAt(r - 1, c + 1);
