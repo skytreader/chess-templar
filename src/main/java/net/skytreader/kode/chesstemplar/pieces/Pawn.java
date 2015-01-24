@@ -13,6 +13,9 @@ public class Pawn extends ChessPiece{
     
     public static final String PIECE_NAME = "PAWN";
 
+    private final int WHITE_PAWN_SPECIAL_MOVE_ROW = 4;
+    private final int BLACK_PAWN_SPECIAL_MOVE_ROW = 3;
+
     public Pawn(boolean isWhite){
         this.color = isWhite;
         this.pieceName = Pawn.PIECE_NAME;
@@ -38,10 +41,10 @@ public class Pawn extends ChessPiece{
         }
 
         // If you are white and unmoved, you are at the second-to-the-last row
-        if(this.color && r == 6 && b.getPieceAt(4, c) == null){
+        if(this.color && r == 6 && b.getPieceAt(WHITE_PAWN_SPECIAL_MOVE_ROW, c) == null){
             // Add two blocks ahead.
             moveSet.add(new Point(r - 2, c));
-        } else if(!this.color && r == 1 && b.getPieceAt(3, c) == null){
+        } else if(!this.color && r == 1 && b.getPieceAt(BLACK_PAWN_SPECIAL_MOVE_ROW, c) == null){
             moveSet.add(new Point(r + 2, c));
         }
 
