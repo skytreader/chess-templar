@@ -326,13 +326,6 @@ public class GameArbiter{
     public boolean isEndgame(){
         Set<Point[]> emptySet = new HashSet<Point[]>();
         Set<Point[]> allLegalMoves = getAllLegalMoves();
-        StringBuilder sb = new StringBuilder("(");
-        for(Point[] move : allLegalMoves){
-            sb.append(Arrays.toString(move));
-            sb.append(',');
-        }
-        sb.append(')');
-        System.out.println("isEndGame? all legal moves: " + sb.toString());
         return emptySet.equals(allLegalMoves);
     }
 
