@@ -211,7 +211,10 @@ public class PawnTest{
         }
 
         // No legal moves for any white piece, let alone the pawns
+        // However, legality of moves (King safety) is not yet considered here
+        // so the square ahead is clear for a move.
         Set<Point> rightMostPawnMoves = new HashSet<Point>();
+        rightMostPawnMoves.add(new Point(5, 7));
         Set<Point> actualMoves = whitePawn.getMoves(6, 7, testBoard);
         Assert.assertEquals(rightMostPawnMoves, actualMoves);
     }
@@ -232,7 +235,10 @@ public class PawnTest{
         }
 
         // No legal moves for any white piece, let alone the pawns
+        // However, legality of moves (King safety) is not yet considered here
+        // so the square ahead is clear for a move.
         Set<Point> rightMostPawnMoves = new HashSet<Point>();
+        rightMostPawnMoves.add(new Point(2, 7));
         Set<Point> actualMoves = blackPawn.getMoves(1, 7, testBoard);
         Assert.assertEquals(rightMostPawnMoves, actualMoves);
     }
