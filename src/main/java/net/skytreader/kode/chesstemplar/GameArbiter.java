@@ -143,8 +143,9 @@ public class GameArbiter{
     }
 
     /**
-    This filter checks that for the given move, you are not putting your own King
-    in check (discovered attacks in mind).
+    This filter checks that everyone's top priority is their King's safety. That
+    is, they do not allow discovered attacks on their King nor will they allow
+    moves that leaves their King in check.
     */
     private class KingCheckFilter implements MoveFilter{
         @Override
@@ -179,44 +180,6 @@ public class GameArbiter{
         }
     }
     
-    /**
-    This filter ensures that, if the King is in check, only moves that get the
-    King out of check gets through.
-    */
-    private class KingSafetyFilter implements MoveFilter{
-        @Override
-        public Set<Point> filter(ChessPiece cp, int r, int c, Set<Point> moves){
-            boolean cpColor = cp.isWhite();
-            boolean kingCheck = cpColor ? whiteKingChecked : blackKingChecked;
-            Point kingForChecking = cpColor ? whiteKingPosition : blackKingPosition;
-
-            /*
-            Only do the costly part if king is actually in check.
-            */
-            if(kingCheck){
-                Set<Point> updatedMoves = new HashSet<Point>();
-                for(Point p : moves){
-                    ChessPiece prevOccupant = board.getPieceAt(p.x, p.y);
-                    board.move(r, c, p.x, p.y);
-                    if(attackGraph.getAttackers(kingForChecking).isEmpty()){
-                        updatedMoves.add(p);
-                    }
-                    board.move(p.x, p.y, r, c);
-                    board.addPiece(prevOccupant, p.x, p.y);
-                }
-
-                return updatedMoves;
-            }
-
-            return moves;
-        }
-
-        @Override
-        public String toString(){
-            return this.getClass().getCanonicalName();
-        }
-    }
-
     private class EnPassantFilter implements MoveFilter{
         @Override
         public Set<Point> filter(ChessPiece cp, int r, int c, Set<Point> moves){
@@ -288,7 +251,6 @@ public class GameArbiter{
         moveFilters.add(new CastleFilter());
         moveFilters.add(new KingCheckFilter());
         moveFilters.add(new EnPassantFilter());
-        //moveFilters.add(new KingSafetyFilter());
     }
     
     private void removeFilter(Class c){
