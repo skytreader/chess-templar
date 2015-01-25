@@ -12,6 +12,9 @@ import net.skytreader.kode.chesstemplar.exceptions.NotMeException;
 public class King extends ChessPiece{
     
     public static final String PIECE_NAME = "KING";
+
+    public static final int KINGSIDE_CASTLE_COL = 6;
+    public static final int QUEENSIDE_CASTLE_COL = 2;
     
     public King(boolean isWhite){
         this.color = isWhite;

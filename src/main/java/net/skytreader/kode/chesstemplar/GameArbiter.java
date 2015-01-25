@@ -487,14 +487,14 @@ public class GameArbiter{
             // Check if the move is castling because there are actually two
             // moves to make there.
             if(isWhiteKing && isWhiteCastle(r1, c1, r2, c2)){
-                if(c2 == 6){
+                if(c2 == King.KINGSIDE_CASTLE_COL){
                     // Move the kingside rook
                     board.move(7, 7, 7, 5);
                 } else{
                     board.move(7, 0, 7, 3);
                 }
             } else if(isBlackKing && isBlackCastle(r1, c1, r2, c2)){
-                if(c2 == 6){
+                if(c2 == King.KINGSIDE_CASTLE_COL){
                     board.move(0, 7, 0, 5);
                 } else{
                     board.move(0, 0, 0, 3);
