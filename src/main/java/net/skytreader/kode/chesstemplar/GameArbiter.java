@@ -443,85 +443,73 @@ public class GameArbiter{
     public boolean requestMove(int r1, int c1, int r2, int c2){
         // The move has been done if, after this call, (r2, c2) contains the piece
         // previously at (r1, c1).
+        if(!isLegalMove(r1, c1, r2, c2)){
+            return false;
+        }
         ChessPiece cp1 = board.getPieceAt(r1, c1);
         // Cache some booleans
         boolean isWhiteKing = false;
         boolean isBlackKing = false;
 
-        // Piece checks
-        if(cp1 == null){
-            return false;
-        } else if(cp1.equals(WHITE_KING)){
+        if(cp1.equals(WHITE_KING)){
             isWhiteKing = true;
         } else if(cp1.equals(BLACK_KING)){
             isBlackKing = true;
         }
 
-        // Check that consecutive moves from a given side does not happen.
-        if((cp1.isWhite() && lastMoveWhite) || (!cp1.isWhite() &&
-          !lastMoveWhite)){
-            return false;
-        }
-
         try{
-            // Check that the destination is a legal move
-            Set<Point> legalMoves = legalMovesFilter(cp1, r1, c1);
-            if(legalMoves.contains(new Point(r2, c2))){
-                if(isEnPassant(r1, c1, r2, c2)){
-                    board.removePiece(r1, c2);
-                }
-
-                board.move(r1, c1, r2, c2);
-    
-                lastMoveWhite = cp1.isWhite();
-    
-                Point[] move = {new Point(r1, c1), new Point(r2, c2)};
-                moveList.add(move);
-
-                // Check if the piece moved was a King and if so, note properly.
-                if(isWhiteKing){
-                    whiteKingPosition.setLocation(r2, c2);
-                } else if(isBlackKing){
-                    blackKingPosition.setLocation(r2, c2);
-                }
-
-                // Check if, in this new position, any King is checked.
-                // Set both to false for the meantime, just in case check has
-                // been avoided
-                whiteKingChecked = false;
-                blackKingChecked = false;
-
-                setKingCheckFlags(cp1.isWhite());
-
-                // Check if the move is castling because there are actually two
-                // moves to make there.
-                if(isWhiteKing && isWhiteCastle(r1, c1, r2, c2)){
-                    if(c2 == 6){
-                        // Move the kingside rook
-                        board.move(7, 7, 7, 5);
-                    } else{
-                        board.move(7, 0, 7, 3);
-                    }
-                } else if(isBlackKing && isBlackCastle(r1, c1, r2, c2)){
-                    if(c2 == 6){
-                        board.move(0, 7, 0, 5);
-                    } else{
-                        board.move(0, 0, 0, 3);
-                    }
-                }
-                
-                setCastleFlags(cp1, r1, c1);
-
-                // Check if both players has castled, and remove castle filter if so
-                if((whiteKingMoved && (whiteKingsideRookMoved || whiteQueensideRookMoved)) &&
-                  (blackKingMoved && (blackKingsideRookMoved || blackQueensideRookMoved))){
-                    removeFilter(CastleFilter.class);
-                }
-
-                return true;
-            } else{
-                return false;
+            if(isEnPassant(r1, c1, r2, c2)){
+                board.removePiece(r1, c2);
             }
+
+            board.move(r1, c1, r2, c2);
+    
+            lastMoveWhite = cp1.isWhite();
+    
+            Point[] move = {new Point(r1, c1), new Point(r2, c2)};
+            moveList.add(move);
+
+            // Check if the piece moved was a King and if so, note properly.
+            if(isWhiteKing){
+                whiteKingPosition.setLocation(r2, c2);
+            } else if(isBlackKing){
+                blackKingPosition.setLocation(r2, c2);
+            }
+
+            // Check if, in this new position, any King is checked.
+            // Set both to false for the meantime, just in case check has
+            // been avoided
+            whiteKingChecked = false;
+            blackKingChecked = false;
+
+            setKingCheckFlags(cp1.isWhite());
+
+            // Check if the move is castling because there are actually two
+            // moves to make there.
+            if(isWhiteKing && isWhiteCastle(r1, c1, r2, c2)){
+                if(c2 == 6){
+                    // Move the kingside rook
+                    board.move(7, 7, 7, 5);
+                } else{
+                    board.move(7, 0, 7, 3);
+                }
+            } else if(isBlackKing && isBlackCastle(r1, c1, r2, c2)){
+                if(c2 == 6){
+                    board.move(0, 7, 0, 5);
+                } else{
+                    board.move(0, 0, 0, 3);
+                }
+            }
+            
+            setCastleFlags(cp1, r1, c1);
+
+            // Check if both players has castled, and remove castle filter if so
+            if((whiteKingMoved && (whiteKingsideRookMoved || whiteQueensideRookMoved)) &&
+              (blackKingMoved && (blackKingsideRookMoved || blackQueensideRookMoved))){
+                removeFilter(CastleFilter.class);
+            }
+
+            return true;
         } catch(NotMeException nme){
             // Should not happen at all
             nme.printStackTrace();
@@ -533,6 +521,16 @@ public class GameArbiter{
     Dedicated method for checking whether a move is legal <em>for the game's
     given turn</em>. <strong>Does not</strong> make any moves on the board or
     change the state of the game or of the GameArbiter in any way.
+    
+    The legality of the move takes into consideration whose turn is it to move.
+    That is, you can't call requestMove two consecutive times on an r1, c1 tile
+    holding a piece with the same color.
+
+    @param r1
+    @param c1
+    @param r2
+    @param c2
+    @return true if the move described is possible and legal
     */
     private boolean isLegalMove(int r1, int c1, int r2, int c2){
         ChessPiece cp1 = board.getPieceAt(r1, c1);
