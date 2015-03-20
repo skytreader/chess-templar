@@ -65,8 +65,8 @@ public class AttackGraphTest{
 
     @Test
     public void testNotAttacking(){
-        // Rook never attacks diagonally
         Assert.assertFalse(testGraph.isAttacking(new Point(0, 7), new Point(1, 6)));
+        Assert.assertFalse(testGraph.isAttacking(new Point(2, 1), new Point(1, 1)));
     }
 
     @Test
