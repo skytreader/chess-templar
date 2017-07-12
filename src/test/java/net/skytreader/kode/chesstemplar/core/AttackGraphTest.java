@@ -24,7 +24,7 @@ public class AttackGraphTest{
     private AttackGraph testGraph;
 
     /**
-    7R/8/1P1K4/Pr6/6k1/7p/1b6/8
+    8/1b6/7p/6k1/Pr6/1P1K4/8/7R
     */
     @Before 
     public void setUp(){

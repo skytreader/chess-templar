@@ -57,7 +57,7 @@ public class AttackGraph implements Observer{
     
     /**
     Return true if the piece at square p1 is attacking square p2.
-    If p1, return false.
+    If there is no piece at p1, return false.
     */
     public boolean isAttacking(Point p1, Point p2){
         try{
