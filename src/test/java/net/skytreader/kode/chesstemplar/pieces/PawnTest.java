@@ -244,7 +244,7 @@ public class PawnTest{
     }
 
     @Test
-    public void testMoves(){
+    public void testBlackMoves(){
         try{
             // There is a black pawn at 1, 0 which has never moved yet.
             // Enumerate its legal moves.
@@ -253,7 +253,32 @@ public class PawnTest{
             Set<Point> fromPawn = blackPawn.getMoves(1, 0, testBoard);
             Assert.assertEquals(legalSet, fromPawn);
         } catch(NotMeException nme){
-            Assert.fail("NotMeException thrown while testing legal moves.");
+            Assert.fail("NotMeException thrown while testing black legal moves.");
+            nme.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testWhiteMoves(){
+        try{
+            BlankBoard fentonPotter = new BlankBoard();
+            Pawn b3Pawn = new Pawn(true);
+            // Derived from (Fenton vs. Potter, 1875) with a few additional pieces
+            fentonPotter.addPiece(new Rook(true), 0, 7);
+            fentonPotter.addPiece(b3Pawn, 2, 1);
+            fentonPotter.addPiece(new King(true), 2, 3);
+            fentonPotter.addPiece(new Pawn(true), 3, 0);
+            fentonPotter.addPiece(new Rook(false), 3, 1);
+            fentonPotter.addPiece(new King(false), 4, 6);
+            fentonPotter.addPiece(new Pawn(false), 5, 7);
+            // This is an additional
+            fentonPotter.addPiece(new Bishop(false), 6, 1);
+            // for the pawn at (2, 1)/b3
+            HashSet<Point> expectedPawnLegalMoves = new HashSet<Point>();
+            Set<Point> fromPawn = b3Pawn.getMoves(2, 1, fentonPotter);
+            Assert.assertEquals(expectedPawnLegalMoves, fromPawn);
+        } catch(NotMeException nme){
+            Assert.fail("NotMeException thrown while testing white legal moves.");
             nme.printStackTrace();
         }
     }
