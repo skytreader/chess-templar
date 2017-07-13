@@ -30,12 +30,10 @@ public class Pawn extends ChessPiece{
             throw new NotMeException("Attempting to move piece " +
               indicatedPiece.toString() + " using " + this.toString());
         }
-        System.out.println("Pawn color: " + this.color);
 
         HashSet<Point> moveSet = new HashSet<Point>();
         // Always add the move forward scenario if there is nothing in front.
         if(this.color && b.getPieceAt(r - 1, c) == null){
-            System.out.println("(1, 1) added via here.");
             moveSet.add(new Point(r - 1, c));
         } else if(!this.color && b.getPieceAt(r + 1, c) == null){
             moveSet.add(new Point(r + 1, c));
