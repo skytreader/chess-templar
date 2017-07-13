@@ -258,10 +258,6 @@ public class PawnTest{
         }
     }
 
-    /**
-    This test fails because the Fenton-Potter board conflicts with the convention
-    that index (0, 0) is the a8 square.
-    */
     @Test
     public void testWhiteMoves(){
         try{
