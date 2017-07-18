@@ -38,10 +38,25 @@ public class NotationParserTest{
 
     @Test
     public void testValidityCheck(){
+        // Normal and capture moves.
         Assert.assertTrue(NotationParser.isValid("Nb4+"));
         Assert.assertTrue(NotationParser.isValid("Nb4++"));
         Assert.assertTrue(NotationParser.isValid("Nxb4+"));
         Assert.assertTrue(NotationParser.isValid("Nxb4++"));
+
+        // Castle checks opponent.
+        Assert.assertTrue(NotationParser.isValid("0-0+"));
+        Assert.assertTrue(NotationParser.isValid("0-0++"));
+        Assert.assertTrue(NotationParser.isValid("0-0-0+"));
+        Assert.assertTrue(NotationParser.isValid("0-0-0++"));
+
+        // Pawn promotion checks.
+        Assert.assertTrue(NotationParser.isValid("e8Q+"));
+        Assert.assertTrue(NotationParser.isValid("e8Q++"));
+
+        //Disambiguation checks.
+        Assert.assertTrue(NotationParser.isValid("Ngf3+"));
+        Assert.assertTrue(NotationParser.isValid("Ngf3++"));
     }
 
 }
