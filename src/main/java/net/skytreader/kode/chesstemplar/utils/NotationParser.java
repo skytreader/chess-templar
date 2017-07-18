@@ -35,6 +35,7 @@ public class NotationParser{
     // FIXME A tighter set?
     private static final String PAWN_PROMO_REGEX = "[" + LEGAL_COLUMNS + "][1-8]Q";
     private static final String CASTLING_REGEX = "(0-0|0-0-0)";
+    private static final String CHECK_REGEX = "(" + NOTATION_REGEX + "|" + CAPTURE_REGEX + "|" + DISAMBIGUATION_REGEX + "|"  + PAWN_PROMO_REGEX + ")\\+{1,2}";
 
     private static final Pattern[] LEGAL_NOTATION = {
         Pattern.compile(NOTATION_REGEX),
@@ -42,6 +43,7 @@ public class NotationParser{
         Pattern.compile(DISAMBIGUATION_REGEX),
         Pattern.compile(PAWN_PROMO_REGEX),
         Pattern.compile(CASTLING_REGEX),
+        Pattern.compile(CHECK_REGEX)
     };
     
     /**
