@@ -38,7 +38,10 @@ public class NotationParserTest{
 
     @Test
     public void testValidityCheck(){
-        // TODO
+        Assert.assertTrue(NotationParser.isValid("Nb4+"));
+        Assert.assertTrue(NotationParser.isValid("Nb4++"));
+        Assert.assertTrue(NotationParser.isValid("Nxb4+"));
+        Assert.assertTrue(NotationParser.isValid("Nxb4++"));
     }
 
 }
