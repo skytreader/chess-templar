@@ -47,6 +47,11 @@ public class NotationParser{
         Pattern.compile(CASTLING_REGEX),
         Pattern.compile(CHECK_REGEX)
     };
+
+    private class Movement{
+        public Point origin;
+        public Point destination;
+    }
     
     /**
     Returns true if the given string is valid chess algebraic notation.
@@ -62,11 +67,11 @@ public class NotationParser{
         return isValid;
     }
     
-    public static Point parse(String s){
+    public static Point parse(String s) throws InvalidStateException{
         if(isValid(s)){
             return null;
         } else{
-            throw InvalidStateException("Invalid algebraic notation: " + s);
+            throw new InvalidStateException("Invalid algebraic notation: " + s);
         }
     }
 
