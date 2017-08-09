@@ -1,5 +1,7 @@
 package net.skytreader.kode.chesstemplar.utils;
 
+import net.skytreader.kode.chesstemplar.exceptions.InvalidStateException;
+
 import java.awt.Point;
 
 import java.util.regex.Pattern;
@@ -61,7 +63,11 @@ public class NotationParser{
     }
     
     public static Point parse(String s){
-        return null;
+        if(isValid(s)){
+            return null;
+        } else{
+            throw InvalidStateException("Invalid algebraic notation: " + s);
+        }
     }
 
 }

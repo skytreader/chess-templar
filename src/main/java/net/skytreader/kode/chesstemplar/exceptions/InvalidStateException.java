@@ -2,7 +2,8 @@ package net.skytreader.kode.chesstemplar.exceptions;
 
 /**
 This is exception is thrown whenever, for some reason, it is detected that a
-chess game has reached an invalid state.
+chess game has reached an invalid state. This could be caused by any number of
+reasons like user input, faulty AI/rules arbiter, or notational typos.
 
 Possible invalid states include but are not limited to:
 <ul>
