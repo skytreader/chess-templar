@@ -37,5 +37,11 @@ public class PGNTest{
         Assert.assertTrue(m.matches());
         Assert.assertEquals("Event", m.group(1));
         Assert.assertEquals("Local Event", m.group(2));
+
+        String trimTest = "   [Site \"Local Site\"]   \n";
+        m = PGN.METADATA_CAPTURE_PATTERN.matcher(trimTest);
+        Assert.assertTrue(m.matches());
+        Assert.assertEquals("Site", m.group(1));
+        Assert.assertEquals("Local Site", m.group(2));
     }
 }
