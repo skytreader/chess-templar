@@ -16,8 +16,11 @@ public class PGN{
     protected static final Pattern METADATA_PATTERN = Pattern.compile("\\[.+\\]");
     protected static final Pattern METADATA_CAPTURE_PATTERN = Pattern.compile("\\s*\\[(.+)\\s+[\"\'](.+)[\"\']\\]\\s*");
 
+    protected static final Pattern MOVE_STREAM_CAPTURE_PATTERN = Pattern.compile("\\d+\\.\\s+(" + NotationParser.CHECK_REGEX + ")");
+
     public PGN(String filename) throws IOException{
         metadata = new HashMap<String, String>();
+        StringBuilder gamefeedBuilder = new StringBuilder();
         BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(filename)));
         try{
             String line = br.readLine().trim();
@@ -29,8 +32,17 @@ public class PGN{
                 metadata.put(dataKey, dataVal);
 
                 line = br.readLine();
-                m = PGN.METADATA_CAPTURE_PATTERN.matcher(line);
+                if(line != null){
+                    m = PGN.METADATA_CAPTURE_PATTERN.matcher(line);
+                }
             }
+
+            while(line != null){
+                gamefeedBuilder.append(line.trim());
+                line = br.readLine();
+            }
+
+            gamefeed = gamefeedBuilder.toString();
         } finally{
             br.close();
         }
