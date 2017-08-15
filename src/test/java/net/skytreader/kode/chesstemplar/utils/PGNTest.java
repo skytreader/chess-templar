@@ -39,7 +39,7 @@ public class PGNTest{
         int limit = METADATA_KEYS.length;
         String[] metadata = new String[limit]; 
         for(int i = 0; i < limit; i++){
-            metadata[i] = "[" + METADATA_KEYS[i] + " \"" + METADATA_VALS + "\"]";
+            metadata[i] = "[" + METADATA_KEYS[i] + " \"" + METADATA_VALS[i] + "\"]";
         }
         return metadata;
     }
@@ -91,5 +91,7 @@ public class PGNTest{
         }
 
         Assert.assertNull(pgnObj.getMetadata("balderDASHxkcd"));
+        String stream = String.join(" ", GAMESTREAM);
+        Assert.assertEquals(stream, pgnObj.getGamefeed());
     }
 }

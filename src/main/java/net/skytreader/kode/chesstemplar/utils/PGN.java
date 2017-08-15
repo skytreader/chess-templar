@@ -38,11 +38,11 @@ public class PGN{
             }
 
             while(line != null){
-                gamefeedBuilder.append(line.trim());
+                gamefeedBuilder.append(line.trim() + " ");
                 line = br.readLine();
             }
 
-            gamefeed = gamefeedBuilder.toString();
+            gamefeed = gamefeedBuilder.toString().trim();
         } finally{
             br.close();
         }
@@ -50,5 +50,9 @@ public class PGN{
 
     public String getMetadata(String k){
         return metadata.get(k);
+    }
+
+    public String getGamefeed(){
+        return gamefeed;
     }
 }
