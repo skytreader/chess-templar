@@ -47,4 +47,8 @@ public class PGN{
             br.close();
         }
     }
+
+    public String getMetadata(String k){
+        return metadata.get(k);
+    }
 }
