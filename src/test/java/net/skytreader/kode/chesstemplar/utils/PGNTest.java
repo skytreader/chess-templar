@@ -94,4 +94,45 @@ public class PGNTest{
         String stream = String.join(" ", GAMESTREAM);
         Assert.assertEquals(stream, pgnObj.getGamefeed());
     }
+
+    // TODO: Shouldn't a PGN file with no gamefeed be considered corrupt?
+    @Test
+    public void testParsingMetadataOnly() throws IOException{
+        File pgn = tempFolder.newFile("test.pgn");
+        PrintWriter pgnWriter = new PrintWriter(new BufferedWriter(new FileWriter("test.pgn")));
+        try {
+            String[] metadata = constructMetadata();
+            for(String md: metadata){
+                pgnWriter.println(md);
+            }
+        } finally{
+            pgnWriter.close();
+        }
+
+        PGN pgnObj = new PGN("test.pgn");
+        int limit = METADATA_KEYS.length;
+        for(int i = 0; i < limit; i++){
+            Assert.assertEquals(pgnObj.getMetadata(METADATA_KEYS[i]), METADATA_VALS[i]);
+        }
+
+        Assert.assertNull(pgnObj.getMetadata("balderDASHxkcd"));
+        Assert.assertEquals("", pgnObj.getGamefeed());
+    }
+
+    @Test
+    public void testParsingGamefeedOnly() throws IOException{
+        File pgn = tempFolder.newFile("test.pgn");
+        PrintWriter pgnWriter = new PrintWriter(new BufferedWriter(new FileWriter("test.pgn")));
+        try {
+            for(String gs: GAMESTREAM){
+                pgnWriter.println(gs);
+            }
+        } finally{
+            pgnWriter.close();
+        }
+
+        PGN pgnObj = new PGN("test.pgn");
+        String stream = String.join(" ", GAMESTREAM);
+        Assert.assertEquals(stream, pgnObj.getGamefeed());
+    }
 }
